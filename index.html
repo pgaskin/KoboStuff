@@ -1,91 +1,102 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Kobostuff by geek1011</title>
+<!DOCTYPE html>
+<html lang="en">
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-light.css">
-    <script src="javascripts/scale.fix.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1 class="header">Kobostuff</h1>
-        <p class="header">Random stuff I know about the Kobo eReaders</p>
+<head>
+    <meta charset="UTF-8">
+    <title>KoboStuff</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-        <ul>
-          <li class="download"><a class="buttons" href="https://github.com/geek1011/KoboStuff/zipball/master">Download ZIP</a></li>
-          <li class="download"><a class="buttons" href="https://github.com/geek1011/KoboStuff/tarball/master">Download TAR</a></li>
-          <li><a class="buttons github" href="https://github.com/geek1011/KoboStuff">View On GitHub</a></li>
-        </ul>
-
-        <p class="header">This project is maintained by <a class="header name" href="https://github.com/geek1011">geek1011</a></p>
-
-
-      </header>
-      <section>
-        <h1>
-<a id="kobostuff" class="anchor" href="#kobostuff" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>KoboStuff</h1>
-
-<p>Random stuff I know about the Kobo eReaders</p>
-
-<h2>
-<a id="model-ids" class="anchor" href="#model-ids" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Model IDs</h2>
-
-<table>
-<thead>
-<tr>
-<th>Model ID</th>
-<th>Model</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>00000000-0000-0000-0000-000000000300</td>
-<td>Wifi</td>
-</tr>
-<tr>
-<td>00000000-0000-0000-0000-000000000310</td>
-<td>Touch</td>
-</tr>
-<tr>
-<td>00000000-0000-0000-0000-000000000320</td>
-<td>Touch C</td>
-</tr>
-<tr>
-<td>00000000-0000-0000-0000-000000000330</td>
-<td>Glo</td>
-</tr>
-<tr>
-<td>00000000-0000-0000-0000-000000000340</td>
-<td>Mini</td>
-</tr>
-<tr>
-<td>00000000-0000-0000-0000-000000000350</td>
-<td>Aura HD</td>
-</tr>
-<tr>
-<td>00000000-0000-0000-0000-000000000360</td>
-<td>Aura 6"</td>
-</tr>
-<tr>
-<td>00000000-0000-0000-0000-000000000370</td>
-<td>Aura H2O</td>
-</tr>
-</tbody>
-</table>
-      </section>
-      <footer>
-        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
-      </footer>
+<body>
+    <div id="nav">
     </div>
-    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
-		
-  </body>
+    <h1>KoboStuff</h1>
+    <p>Random stuff I know about the Kobo eReaders</p>
+    <h2>Model IDs</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Model ID</th>
+                <th>Model</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>00000000-0000-0000-0000-000000000300</td>
+                <td>Wifi</td>
+            </tr>
+            <tr>
+                <td>00000000-0000-0000-0000-000000000310</td>
+                <td>Touch</td>
+            </tr>
+            <tr>
+                <td>00000000-0000-0000-0000-000000000320</td>
+                <td>Touch C</td>
+            </tr>
+            <tr>
+                <td>00000000-0000-0000-0000-000000000330</td>
+                <td>Glo</td>
+            </tr>
+            <tr>
+                <td>00000000-0000-0000-0000-000000000340</td>
+                <td>Mini</td>
+            </tr>
+            <tr>
+                <td>00000000-0000-0000-0000-000000000350</td>
+                <td>Aura HD</td>
+            </tr>
+            <tr>
+                <td>00000000-0000-0000-0000-000000000360</td>
+                <td>Aura 6&quot;</td>
+            </tr>
+            <tr>
+                <td>00000000-0000-0000-0000-000000000370</td>
+                <td>Aura H2O</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Getting the device information</h2>
+    <h3>The <tt>.kobo/version</tt> file</h3>
+    <p>
+        Inside the <tt>.kobo/version</tt> file, there are 5 fields.
+    </p>
+    <pre>
+NXXXXXXXXXX,2.6.35.3,3.19.5761,2.6.35.3,2.6.35.3,00000000-0000-0000-0000-000000000340
+Serial #   ,?       ,FW version,?      ,?       ,Model ID
+    </pre>
+    <p>
+        The first field is the serial number of the device, the third is the current firmware version, and the last is the model ID. I do not know the rest of them
+    </p>
+    <h3>The <tt>.kobo/affiliate.conf</tt> file</h3>
+    <p>
+        Inside the <tt>.kobo/affiliate.conf</tt> file, there is currently only one setting.
+    </p>
+    <pre>
+[General]
+affiliate=Kobo
+    </pre>
+    <p>
+        Under the General section, there is the affiliate setting. This contains the affiliate for your Kobo.
+    </p>
+
+    <hr>
+    <div>
+        Copyright 2016 Patrick G<br>
+        More coming soon
+    </div>
+
+    <script>
+        var a = document.querySelectorAll('body h2');
+        var b = document.getElementById('nav');
+        for (var i = 0;i<a.length;i++) {
+            var e = document.createElement('a');
+            a[i].id = 'a-' + i;
+            e.innerText = a[i].innerText;
+            e.href = '#' + a[i].id;
+            b.appendChild(e);
+        }
+    </script>
+</body>
+
 </html>
