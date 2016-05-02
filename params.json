@@ -1,0 +1,6 @@
+{
+  "name": "Kobostuff",
+  "tagline": "Random stuff I know about the Kobo eReaders",
+  "body": "# KoboStuff\r\nRandom stuff I know about the Kobo eReaders\r\n\r\n## Model IDs\r\n| Model ID                             | Model   |\r\n| ------------------------------------ | ------- |\r\n| 00000000-0000-0000-0000-000000000300 | Wifi    |\r\n| 00000000-0000-0000-0000-000000000310 | Touch   |\r\n| 00000000-0000-0000-0000-000000000320 | Touch C |\r\n| 00000000-0000-0000-0000-000000000330 | Glo     |\r\n| 00000000-0000-0000-0000-000000000340 | Mini    |\r\n| 00000000-0000-0000-0000-000000000350 | Aura HD |\r\n| 00000000-0000-0000-0000-000000000360 | Aura 6\" |\r\n| 00000000-0000-0000-0000-000000000370 | Aura H2O|\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
