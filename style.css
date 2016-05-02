@@ -350,3 +350,7 @@ body {
     background: #777;
     background: rgba(0,0,0,0.05);
 }
+
+pre i, pre b, pre u, pre strong, pre em {
+    colow: red;
+}
