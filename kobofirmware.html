@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Kobo Firmware Downloader</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        body {
+            max-width: 40em;
+            margin: 1em auto;
+            padding: 1em;
+        }
+
+        div#options {
+            display: flex;
+            width: 100%;
+            text-align: center;
+        }
+
+        div#options select {
+            display: inline-block;
+            flex: 1;
+        }
+
+        div#options button {
+            flex: 0;
+        }
+
+        div.error,
+        div.info,
+        div.ready,
+        div.warning,
+        div.plain {
+            padding: 1em;
+            min-width: 20em;
+            border-left: 0.5em solid rgba(0, 0, 0, 1);
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+
+        div.error {
+            border-left: 0.5em solid rgba(255, 0, 0, 1);
+            background-color: rgba(255, 0, 0, 0.2);
+        }
+
+        div.info {
+            border-left: 0.5em solid rgba(0, 0, 255, 1);
+            background-color: rgba(0, 0, 255, 0.2);
+        }
+
+        div.warning {
+            border-left: 0.5em solid rgba(255, 165, 0, 1);
+            background-color: rgba(255, 165, 0, 0.2);
+        }
+
+        div.ready {
+            border-left: 0.5em solid rgba(0, 128, 0, 1);
+            background-color: rgba(0, 128, 0, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        var $jsonp = (function() {
+            var that = {};
+
+            that.send = function(src, options) {
+                var options = options || {},
+                    callback_name = options.callbackName || 'callback',
+                    on_success = options.onSuccess || function() {},
+                    on_timeout = options.onTimeout || function() {},
+                    timeout = options.timeout || 10;
+
+                var timeout_trigger = window.setTimeout(function() {
+                    window[callback_name] = function() {};
+                    on_timeout();
+                }, timeout * 1000);
+
+                window[callback_name] = function(data) {
+                    window.clearTimeout(timeout_trigger);
+                    on_success(data);
+                };
+
+                var script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.async = true;
+                script.src = src;
+
+                document.getElementsByTagName('head')[0].appendChild(script);
+            };
+
+            return that;
+        })();
+    </script>
+
+    <div id="options">
+        <select id="ereader">
+            <option value="00000000-0000-0000-0000-000000000310">Kobo Touch A/B</option>
+            <option value="00000000-0000-0000-0000-000000000320">Kobo Touch C</option>
+            <option value="00000000-0000-0000-0000-000000000330">Kobo Glo</option>
+            <option value="00000000-0000-0000-0000-000000000340">Kobo Mini</option>
+            <option value="00000000-0000-0000-0000-000000000350">Kobo Aura HD</option>
+            <option value="00000000-0000-0000-0000-000000000360" selected>Kobo Aura</option>
+            <option value="00000000-0000-0000-0000-000000000370">Kobo Aura H2O</option>
+            <option value="00000000-0000-0000-0000-000000000371">Kobo Glo HD</option>
+            <option value="00000000-0000-0000-0000-000000000372">Kobo Touch 2.0</option>
+        </select>
+
+        <select id="affiliate">
+            <option value="beta" selected>Most recent firmware</option>
+            <option value="rakutenbooks">Most recent firmware (try if above does not give most recent)</option>
+            <option value="beta">Beta</option>
+            <option value="kobo">Kobo</option>
+            <option value="bestbuyus">Best Buy US</option>
+            <option value="bestbuyca">Best Buy CA</option>
+            <option value="walmartus">Walmart US</option>
+            <option value="walmartus">Walmart CA</option>
+            <option value="indigo">Indigo</option>
+            <option value="whsmith">WHSmith</option>
+            <option value="fnac">Fnac</option>
+            <option value="mondadori">Mondadori</option>
+            <option value="livrariacultura">Livraria Cultura</option>
+            <option value="lacentral">La Central</option>
+            <option value="librisblz">Libris BLZ</option>
+            <option value="rakutenbooks">Rakuten</option>
+        </select>
+
+        <button id="go" data-label="Go">Go</button>
+    </div>
+    <div id="download">
+    </div>
+    <div id="howto" class="plain">
+        After you download the firmware. Here are the steps to install it:
+
+        <ol>
+            <li>Plug in your kobo</li>
+            <li>Extract the files in the download archive into the .kobo folder</li>
+        </ol>
+    </div>
+
+    <div style="text-align:center;margin:1em;">
+        <script src="http://geek1011.github.io/textsnippet.js"></script>
+        <br>
+        Copyright 2016 <a href="http://geek1011.github.io">Patrick G</a>
+    </div>
+
+    <script>
+        var downloaddiv = document.getElementById('download');
+        var gobutton = document.getElementById('go');
+        var ereader = document.getElementById('ereader');
+        var affiliate = document.getElementById('affiliate');
+
+        function showDownloadDiv(htmlcode) {
+            downloaddiv.style.display = 'block';
+            downloaddiv.innerHTML = htmlcode;
+        }
+
+        function hideDownloadDiv() {
+            downloaddiv.style.display = 'none';
+        }
+
+        function setLoading(state) {
+            if (state) {
+                gobutton.classList.add('loading');
+                gobutton.setAttribute('disabled', 'disabled');
+                ereader.setAttribute('disabled', 'disabled');
+                affiliate.setAttribute('disabled', 'disabled');
+            } else {
+                window.setTimeout(function() {
+                    gobutton.classList.remove('loading');
+                    gobutton.removeAttribute('disabled');
+                    ereader.removeAttribute('disabled');
+                    affiliate.removeAttribute('disabled');
+                }, 300);
+            }
+        }
+
+        var selects = document.querySelectorAll('select');
+        for (var i = selects.length - 1; i >= 0; i--) {
+            selects[i].onchange = function() {
+                hideDownloadDiv();
+            }
+        }
+
+        function go() {
+            setLoading('true');
+
+            showDownloadDiv('<div class="info">Loading update information</div>')
+
+            $jsonp.send('https://jsonp.afeld.me/?callback=handleStuff&url=https%3A%2F%2Fapi.kobobooks.com%2F1.0%2FUpgradeCheck%2FDevice%2F' + ereader.value + '%2F' + affiliate.value + '%2F' +
+                '0.0' + '%2F' + 'N00000000000000', {
+                    callbackName: 'handleStuff',
+                    onSuccess: function(json) {
+                        var updateInfo = json;
+                        updateInfo.version = updateInfo.UpgradeURL.replace('kobo-update-', '').replace('.zip', '').split('/').pop();
+                        console.log(updateInfo);
+                        if (updateInfo.UpgradeType > 0) {
+                            showDownloadDiv('<div class="ready"><a class="downloadbutton" href="' + updateInfo.UpgradeURL + '">Download latest firmware (' + updateInfo.version + ')</a></div>');
+                        } else {
+                            showDownloadDiv('<div class="info">No firmware available');
+                        }
+                        setLoading(false);
+                    },
+                    onTimeout: function() {
+                        showDownloadDiv('<div class="error">Could not retrieve update information</div>');
+                        setLoading(false);
+                    },
+                    timeout: 5
+                });
+        }
+
+
+        document.getElementById('go').onclick = function() {
+            go();
+        }
+
+        hideDownloadDiv();
+    </script>
+
+    <style>
+        button {
+            position: relative;
+            border: 0;
+            margin: 0;
+            padding: 0;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            color: rgba(0, 0, 0, 0);
+            background: transparent;
+            border-radius: .25rem;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            -webkit-touch-callout: none;
+        }
+
+        button,
+        button:after,
+        button:before {
+            padding: .6875rem 2rem;
+            -webkit-transition: -webkit-transform 0.75s, background-color .125s;
+            -moz-transition: -moz-transform 0.75s, background-color .125s;
+            -ms-transition: -ms-transform 0.75s, background-color .125s;
+            transition: transform 0.75s, background-color .125s;
+            -webkit-transform-style: preserve-3d;
+            -moz-transform-style: preserve-3d;
+            -ms-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+        }
+
+        button:after,
+        button:before {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border-radius: .25rem;
+            -webkit-backface-visibility: hidden;
+            -moz-backface-visibility: hidden;
+            -ms-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        button:before {
+            z-index: 2;
+            color: #fff;
+            background-color: #3e87ec;
+            content: attr(data-label);
+        }
+
+        button:after {
+            z-index: 1;
+            background-color: #999;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-image: url(data:image/gif;base64,R0lGODlhEAAQAPIAAJmZmf///7CwsOPj4////9fX18rKysPDwyH+GkNyZWF0ZWQgd2l0aCBhamF4bG9hZC5pbmZvACH5BAAKAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQACgABACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkEAAoAAgAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkEAAoAAwAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkEAAoABAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQACgAFACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQACgAGACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAAKAAcALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==);
+            -webkit-transform: rotateX(180deg);
+            -moz-transform: rotateX(180deg);
+            -ms-transform: rotateX(180deg);
+            transform: rotateX(180deg);
+            content: '';
+        }
+
+        button:active:before {
+            background-color: #3571c8;
+        }
+
+        button.loading {
+            -webkit-transform: rotateX(180deg);
+            -moz-transform: rotateX(180deg);
+            -ms-transform: rotateX(180deg);
+            transform: rotateX(180deg);
+        }
+    </style>
+</body>
+
+</html>
