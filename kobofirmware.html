@@ -196,7 +196,7 @@
 
             showDownloadDiv('<div class="info">Loading update information</div>')
 
-            $jsonp.send('https://jsonp.afeld.me/?callback=handleStuff&url=https%3A%2F%2Fapi.kobobooks.com%2F1.0%2FUpgradeCheck%2FDevice%2F' + ereader.value + '%2F' + affiliate.value + '%2F' +
+            $jsonp.send('https://json-jsonp.appspot.com/?callback=handleStuff&url=https%3A%2F%2Fapi.kobobooks.com%2F1.0%2FUpgradeCheck%2FDevice%2F' + ereader.value + '%2F' + affiliate.value + '%2F' +
                 '0.0' + '%2F' + 'N00000000000000', {
                     callbackName: 'handleStuff',
                     onSuccess: function(json) {
