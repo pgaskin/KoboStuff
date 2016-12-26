@@ -3,315 +3,278 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Kobo Firmware Downloader</title>
-    <style>
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            overflow-x: hidden;
-            overflow-y: auto;
-        }
-
-        body {
-            max-width: 40em;
-            margin: 1em auto;
-            padding: 1em;
-        }
-
-        div#options {
-            display: flex;
-            width: 100%;
-            text-align: center;
-        }
-
-        div#options select {
-            display: inline-block;
-            flex: 1;
-        }
-
-        div#options button {
-            flex: 0;
-        }
-
-        div.error,
-        div.info,
-        div.ready,
-        div.warning,
-        div.plain {
-            padding: 1em;
-            min-width: 20em;
-            border-left: 0.5em solid rgba(0, 0, 0, 1);
-            background-color: rgba(0, 0, 0, 0.2);
-        }
-
-        div.error {
-            border-left: 0.5em solid rgba(255, 0, 0, 1);
-            background-color: rgba(255, 0, 0, 0.2);
-        }
-
-        div.info {
-            border-left: 0.5em solid rgba(0, 0, 255, 1);
-            background-color: rgba(0, 0, 255, 0.2);
-        }
-
-        div.warning {
-            border-left: 0.5em solid rgba(255, 165, 0, 1);
-            background-color: rgba(255, 165, 0, 0.2);
-        }
-
-        div.ready {
-            border-left: 0.5em solid rgba(0, 128, 0, 1);
-            background-color: rgba(0, 128, 0, 0.2);
-        }
-    </style>
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
-    <script>
-        var $jsonp = (function() {
-            var that = {};
-
-            that.send = function(src, options) {
-                var options = options || {},
-                    callback_name = options.callbackName || 'callback',
-                    on_success = options.onSuccess || function() {},
-                    on_timeout = options.onTimeout || function() {},
-                    timeout = options.timeout || 10;
-
-                var timeout_trigger = window.setTimeout(function() {
-                    window[callback_name] = function() {};
-                    on_timeout();
-                }, timeout * 1000);
-
-                window[callback_name] = function(data) {
-                    window.clearTimeout(timeout_trigger);
-                    on_success(data);
-                };
-
-                var script = document.createElement('script');
-                script.type = 'text/javascript';
-                script.async = true;
-                script.src = src;
-
-                document.getElementsByTagName('head')[0].appendChild(script);
-            };
-
-            return that;
-        })();
-    </script>
-
-    <div id="options">
-        <select id="ereader">
-            <option value="00000000-0000-0000-0000-000000000310">Kobo Touch A/B</option>
-            <option value="00000000-0000-0000-0000-000000000320">Kobo Touch C</option>
-            <option value="00000000-0000-0000-0000-000000000330">Kobo Glo</option>
-            <option value="00000000-0000-0000-0000-000000000340">Kobo Mini</option>
-            <option value="00000000-0000-0000-0000-000000000350">Kobo Aura HD</option>
-            <option value="00000000-0000-0000-0000-000000000360" selected>Kobo Aura</option>
-            <option value="00000000-0000-0000-0000-000000000375">Kobo Aura Edition 2</option>
-            <option value="00000000-0000-0000-0000-000000000370">Kobo Aura H2O</option>
-            <option value="00000000-0000-0000-0000-000000000371">Kobo Glo HD</option>
-            <option value="00000000-0000-0000-0000-000000000372">Kobo Touch 2.0</option>
-        </select>
-
-        <select id="affiliate">
-            <option value="rakutenbooks" selected>Most recent firmware</option>
-            <option value="beta">Most recent firmware (try if above does not give most recent)</option>
-            <option value="beta">Beta</option>
-            <option value="kobo">Kobo</option>
-            <option value="bestbuyus">Best Buy US</option>
-            <option value="bestbuyca">Best Buy CA</option>
-            <option value="walmartus">Walmart US</option>
-            <option value="walmartus">Walmart CA</option>
-            <option value="indigo">Indigo</option>
-            <option value="whsmith">WHSmith</option>
-            <option value="fnac">Fnac</option>
-            <option value="mondadori">Mondadori</option>
-            <option value="livrariacultura">Livraria Cultura</option>
-            <option value="lacentral">La Central</option>
-            <option value="librisblz">Libris BLZ</option>
-            <option value="rakutenbooks">Rakuten</option>
-        </select>
-
-        <button id="go" data-label="Go">Go</button>
-    </div>
-    <div id="download">
-    </div>
-    <div id="howto" class="plain">
-        After you download the firmware. Here are the steps to install it:
-
-        <ol>
-            <li>Plug in your kobo</li>
-            <li>Extract the files in the download archive into the .kobo folder</li>
-        </ol>
-    </div>
-
-    <div style="text-align:center;margin:1em;">
-        <script src="http://geek1011.github.io/textsnippet.js"></script>
-        <br>
-        Copyright 2016 <a href="http://geek1011.github.io">Patrick G</a>
-    </div>
-
-    <script>
-        var downloaddiv = document.getElementById('download');
-        var gobutton = document.getElementById('go');
-        var ereader = document.getElementById('ereader');
-        var affiliate = document.getElementById('affiliate');
-
-        function showDownloadDiv(htmlcode) {
-            downloaddiv.style.display = 'block';
-            downloaddiv.innerHTML = htmlcode;
-        }
-
-        function hideDownloadDiv() {
-            downloaddiv.style.display = 'none';
-        }
-
-        function setLoading(state) {
-            if (state) {
-                gobutton.classList.add('loading');
-                gobutton.setAttribute('disabled', 'disabled');
-                ereader.setAttribute('disabled', 'disabled');
-                affiliate.setAttribute('disabled', 'disabled');
-            } else {
-                window.setTimeout(function() {
-                    gobutton.classList.remove('loading');
-                    gobutton.removeAttribute('disabled');
-                    ereader.removeAttribute('disabled');
-                    affiliate.removeAttribute('disabled');
-                }, 300);
-            }
-        }
-
-        var selects = document.querySelectorAll('select');
-        for (var i = selects.length - 1; i >= 0; i--) {
-            selects[i].onchange = function() {
-                hideDownloadDiv();
-            }
-        }
-
-        function go() {
-            setLoading('true');
-
-            showDownloadDiv('<div class="info">Loading update information</div>')
-
-            $jsonp.send('https://json-jsonp.appspot.com/?callback=handleStuff&url=https%3A%2F%2Fapi.kobobooks.com%2F1.0%2FUpgradeCheck%2FDevice%2F' + ereader.value + '%2F' + affiliate.value + '%2F' +
-                '0.0' + '%2F' + 'N00000000000000', {
-                    callbackName: 'handleStuff',
-                    onSuccess: function(json) {
-                        var updateInfo = json;
-                        updateInfo.version = updateInfo.UpgradeURL.replace('kobo-update-', '').replace('.zip', '').split('/').pop();
-                        console.log(updateInfo);
-                        if (updateInfo.UpgradeType > 0) {
-                            showDownloadDiv('<div class="ready"><a class="downloadbutton" href="' + updateInfo.UpgradeURL + '">Download latest firmware (' + updateInfo.version + ')</a></div>');
-                        } else {
-                            showDownloadDiv('<div class="info">No firmware available');
-                        }
-                        setLoading(false);
-                    },
-                    onTimeout: function() {
-                        showDownloadDiv('<div class="error">Could not retrieve update information</div>');
-                        setLoading(false);
-                    },
-                    timeout: 5
-                });
-        }
-
-
-        document.getElementById('go').onclick = function() {
-            go();
-        }
-
-        hideDownloadDiv();
-    </script>
-
+    <h1>Kobo Firmware Links</h1>
+    <p>This tool will get the latest official firmware links directly from Kobo.</p>
+    <p><b>How to use these links: </b> After you download the correct link for your firmware, extract the zip file into the <tt>.kobo</tt> folder of your Kobo eReader</p>
+    <table id="KoboFirmware">
+        <tr>
+            <th>Model</th>
+            <th>Firmware Version</th>
+            <th>Firmware Link</th>
+        </tr>
+    </table>
+    <footer>
+        A tool provided by <a href="//github.com/geek1011">geek1011</a>. If you liked this tool, you might like <a href="http://geek1011.github.io/BookReader">BookReader</a>.
+    </footer>
     <style>
-        button {
-            position: relative;
-            border: 0;
-            margin: 0;
-            padding: 0;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: bold;
-            color: rgba(0, 0, 0, 0);
-            background: transparent;
-            border-radius: .25rem;
-            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-            -webkit-touch-callout: none;
+        body {
+            max-width: 600px;
+            margin: auto;
+            font-family: sans-serif;
         }
 
-        button,
-        button:after,
-        button:before {
-            padding: .6875rem 2rem;
-            -webkit-transition: -webkit-transform 0.75s, background-color .125s;
-            -moz-transition: -moz-transform 0.75s, background-color .125s;
-            -ms-transition: -ms-transform 0.75s, background-color .125s;
-            transition: transform 0.75s, background-color .125s;
-            -webkit-transform-style: preserve-3d;
-            -moz-transform-style: preserve-3d;
-            -ms-transform-style: preserve-3d;
-            transform-style: preserve-3d;
+        h1 {
+            text-align: center;
+            font-weight: 300;
         }
 
-        button:after,
-        button:before {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            border-radius: .25rem;
-            -webkit-backface-visibility: hidden;
-            -moz-backface-visibility: hidden;
-            -ms-backface-visibility: hidden;
-            backface-visibility: hidden;
+        p {
+            text-align: justify;
         }
 
-        button:before {
-            z-index: 2;
-            color: #fff;
-            background-color: #3e87ec;
-            content: attr(data-label);
+        footer {
+            text-align: center;
         }
-
-        button:after {
-            z-index: 1;
-            background-color: #999;
-            background-repeat: no-repeat;
-            background-position: center center;
-            background-image: url(data:image/gif;base64,R0lGODlhEAAQAPIAAJmZmf///7CwsOPj4////9fX18rKysPDwyH+GkNyZWF0ZWQgd2l0aCBhamF4bG9hZC5pbmZvACH5BAAKAAAAIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQACgABACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkEAAoAAgAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkEAAoAAwAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkEAAoABAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQACgAFACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQACgAGACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAAKAAcALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==);
-            -webkit-transform: rotateX(180deg);
-            -moz-transform: rotateX(180deg);
-            -ms-transform: rotateX(180deg);
-            transform: rotateX(180deg);
-            content: '';
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
         }
-
-        button:active:before {
-            background-color: #3571c8;
+        
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
         }
-
-        button.loading {
-            -webkit-transform: rotateX(180deg);
-            -moz-transform: rotateX(180deg);
-            -ms-transform: rotateX(180deg);
-            transform: rotateX(180deg);
+        
+        tr:hover {
+            background-color: #f5f5f5
         }
     </style>
-        <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    <script>
+        jsonp = function (src, options) {
+            var callback_name = options.callbackName || 'callback',
+                on_success = options.onSuccess || function () {},
+                on_timeout = options.onTimeout || function () {},
+                timeout = options.timeout || 10; // sec
 
-  ga('create', 'UA-66226417-1', 'auto');
-  ga('send', 'pageview');
+            var timeout_trigger = window.setTimeout(function () {
+                window[callback_name] = function () {};
+                on_timeout();
+            }, timeout * 1000);
 
-</script>
+            window[callback_name] = function (data) {
+                window.clearTimeout(timeout_trigger);
+                on_success(data);
+            }
+
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.async = true;
+            script.src = src;
+
+            document.getElementsByTagName('head')[0].appendChild(script);
+        }
+
+        versionCompare = function (v1, v2) {
+            var v1parts = v1.split('.');
+            var v2parts = v2.split('.');
+
+            function isValidPart(x) {
+                return (/^\d+$/).test(x);
+            }
+
+            if (!v1parts.every(isValidPart) || !v2parts.every(isValidPart)) {
+                return NaN;
+            }
+
+            v1parts = v1parts.map(Number);
+            v2parts = v2parts.map(Number);
+
+            for (var i = 0; i < v1parts.length; ++i) {
+                if (v2parts.length == i) {
+                    return 1;
+                }
+
+                if (v1parts[i] == v2parts[i]) {
+                    continue;
+                } else if (v1parts[i] > v2parts[i]) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
+
+            if (v1parts.length != v2parts.length) {
+                return -1;
+            }
+
+            return 0;
+        }
+
+        KoboFirmware = {};
+        KoboFirmware.callbacks = {};
+
+        KoboFirmware.models = {
+            "00000000-0000-0000-0000-000000000310": "Kobo Touch A/B",
+            "00000000-0000-0000-0000-000000000320": "Kobo Touch C",
+            "00000000-0000-0000-0000-000000000340": "Kobo Mini",
+            "00000000-0000-0000-0000-000000000330": "Kobo Glo",
+            "00000000-0000-0000-0000-000000000371": "Kobo Glo HD",
+            "00000000-0000-0000-0000-000000000372": "Kobo Touch 2.0",
+            "00000000-0000-0000-0000-000000000360": "Kobo Aura",
+            "00000000-0000-0000-0000-000000000350": "Kobo Aura HD",
+            "00000000-0000-0000-0000-000000000370": "Kobo Aura H2O",
+            "00000000-0000-0000-0000-000000000372": "Kobo Aura ONE",
+            "00000000-0000-0000-0000-000000000375": "Kobo Aura Edition 2"
+        };
+
+        KoboFirmware.affiliates = {
+            "kobo": "Kobo",
+            "bestbuyus": "Best Buy US",
+            "bestbuyca": "Best Buy CA",
+            "walmartus": "Walmart US",
+            "walmartus": "Walmart CA",
+            "indigo": "Indigo",
+            "whsmith": "WHSmith",
+            "fnac": "Fnac",
+            "mondadori": "Mondadori",
+            "livrariacultura": "Livraria Cultura",
+            "lacentral": "La Central",
+            "librisblz": "Libris BLZ",
+            "rakutenbooks": "Rakuten"
+        }
+
+        KoboFirmware.GetUpdateInfo = function (model, affiliate, callback) {
+            var callbackName = (function () {
+                var text = "";
+                var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+                for (var i = 0; i < 20; i++)
+                    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+                return text;
+            })();
+
+            var result = {
+                "model": null,
+                "modelName": null,
+                "affiliate": null,
+                "firmwareVersion": null,
+                "updateURL": null,
+                "releaseNotesURL": null,
+                "error": null
+            }
+
+            if (!KoboFirmware.models[model]) {
+                result.error = true;
+                callback("No such model", result);
+                return;
+            }
+            result.model = model;
+            result.modelName = KoboFirmware.models[model];
+
+            if (!KoboFirmware.affiliates[affiliate]) {
+                result.error = true;
+                callback("No such affiliate", result);
+                return;
+            }
+            result.affiliate = affiliate;
+
+            jsonp("http://json2jsonp.com/?url=https://api.kobobooks.com/1.0/UpgradeCheck/Device/" + model +
+                "/" + affiliate + "/0.0/N&callback=" + callbackName, {
+                    "callbackName": callbackName,
+                    "onSuccess": function (json) {
+                        if (json["UpgradeURL"]) {
+                            result.firmwareVersion = json.UpgradeURL.replace('kobo-update-', '').replace(
+                                '.zip', '').split('/').pop();
+                            result.updateURL = json.UpgradeURL;
+                            result.releaseNotesURL = json.ReleaseNoteURL;
+                            result.error = false;
+                            callback(null, result);
+                        } else {
+                            result.error = true;
+                            callback("Invalid response returned", result);
+                        }
+                    },
+                    "timeout": 2.5,
+                    "onTimeout": function () {
+                        result.error = true;
+                        callback("Connection timed out", result);
+                    }
+                }
+            );
+        };
+
+        KoboFirmware.table = document.getElementById("KoboFirmware");
+
+        KoboFirmware.LoadUpdates = function () {
+            for (var i in KoboFirmware.models) {
+                if (KoboFirmware.models.hasOwnProperty(i)) {
+                    var row = document.createElement("tr");
+                    row.id = i;
+                    var modelNameCol = document.createElement("td");
+                    modelNameCol.className = "modelName";
+                    row.appendChild(modelNameCol);
+                    var firmwareVersionCol = document.createElement("td");
+                    firmwareVersionCol.className = "firmwareVersion";
+                    row.appendChild(firmwareVersionCol);
+                    var downloadLinkCol = document.createElement("td");
+                    downloadLinkCol.className = "downloadLink";
+                    row.appendChild(downloadLinkCol);
+                    KoboFirmware.table.appendChild(row);
+
+                    (function (model) {
+                        KoboFirmware.GetUpdateInfo(model, "kobo", function (errA, resultA) {
+                            KoboFirmware.GetUpdateInfo(model, "rakutenbooks", function (
+                                errB, resultB) {
+                                var result = resultA;
+                                try {
+                                    if (versionCompare(resultA.firmwareVersion, resultB.firmwareVersion) >=
+                                        0) {
+                                        result = resultA;
+                                    } else {
+                                        result = resultB;
+                                    }
+                                } catch (e) {}
+
+                                var row = document.getElementById(result.model);
+
+                                row.getElementsByClassName("modelName")[0].innerHTML = result.modelName;
+
+                                if (errA || errB) {
+                                    row.getElementsByClassName("firmwareVersion")[0].innerHTML =
+                                        errA || errB;
+                                } else {
+                                    row.getElementsByClassName("firmwareVersion")[0].innerHTML =
+                                        result.firmwareVersion;
+                                }
+
+                                if (errA || errB) {
+                                    row.getElementsByClassName("downloadLink")[0].innerHTML =
+                                        "";
+                                } else {
+                                    var a = document.createElement("a");
+                                    a.href = result.updateURL;
+                                    a.innerHTML = "Download";
+                                    row.getElementsByClassName("downloadLink")[0].appendChild(a);
+                                }
+                            });
+                        });
+                    })(i);
+                }
+            }
+        };
+
+        KoboFirmware.LoadUpdates();
+    </script>
 </body>
 
 </html>
