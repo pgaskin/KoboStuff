@@ -59,7 +59,7 @@
         }
     </style>
     <script>
-        jsonp = function (src, options) {
+        var jsonp = function (src, options) {
             var callback_name = options.callbackName || 'callback',
                 on_success = options.onSuccess || function () {},
                 on_timeout = options.onTimeout || function () {},
@@ -73,7 +73,7 @@
             window[callback_name] = function (data) {
                 window.clearTimeout(timeout_trigger);
                 on_success(data);
-            }
+            };
 
             var script = document.createElement('script');
             script.type = 'text/javascript';
@@ -81,9 +81,9 @@
             script.src = src;
 
             document.getElementsByTagName('head')[0].appendChild(script);
-        }
+        };
 
-        versionCompare = function (v1, v2) {
+        var versionCompare = function (v1, v2) {
             var v1parts = v1.split('.');
             var v2parts = v2.split('.');
 
@@ -117,9 +117,9 @@
             }
 
             return 0;
-        }
+        };
 
-        KoboFirmware = {};
+        var KoboFirmware = {};
         KoboFirmware.callbacks = {};
 
         KoboFirmware.models = {
@@ -141,7 +141,7 @@
             "bestbuyus": "Best Buy US",
             "bestbuyca": "Best Buy CA",
             "walmartus": "Walmart US",
-            "walmartus": "Walmart CA",
+            "walmartca": "Walmart CA",
             "indigo": "Indigo",
             "whsmith": "WHSmith",
             "fnac": "Fnac",
@@ -150,7 +150,7 @@
             "lacentral": "La Central",
             "librisblz": "Libris BLZ",
             "rakutenbooks": "Rakuten"
-        }
+        };
 
         KoboFirmware.GetUpdateInfo = function (model, affiliate, callback) {
             var callbackName = (function () {
@@ -171,7 +171,7 @@
                 "updateURL": null,
                 "releaseNotesURL": null,
                 "error": null
-            }
+            };
 
             if (!KoboFirmware.models[model]) {
                 result.error = true;
@@ -192,7 +192,7 @@
                 "/" + affiliate + "/0.0/N&callback=" + callbackName, {
                     "callbackName": callbackName,
                     "onSuccess": function (json) {
-                        if (json["UpgradeURL"]) {
+                        if (json.UpgradeURL) {
                             result.firmwareVersion = json.UpgradeURL.replace('kobo-update-', '').replace(
                                 '.zip', '').split('/').pop();
                             result.updateURL = json.UpgradeURL;
