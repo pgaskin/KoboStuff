@@ -17,6 +17,7 @@
         <tr>
             <th>Model</th>
             <th>Firmware Version</th>
+            <th>Release Date</th>
             <th>Firmware Link</th>
         </tr>
     </table>
@@ -169,6 +170,7 @@
                 "model": null,
                 "modelName": null,
                 "affiliate": null,
+                "releaseDate": null,
                 "firmwareVersion": null,
                 "updateURL": null,
                 "releaseNotesURL": null,
@@ -195,6 +197,7 @@
                     "callbackName": callbackName,
                     "onSuccess": function (json) {
                         if (json.UpgradeURL) {
+                            result.releaseDate = json.UpgradeURL.split("/")[5];
                             result.firmwareVersion = json.UpgradeURL.replace('kobo-update-', '').replace(
                                 '.zip', '').split('/').pop();
                             result.updateURL = json.UpgradeURL;
@@ -225,6 +228,9 @@
                     var modelNameCol = document.createElement("td");
                     modelNameCol.className = "modelName";
                     row.appendChild(modelNameCol);
+                    var releaseDateCol = document.createElement("td");
+                    releaseDateCol.className = "releaseDate";
+                    row.appendChild(releaseDateCol);
                     var firmwareVersionCol = document.createElement("td");
                     firmwareVersionCol.className = "firmwareVersion";
                     firmwareVersionCol.innerHTML = "loading";
@@ -252,6 +258,12 @@
 
                                 row.getElementsByClassName("modelName")[0].innerHTML = result.modelName;
 
+                                if (errA || errB) {
+                                    row.getElementsByClassName("releaseDate")[0].innerHTML = "";
+                                } else {
+                                    row.getElementsByClassName("releaseDate")[0].innerHTML = result.releaseDate;
+                                }
+                                
                                 if (errA || errB) {
                                     row.getElementsByClassName("firmwareVersion")[0].innerHTML =
                                         errA || errB;
