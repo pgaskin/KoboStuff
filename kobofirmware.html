@@ -246,7 +246,7 @@ void 0!==c?e&&"set"in e&&void 0!==(d=e.set(a,c,b))?d:a[b]=c:e&&"get"in e&&null!=
             $.each(KoboFirmware.devices, function (key, value) {
                 tableCode += "<tr><td>" + value.modelName + "</td><td>" + value.hardwareRevision +
                     "</td><td>" + (value.firmwareVersion != "" ? value.firmwareVersion : "loading") +
-                    "</td><td>" + value.firmwareReleaseDate + "</td><td><a onclick=\"ga('send',{hitType: 'event',eventCategory: 'KoboStuff',eventAction: 'DownloadFirmware',eventLabel: this.href});\" target=\"_blank\" href=\"" + value.firmwareLink +
+                    "</td><td>" + value.firmwareReleaseDate + "</td><td><a onclick=\"ga('send',{hitType: 'event',eventCategory: 'KoboStuff',eventAction: 'DownloadFirmware',eventLabel: this.parentNode.parentNode.querySelector('td').innerHTML});\" target=\"_blank\" href=\"" + value.firmwareLink +
                     "\">Download</a></td></tr>";
             });
             $("#KoboFirmware").html(tableCode);
