@@ -191,7 +191,7 @@
             }
             result.affiliate = affiliate;
 
-            jsonp("http://json2jsonp.com/?url=https://api.kobobooks.com/1.0/UpgradeCheck/Device/" + model +
+            jsonp("https://json2jsonp.com/?url=https://api.kobobooks.com/1.0/UpgradeCheck/Device/" + model +
                 "/" + affiliate + "/0.0/N&callback=" + callbackName, {
                     "callbackName": callbackName,
                     "onSuccess": function (json) {
