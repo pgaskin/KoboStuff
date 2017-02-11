@@ -15,6 +15,9 @@
     <p><b>How to use these links: </b> After you download the correct link for your firmware, extract the zip file into the <tt>.kobo</tt> folder of your Kobo eReader.</p>
     <table id="KoboFirmware"></table>
     <footer>
+        Tip: To link to this page with a filter (by model, hardware revision, or firmware version), <a href="javascript:void(0);" onclick="window.location.hash = prompt('Filter text', (window.location.hash || '').replace('#', '')) || ''">click here</a>
+        <br>
+        <br>
         A tool provided by <a href="//github.com/geek1011">geek1011</a>. If you liked this tool, you might like <a href="http://geek1011.github.io/BookReader">BookReader</a>, my eBook reading app for Windows and Linux, or <a href="http://geek1011.github.io/ePubViewer">ePubViewer</a>, my web-based ePub reader.
     </footer>
     <style>
@@ -104,6 +107,13 @@
         
         tr:nth-of-type(odd) {
             background: #e9e9e9;
+        }
+        table.highlighted tr.nohighlight {
+            opacity: 0.5 !important;
+        }
+        tr.highlight {
+            background: #edd187;
+            transform: scale(1.03);
         }
     </style>
     <script>/*! jQuery v2.2.4 | (c) jQuery Foundation | jquery.org/license */
@@ -299,14 +309,19 @@ void 0!==c?e&&"set"in e&&void 0!==(d=e.set(a,c,b))?d:a[b]=c:e&&"get"in e&&null!=
         KoboFirmware.UpdateTable = function () {
             var tableCode =
                 "<thead><tr><th>Kobo Model</th><th>Hardware Revision</th><th>Firmware Version</th><th>Firmware Release Date</th><th>Firmware Link</th></tr></thead><tbody>";
+            var highlighted = "nothighlighted";
             $.each(KoboFirmware.devices, function (key, value) {
-                tableCode += "<tr><td>" + value.modelName + "</td><td>" + value.hardwareRevision +
+                var toHighlight = (window.location.hash != ""?((key.indexOf(window.location.hash.replace("#","")) > -1)||(value.modelName.toLowerCase().indexOf(window.location.hash.replace("#","").toLowerCase()) > -1)||(value.hardwareRevision.toLowerCase().indexOf(window.location.hash.replace("#","").toLowerCase()) > -1)||(value.firmwareVersion.toLowerCase().indexOf(window.location.hash.replace("#","").toLowerCase()) > -1)):false);
+                if (toHighlight) {
+                    highlighted = "highlighted";
+                }
+                tableCode += "<tr id=\"" + key + "\"" + (toHighlight?" class=\"highlight\" ":"class=\"nohighlight\"") + "><td>" + value.modelName + "</td><td>" + value.hardwareRevision +
                     "</td><td>" + (value.firmwareVersion != "" ? value.firmwareVersion : "loading") +
                     "</td><td>" + value.firmwareReleaseDate + "</td><td><a onclick=\"ga('send',{hitType: 'event',eventCategory: 'KoboStuff',eventAction: 'DownloadFirmware',eventLabel: this.parentNode.parentNode.querySelector('td').innerHTML});\" target=\"_blank\" href=\"" + value.firmwareLink +
                     "\">Download</a></td></tr>";
             });
             tableCode += "</tbody>";
-            $("#KoboFirmware").html(tableCode);
+            $("#KoboFirmware").removeClass("highlighted").removeClass("nothighlighted").addClass(highlighted).html(tableCode);
         };
 
         KoboFirmware.Init = function () {
