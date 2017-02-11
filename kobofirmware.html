@@ -267,27 +267,46 @@ void 0!==c?e&&"set"in e&&void 0!==(d=e.set(a,c,b))?d:a[b]=c:e&&"get"in e&&null!=
                                             "beta" + "/0.0/N",
                                     },
                                     success: function (responseC) {
-                                        console.log(responseA, responseB, responseC);
-                                        if (KoboFirmware.util.VersionCompare(responseA.UpgradeURL.replace('kobo-update-', '').replace('.zip', '').split('/').pop(), responseB.UpgradeURL.replace('kobo-update-', '').replace('.zip', '').split('/').pop()) >= 0) {
-                                            response = responseA;
-                                        } else {
-                                            response = responseB;
-                                        }
-                                        if (KoboFirmware.util.VersionCompare(response.UpgradeURL.replace('kobo-update-', '').replace('.zip', '').split('/').pop(), responseC.UpgradeURL.replace('kobo-update-', '').replace('.zip', '').split('/').pop()) >= 0) {
-                                            response = response;
-                                        } else {
-                                            response = responseC;
-                                        }
-                                        KoboFirmware.devices[key].firmwareVersion =
-                                            response.UpgradeURL.replace('kobo-update-', '')
-                                            .replace(
-                                                '.zip', '').split('/').pop();
-                                        KoboFirmware.devices[key].firmwareReleaseDate =
-                                            KoboFirmware.util.FixDate(response.UpgradeURL.split(
-                                                "/")[5]);
-                                        KoboFirmware.devices[key].firmwareLink = response.UpgradeURL;
-                                        KoboFirmware.devices[key].hardwareRevision =
-                                            response.UpgradeURL.split("/")[4];
+                                        $.ajax({
+                                            url: "https://json2jsonp.com/",
+                                            dataType: "jsonp",
+                                            timeout: 4000,
+                                            data: {
+                                                url: "https://api.kobobooks.com/1.0/UpgradeCheck/Device/" + key + "/" +
+                                                    "fnac" + "/0.0/N",
+                                            },
+                                            success: function (responseD) {
+                                                console.log(responseA, responseB, responseC, responseD);
+                                                if (KoboFirmware.util.VersionCompare(responseA.UpgradeURL.replace('kobo-update-', '').replace('.zip', '').split('/').pop(), responseB.UpgradeURL.replace('kobo-update-', '').replace('.zip', '').split('/').pop()) >= 0) {
+                                                    response = responseA;
+                                                } else {
+                                                    response = responseB;
+                                                }
+                                                if (KoboFirmware.util.VersionCompare(response.UpgradeURL.replace('kobo-update-', '').replace('.zip', '').split('/').pop(), responseC.UpgradeURL.replace('kobo-update-', '').replace('.zip', '').split('/').pop()) >= 0) {
+                                                    response = response;
+                                                } else {
+                                                    response = responseC;
+                                                }
+                                                if (KoboFirmware.util.VersionCompare(response.UpgradeURL.replace('kobo-update-', '').replace('.zip', '').split('/').pop(), responseD.UpgradeURL.replace('kobo-update-', '').replace('.zip', '').split('/').pop()) >= 0) {
+                                                    response = response;
+                                                } else {
+                                                    response = responseD;
+                                                }
+                                                KoboFirmware.devices[key].firmwareVersion =
+                                                    response.UpgradeURL.replace('kobo-update-', '')
+                                                    .replace(
+                                                        '.zip', '').split('/').pop();
+                                                KoboFirmware.devices[key].firmwareReleaseDate =
+                                                    KoboFirmware.util.FixDate(response.UpgradeURL.split(
+                                                        "/")[5]);
+                                                KoboFirmware.devices[key].firmwareLink = response.UpgradeURL;
+                                                KoboFirmware.devices[key].hardwareRevision =
+                                                    response.UpgradeURL.split("/")[4];
+                                                },
+                                            error: function (x, t, m) {
+                                                KoboFirmware.devices[key].firmwareVersion = "Connection Error";
+                                            }
+                                        });
                                     },
                                     error: function (x, t, m) {
                                         KoboFirmware.devices[key].firmwareVersion = "Connection Error";
