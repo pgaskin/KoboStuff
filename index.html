@@ -118,6 +118,64 @@ https://api.kobobooks.com/1.0/UpgradeCheck/Device/<i>ModelID</i>/<i>Affiliate</i
         <li>Save your changes, and eject the kobo</li>
         <li>You are done</li>
     </ol>
+    <h3>Adding tiles to the home screen</h3>
+    <p>
+        It is possible to add additional tiles to the Kobo homescreen, such as apps and games. You can also add games which are not enabled on your device by default.
+    </p>
+    <ol>
+        <li>Open the file .kobo/KoboReader.sqlite in a sqlite editor</li>
+        <li>Run one of the sql queries in the following list</li>
+        <li>Save your changes, and eject the kobo</li>
+        <li>You are done</li>
+    </ol>
+    <ul id="tileList">
+        
+    </ul>
+    <script>
+        var dateString = (function getDateString(){var pad = function(n, width, z) {z = z || '0';n = n + '';return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;};return pad(new Date().getUTCFullYear().toString(),4) + "-" + pad(new Date().getUTCMonth().toString() + 1,2) + "-" + pad(new Date().getUTCDate().toString(),2) + "T" + pad(new Date().getUTCHours().toString(),2) + ":" + pad(new Date().getUTCMinutes(),2) + ":00"})();
+        var tmpl = "<b>{{TITLEID}}</b>: <tt>INSERT INTO `Activity` (Id,Enabled,Type,Action,Date,Data) VALUES ('{{TILEID}}','true','{{TILECATEGORY}}',2,'{{DATE}}',X'00000000');</tt>";
+        var tiles = [{
+            TILENAME: "Web Browser",
+            TILEID: "browser",
+            TILECATEGORY: "Extras"
+        },
+        {
+            TILENAME: "Chess (this does not work on newer firmware)",
+            TILEID: "chess",
+            TILECATEGORY: "Extras"
+        },
+        {
+            TILENAME: "Solitaire",
+            TILEID: "solitaire",
+            TILECATEGORY: "Extras"
+        },
+        {
+            TILENAME: "Word Scramble",
+            TILEID: "scramble",
+            TILECATEGORY: "Extras"
+        },
+        {
+            TILENAME: "Sudoku",
+            TILEID: "sudoku",
+            TILECATEGORY: "Extras"
+        },
+        {
+            TILENAME: "Unblock It",
+            TILEID: "rushhour",
+            TILECATEGORY: "Extras"
+        },
+        {
+            TILENAME: "Sketch Pad",
+            TILEID: "sketch",
+            TILECATEGORY: "Extras"
+        }];
+        
+        var htmlstr = "";
+        for (var i = 0; i < tiles.length; i++) {
+            htmlstr += tmpl.replace("{{TILENAME}}", tiles[i].TILENAME).replace("{{TILEID}}", tiles[i].TILEID).replace("{{TILECATEGORY}}", tiles[i].TILECATEGORY).replace("{{DATE}}", dateString);
+        }
+        document.getElementById("tileList").innerHTML = htmlstr;
+    </script>
 
     <h2>Troubleshooting</h2>
     <h3>The Kobo crashes while reading some ebooks</h3>
