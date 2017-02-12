@@ -133,7 +133,7 @@ https://api.kobobooks.com/1.0/UpgradeCheck/Device/<i>ModelID</i>/<i>Affiliate</i
     </ul>
     <script>
         var dateString = (function getDateString(){var pad = function(n, width, z) {z = z || '0';n = n + '';return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;};return pad(new Date().getUTCFullYear().toString(),4) + "-" + pad(new Date().getUTCMonth().toString() + 1,2) + "-" + pad(new Date().getUTCDate().toString(),2) + "T" + pad(new Date().getUTCHours().toString(),2) + ":" + pad(new Date().getUTCMinutes(),2) + ":00"})();
-        var tmpl = "<b>{{TILEID}}</b>: <tt>INSERT INTO `Activity` (Id,Enabled,Type,Action,Date,Data) VALUES ('{{TILEID}}','true','{{TILECATEGORY}}',2,'{{DATE}}',X'00000000');</tt>";
+        var tmpl = "<li><b>{{TILEID}}</b>: <tt>INSERT INTO `Activity` (Id,Enabled,Type,Action,Date,Data) VALUES ('{{TILEID}}','true','{{TILECATEGORY}}',2,'{{DATE}}',X'00000000');</tt></li>";
         var tiles = [{
             TILENAME: "Web Browser",
             TILEID: "browser",
