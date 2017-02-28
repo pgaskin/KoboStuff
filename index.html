@@ -176,7 +176,7 @@ https://api.kobobooks.com/1.0/UpgradeCheck/Device/<i>ModelID</i>/<i>Affiliate</i
         }
         document.getElementById("tileList").innerHTML = htmlstr;
     </script>
-
+    
     <h2>Troubleshooting</h2>
     <h3>The Kobo crashes while reading some ebooks</h3>
     <p>
@@ -188,7 +188,23 @@ https://api.kobobooks.com/1.0/UpgradeCheck/Device/<i>ModelID</i>/<i>Affiliate</i
         <li>Sign out of your kobo accout then back in (you may lose your collections)</li>
         <li>Reset your kobo (You will lose all sideloaded books unless you back them up</li>
     </ol>
-    
+
+    <h2>Other Stuff</h2>
+    <h3>What the kobo does when you sign out</h3>
+    <p>
+        These are the exact commands which the Kobo runs when you sign out
+    </p>
+    <pre>
+rm -rf /mnt/onboard/.kobo
+rm -rf /mnt/onboard/.kobo-images
+rm -rf /mnt/onboard/.adobe-digital-editions
+rm -rf /mnt/sd/koboExtStorage
+rm -rf /var/db/dhcp*
+    </pre>
+    <h3>Enabling PIN lock on firmware 4.3.8842</h3>
+    <p>
+        The pin lock option on firmware 4.3.8842 is currently only availiable to the rakutenbooks affiliate. You can edit <tt>.kobo/affiliate.conf</tt> after making a backup of it, and then after a reboot, the new option will appear in the <tt>Energy Saving and Privacy</tt> section of the settings.
+    </p>
     
     <hr>
     <div>
