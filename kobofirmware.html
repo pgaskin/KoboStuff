@@ -365,12 +365,16 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
         };
 
         /* CONFIG STARTS HERE */
-        KoboFirmware.affiliates = [
+        KoboFirmware.affiliates = [ /* Used for main table */
             "kobo", 
             "rakutenbooks", 
             "fnac", 
             "bol"
         ];
+        KoboFirmware.moreAffiliates = KoboFirmware.affiliates.concat([ /* Used for detail fw version view */
+            "indigo",
+            "kobo"
+        ]);
         KoboFirmware.devicesToCheck = {
             "00000000-0000-0000-0000-000000000310": "Kobo Touch A/B",
             "00000000-0000-0000-0000-000000000320": "Kobo Touch C",
@@ -584,7 +588,7 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
             
             var pel = document.createElement("div");
             pel.className = "fw-msg";
-            pel.appendChild(document.createElement("style")).innerHTML = '.fw-msg-wrapper {display:block;position:fixed;bottom:0;left:0;right:0;} .fw-msg {display:block;margin:auto;width:400px;max-width:100%;height:250px;background: white;border: 1px solid #bbbbbb;z-index:1000;padding: 5px;overflow-y:auto;} .fw-msg-header {display:block;border-bottom:1px solid #bbbbbb;} .fw-msg-close {background: #eeeeee;display:inline-block;padding:5px;width:15px;text-align:center;cursor: pointer;} .fw-msg-close:hover {background:#dddddd;}';
+            pel.appendChild(document.createElement("style")).innerHTML = '.fw-msg-wrapper {display:block;position:fixed;bottom:0;left:0;right:0;top:0;display:flex;justify-content:center;flex-direction:column;background:rgba(0,0,0,0.4);} .fw-msg {display:block;margin:auto;width:400px;max-width:100%;height:250px;background: white;border: 1px solid #bbbbbb;z-index:1000;padding: 5px;overflow-y:auto;text-align: left;vertical-align:middle;} .fw-msg-header {display:block;border-bottom:1px solid #bbbbbb;} .fw-msg-close {background: #eeeeee;display:inline-block;padding:5px;width:15px;text-align:center;cursor: pointer;} .fw-msg-close:hover {background:#dddddd;}';
             
             var hel = document.createElement("div");
             hel.className = "fw-msg-header";
@@ -605,6 +609,8 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
             
             wel.appendChild(pel);
             document.body.appendChild(wel);
+            
+            return tel;
         };
         
         KoboFirmware.AfterFirmwareDownload = function (rowEl, button) {
@@ -614,9 +620,9 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
         };
         
         KoboFirmware.ShowFWVersions = function (modelId, modelName) {
-            console.log("Looking up versions for " + modelId);
+            tel = KoboFirmware.ShowPopUp("Looking up versions for " + modelName);
             Promise.all(
-                KoboFirmware.affiliates.map(
+                KoboFirmware.moreAffiliates.map(
                     KoboFirmware.promises.GetUpdateInfo.bind(null, modelId)
                 )
             ).then(function (r) {
@@ -633,9 +639,9 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
                 device.map(function (d) {
                     h = h + d.affiliate + ": <a href=\"" + d.upgradeURL + "\">" + d.upgradeVersion + "</a><br>";
                 });
-                KoboFirmware.ShowPopUp(h);
+                tel.innerHTML = h;
             }).catch(function (e) {
-                KoboFirmware.ShowPopUp('Error getting version info');
+                tel.innerHTML = 'Error getting version info';
             });
         };
 
