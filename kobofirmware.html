@@ -573,7 +573,7 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
                     device.upgradeVersion = e;
                     return KoboFirmware.promises.UpdateDeviceInfo(device);
                 });
-            })
+            });
         };
         KoboFirmware.ShowPopUp = function (html) {
             var pid = new Date().getTime().toString();
@@ -584,7 +584,7 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
             
             var pel = document.createElement("div");
             pel.className = "fw-msg";
-            pel.appendChild(document.createElement("style")).innerHTML = '.fw-msg-wrapper {display:block;position:fixed;bottom:0;left:0;right:0;} .fw-msg {display:block;margin:auto;width:400px;max-width:100%;height:300px;background: white;border: 1px solid #bbbbbb;z-index:1000;padding: 5px;} .fw-msg-header {display:block;border-bottom:1px solid #bbbbbb;} .fw-msg-close {background: #eeeeee;display:inline-block;padding:5px;width:15px;text-align:center;} .fw-msg-close:hover {background:#dddddd;}';
+            pel.appendChild(document.createElement("style")).innerHTML = '.fw-msg-wrapper {display:block;position:fixed;bottom:0;left:0;right:0;} .fw-msg {display:block;margin:auto;width:400px;max-width:100%;height:250px;background: white;border: 1px solid #bbbbbb;z-index:1000;padding: 5px;overflow-y:auto;} .fw-msg-header {display:block;border-bottom:1px solid #bbbbbb;} .fw-msg-close {background: #eeeeee;display:inline-block;padding:5px;width:15px;text-align:center;cursor: pointer;} .fw-msg-close:hover {background:#dddddd;}';
             
             var hel = document.createElement("div");
             hel.className = "fw-msg-header";
@@ -607,10 +607,36 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
             document.body.appendChild(wel);
         };
         
-        KoboFirmware.AfterFirmwareDownload = function(rowEl, button) {
+        KoboFirmware.AfterFirmwareDownload = function (rowEl, button) {
             console.log("Downloaded " + rowEl.querySelector('.col-model').innerHTML);
             ga('send',{hitType: 'event',eventCategory: 'KoboStuff',eventAction: 'DownloadFirmware',eventLabel: rowEl.querySelector('.col-model').innerHTML});
             KoboFirmware.ShowPopUp('While the firmware for your ' + rowEl.querySelector('.col-model').innerHTML + ' is downloading, why not try out another tool by Patrick G called <a target="_blank" href="http://geek1011.github.io/BookBrowser">BookBrowser</a>. It is a web-based ebook browser for viewing your epub books from any device. It even includes a web-based reader powered by <a target="_blank" href="http://geek1011.github.io/ePubViewer">ePubViewer</a>. There is also a online <a target="_blank" href="http://geek1011.github.io/BookBrowser/demo/">demo</a>.');
+        };
+        
+        KoboFirmware.ShowFWVersions = function (modelId, modelName) {
+            console.log("Looking up versions for " + modelId);
+            Promise.all(
+                KoboFirmware.affiliates.map(
+                    KoboFirmware.promises.GetUpdateInfo.bind(null, modelId)
+                )
+            ).then(function (r) {
+                return new Promise(function (resolve, reject) {
+                    resolve(r.map(
+                        KoboFirmware.promises.ParseUpdateInfo(modelId)
+                    ));
+                });
+            }).then(function (r) {
+            	/* Resolve promises to actual results */
+                return Promise.all(r);
+            }).then(function(device) {
+                var h = "<h3>Firmware versions by affiliate for " + modelName + "</h3><br>";
+                device.map(function (d) {
+                    h = h + d.affiliate + ": <a href=\"" + d.upgradeURL + "\">" + d.upgradeVersion + "</a><br>";
+                });
+                KoboFirmware.ShowPopUp(h);
+            }).catch(function (e) {
+                KoboFirmware.ShowPopUp('Error getting version info');
+            });
         };
 
         KoboFirmware.UpdateTable = function () {
@@ -639,7 +665,7 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
                     device.upgradeURL +
                     "\"><i class=\"icon fa fa-download\" aria-hidden=\"true\"></i><span class=\"text\">Download</a><a class=\"button\" title=\"Release notes (usually useless)\" target=\"_blank\" href=\"" +
                     device.releaseNoteURL +
-                    "\"><i class=\"icon fa fa-sticky-note-o\" aria-hidden=\"true\"></i><span class=\"text\">Release Notes</a></a></td></tr>";
+                    "\"><i class=\"icon fa fa-sticky-note-o\" aria-hidden=\"true\"></i><span class=\"text\">Release Notes</a><a href=\"#\" onclick=\"KoboFirmware.ShowFWVersions('" + device.modelId + "', '" + device.modelName + "')\" class=\"button\"><i class=\"icon fa fa-search\" aria-hidden=\"true\"></i><span class=\"text\">See versions for other affiliates</a></td></tr>";
             });
 
             tableCode += "</tbody>";
@@ -666,8 +692,9 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
                 }
             })();
             KoboFirmware.LoadInfo();
-            window.setInterval(KoboFirmware.UpdateTable, 500);
-            KoboFirmware.UpdateTable();
+            window.setTimeout(function () {
+                window.setInterval(KoboFirmware.UpdateTable, 500);
+            }, 700);
         };
         KoboFirmware.Init();
     </script>
