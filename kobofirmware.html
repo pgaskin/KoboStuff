@@ -575,6 +575,43 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
                 });
             })
         };
+        KoboFirmware.ShowPopUp = function (html) {
+            var pid = new Date().getTime().toString();
+            
+            var wel = document.createElement("div");
+            wel.className = "fw-msg-wrapper";
+            wel.id = pid;
+            
+            var pel = document.createElement("div");
+            pel.className = "fw-msg";
+            pel.appendChild(document.createElement("style")).innerHTML = '.fw-msg-wrapper {display:block;position:fixed;bottom:0;left:0;right:0;} .fw-msg {display:block;margin:auto;width:400px;max-width:100%;height:300px;background: white;border: 1px solid #bbbbbb;z-index:1000;padding: 5px;} .fw-msg-header {display:block;border-bottom:1px solid #bbbbbb;} .fw-msg-close {background: #eeeeee;display:inline-block;padding:5px;width:15px;text-align:center;} .fw-msg-close:hover {background:#dddddd;}';
+            
+            var hel = document.createElement("div");
+            hel.className = "fw-msg-header";
+            var cel = document.createElement("a");
+            cel.className = "fw-msg-close";
+            cel.setAttribute("data-msg-id", pid);
+            cel.innerText = "X";
+            cel.addEventListener("click", function(e) {
+                document.getElementById(e.target.getAttribute("data-msg-id")).style.display = "none";
+            });
+            hel.appendChild(cel);
+            pel.appendChild(hel);
+            
+            var tel = document.createElement("div");
+            tel.className = "fw-msg-content";
+            tel.innerHTML = html;
+            pel.appendChild(tel);
+            
+            wel.appendChild(pel);
+            document.body.appendChild(wel);
+        };
+        
+        KoboFirmware.AfterFirmwareDownload = function(rowEl, button) {
+            console.log("Downloaded " + rowEl.querySelector('.col-model').innerHTML);
+            ga('send',{hitType: 'event',eventCategory: 'KoboStuff',eventAction: 'DownloadFirmware',eventLabel: rowEl.querySelector('.col-model').innerHTML});
+            KoboFirmware.ShowPopUp('While the firmware for your ' + rowEl.querySelector('.col-model').innerHTML + ' is downloading, why not try out another tool by Patrick G called <a target="_blank" href="http://geek1011.github.io/BookBrowser">BookBrowser</a>. It is a web-based ebook browser for viewing your epub books from any device. It even includes a web-based reader powered by <a target="_blank" href="http://geek1011.github.io/ePubViewer">ePubViewer</a>. There is also a online <a target="_blank" href="http://geek1011.github.io/BookBrowser/demo/">demo</a>.');
+        };
 
         KoboFirmware.UpdateTable = function () {
             var tableCode =
@@ -598,7 +635,7 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
                     "</td><td class=\"col-version\" title=\"Affiliate: " + device.affiliate + "\">" + (device.upgradeVersion != "" ? device.upgradeVersion + "<br><span class=\"affiliate\">Affiliate: " + device.affiliate + "</span>":
                         "loading") +
                     "</td><td class=\"col-release-date\">" + device.upgradeReleaseDate +
-                    "</td><td class=\"col-links\"><a class=\"button\" onclick=\"ga('send',{hitType: 'event',eventCategory: 'KoboStuff',eventAction: 'DownloadFirmware',eventLabel: this.parentNode.parentNode.querySelector('td').innerHTML});\" target=\"_blank\" href=\"" +
+                    "</td><td class=\"col-links\"><a class=\"button\" onclick=\"KoboFirmware.AfterFirmwareDownload(this.parentNode.parentNode, this);\" target=\"_blank\" href=\"" +
                     device.upgradeURL +
                     "\"><i class=\"icon fa fa-download\" aria-hidden=\"true\"></i><span class=\"text\">Download</a><a class=\"button\" title=\"Release notes (usually useless)\" target=\"_blank\" href=\"" +
                     device.releaseNoteURL +
