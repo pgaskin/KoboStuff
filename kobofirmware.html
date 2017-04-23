@@ -292,6 +292,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
         .app #KoboFirmware .col-version {
             min-width: 93px;
         }
+        .app #KoboFirmware .col-version .affiliate {
+            display: none;
+            font-size: 9px;
+        }
+        .app #KoboFirmware .col-version:hover .affiliate {
+            display: block;
+        }
         .app #KoboFirmware .col-release-date {
             min-width: 170px;
         }
@@ -407,7 +414,10 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
                 window[callback] = function (data) {
                     clearTimeout(ticket);
                     cleanup();
-                    resolve(data);
+                    resolve({
+                        url: url,
+                        data: data
+                    });
                 };
 
                 var script = document.createElement('script');
@@ -505,15 +515,16 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
             try {
                 r = {
                     modelId: modelId,
+                    affiliate: info.url.split("/")[7],
                     modelName: KoboFirmware.devices.filter(function (device) {
                         return device.modelId == modelId;
                     })[0].modelName,
-                    hardwareRevision: info.UpgradeURL.split("/")[4],
-                    releaseNoteURL: info.ReleaseNoteURL,
-                    upgradeType: info.UpgradeType,
-                    upgradeURL: info.UpgradeURL,
-                    upgradeVersion: info.UpgradeURL.replace('kobo-update-', '').replace('.zip', '').split('/').pop(),
-                    upgradeReleaseDate: KoboFirmware.util.FixDate(info.UpgradeURL.split("/")[5])
+                    hardwareRevision: info.data.UpgradeURL.split("/")[4],
+                    releaseNoteURL: info.data.ReleaseNoteURL,
+                    upgradeType: info.data.UpgradeType,
+                    upgradeURL: info.data.UpgradeURL,
+                    upgradeVersion: info.data.UpgradeURL.replace('kobo-update-', '').replace('.zip', '').split('/').pop(),
+                    upgradeReleaseDate: KoboFirmware.util.FixDate(info.data.UpgradeURL.split("/")[5])
                 };
                 return Promise.resolve(r);
             } catch (e) {
@@ -584,7 +595,7 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
                 tableCode += "<tr id=\"" + device.modelId + "\"" + (toHighlight ? " class=\"highlight\" " :
                         "class=\"nohighlight\"") + "><td class=\"col-model\">" + device.modelName + "</td><td class=\"col-hardware-revision\">" +
                     device.hardwareRevision +
-                    "</td><td class=\"col-version\">" + (device.upgradeVersion != "" ? device.upgradeVersion :
+                    "</td><td class=\"col-version\" title=\"Affiliate: " + device.affiliate + "\">" + (device.upgradeVersion != "" ? device.upgradeVersion + "<br><span class=\"affiliate\">Affiliate: " + device.affiliate + "</span>":
                         "loading") +
                     "</td><td class=\"col-release-date\">" + device.upgradeReleaseDate +
                     "</td><td class=\"col-links\"><a class=\"button\" onclick=\"ga('send',{hitType: 'event',eventCategory: 'KoboStuff',eventAction: 'DownloadFirmware',eventLabel: this.parentNode.parentNode.querySelector('td').innerHTML});\" target=\"_blank\" href=\"" +
