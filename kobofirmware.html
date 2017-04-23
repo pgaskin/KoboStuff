@@ -7,33 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Direct links to download Kobo firmware for all Kobo eReader devices including the Kobo Mini, Kobo Touch, Kobo Glo, Kobo Aura, and more.">
     <meta name="author" content="Patrick G">
-</head>
-
-<body>
-    <div style="text-align: center">
-        <a href="http://geek1011.github.io" target="_blank">Patrick G: The person who made this tool</a> | 
-        <a href="/KoboStuff" target="_blank">KoboStuff: Random stuff I know about the kobo ereaders</a> | 
-        <a href="http://geek1011.github.io/BookReader" target="_blank">BookReader: An cross-platform, customizableebook reader</a> | 
-        <a href="http://geek1011.github.io/ePubViewer" target="_blank">ePubViewer: A web based epub viewer</a> | 
-        <a href="http://geek1011.github.io/SimpleMarkdown" target="_blank">SimpleMarkdown: An easy to use markdown editor</a> | 
-        <a href="http://geek1011.github.io/BookBrowser" target="_blank">BookBrowser: A web interface to browse your epub books</a>
-    </div><br>
-    <h1>Kobo Firmware Download Links</h1>
-    <p>This tool will get the latest official firmware links directly from Kobo.</p>
-    <p><b>How to use these links: </b> After you download the correct link for your firmware, extract the zip file into the
-        <tt>.kobo</tt> folder of your Kobo eReader.</p>
-    <table id="KoboFirmware"></table>
-    <footer>
-        Tip: To link to this page with a filter (by model, hardware revision, or firmware version), <a href="javascript:void(0);"
-            onclick="window.location.hash = prompt('Filter text', (window.location.hash || '').replace('#', '')) || ''">click here</a>
-        <br><br>
-        	This tool may not work on Microsoft Internet Explorer.<br>
-        <br> A tool provided by <a href="https://github.com/geek1011">geek1011</a>. If you liked this tool, you might like
-        <a href="http://geek1011.github.io/BookReader">BookReader</a>, my eBook reading app for Windows and Linux, or
-        <a
-            href="http://geek1011.github.io/ePubViewer">ePubViewer</a>, my web-based ePub reader.
-    </footer>
-    <style>
+    <style>/*
         html,
         body {
             padding: 0;
@@ -137,8 +111,233 @@
         }
         a:hover, a:active {
             background: rgba(0,0,0,0.1);
+        }*/
+    </style>
+    <style>
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700');
+        
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        
+        body {
+background: rgba(255,255,255,1);
+background: -moz-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(255,255,255,1)), color-stop(47%, rgba(246,246,246,1)), color-stop(100%, rgba(237,237,237,1)));
+background: -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+background: -o-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+background: -ms-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+background: radial-gradient(ellipse at center, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=1 );
+        }
+        
+        .app {
+            font-size: 11pt;
+            font-family: 'Open Sans', Ubuntu, 'Segoe UI', sans-serif;
+            border: 1px solid #cccccc;
+            max-width: 800px;
+            margin: 20px auto;
+            color: #000000;
+            background: #ffffff;
+        }
+        
+        .app .nav {
+            background: #e5e5e5;
+            border-bottom: 1px solid #bbbbbb;
+        }
+        
+        .app .nav .left {
+            float: left;
+        }
+        
+        .app .nav .right {
+            float: right;
+        }
+        
+        .app .nav a.item {
+            display: inline-block;
+            color: #000000;
+            padding: 5px 5px;
+            text-decoration: none;
+        }
+        
+        .app .nav a.item.share {
+            width: 20px;
+            text-align: center;
+        }
+        
+        .app .nav .left a.item {
+            border-right: 1px solid #bbbbbb;
+        }
+        
+        .app .nav .right a.item {
+            border-left: 1px solid #bbbbbb;
+        }
+        
+        .app .nav a.item:hover {
+            background: #d5d5d5;
+        }
+        
+        .app .nav a.item:active {
+            background: #c5c5c5;
+        }
+        
+        @media only screen and (min-width: 900px) {
+            .app .main-wrap {
+                display: table;
+            }
+            
+            .app .main-wrap .main.with-sidebar {
+                display: table-row;
+            }
+            
+            .app .main-wrap .main.with-sidebar .content {
+                display: table-cell;
+                vertical-align: top;
+                width: 80%;
+            }
+            
+            .app .main-wrap .main.with-sidebar .sidebar {
+                display: table-cell;
+                vertical-align: top;
+                border-left: 1px solid #bbbbbb;
+            }
+        }
+        
+        .app .main-wrap .main .about {
+            padding: 5px 10px;
+        }
+        
+        .app .footer {
+            background: #e5e5e5;
+            border-top: 1px solid #bbbbbb;
+            padding: 10px;
+        }
+        
+        .app .table-container {
+            overflow-x: auto;
+            max-width: 100%;
+        }
+        
+        .app .table-container table {
+            border-collapse: collapse;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            min-width: 100%;
+            border-top: 1px solid #cccccc;
+        }
+
+        .app .table-container table tr th, 
+        .app .table-container table tr td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #cccccc;
+        }
+
+        .app .table-container tr:hover {
+	        background-color: #f7f7f7;
+        }
+        .app .table-container table.highlighted tr.nohighlight {
+            opacity: 0.5 !important;
+        }
+
+        .app .table-container table.highlighted tr.highlight {
+            background: #edd187;
+        }
+        .app .table-container thead {
+            background: #f5f5f5;
+        }
+        .app a.button {
+            display: inline-block;
+            color: #000000;
+            background: #e5e5e5;
+            text-align: center;
+            text-decoration: none;
+            margin: 2px 4px;
+            padding: 2px 4px;
+            vertical-align: top;
+        }
+        .app a.button:hover {
+            background: #d5d5d5;
+        }
+        .app a.button:active {
+            background: #c5c5c5;
+            transform: scale(0.9);
+        }
+        .app a.button .icon {
+            display: inline-block;
+            font-size: 14px;
+            margin-right: 4px;
+            vertical-align: middle;
+        }
+        .app a.button .text {
+            display: inline-block;
+            font-size: 12px;
+            vertical-align: middle;
+        }
+        .app .clearfix {
+            clear: both;
+        }
+        .app #KoboFirmware .col-model {
+            min-width: 140px;
+        }
+        .app #KoboFirmware .col-hardware-revision {
+            min-width: 93px;
+        }
+        .app #KoboFirmware .col-version {
+            min-width: 93px;
+        }
+        .app #KoboFirmware .col-release-date {
+            min-width: 170px;
+        }
+        .app #KoboFirmware .col-links {
+            max-width: 310px;
+            min-width: 220px;
         }
     </style>
+</head>
+
+<body>
+    <div class="app">
+        <div class="nav">
+            <div class="left">
+                <a class="item logo" href="https://github.com/geek1011">Patrick G</a><a class="item" href="https://geek1011.github.io/ePubViewer" target="_blank" title="A web-based epub viewer">ePubViewer</a><a class="item" href="https://geek1011.github.io/BookReader" target="_blank" title="A simple, cross-platform ebook reader">BookReader</a><a class="item" href="https://geek1011.github.io/SimpleMarkdown" target="_blank" title="A web-based library and viewer for your books">BookBrowser</a><a class="item" href="https://geek1011.github.io/SimpleMarkdown" target="_blank" title="A powerful markdown editor for Windows">SimpleMarkdown</a>
+            </div>
+            <div class="right">
+                <a class="item share" href="https://github.com/geek1011/KoboStuff/blob/gh-pages/kobofirmware.html" target="_blank"><i class="fa fa-code"></i></a><a class="item share" href="https://github.com/geek1011/KoboStuff" target="_blank"><i class="fa fa-github"></i></a><a class="item share" href="https://plus.google.com/share?url=https%3A//geek1011.github.io/KoboStuff/kobofirmware.html" target="_blank"><i class="fa fa-google-plus"></i></a><a class="item share" href="https://twitter.com/home?status=Download%20the%20latest%20Kobo%20eReader%20firmware%20at%20https%3A//geek1011.github.io/KoboStuff/kobofirmware.html" target="_blank"><i class="fa fa-twitter"></i></a><a class="item share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//geek1011.github.io/KoboStuff/kobofirmware.html" target="_blank"><i class="fa fa-facebook"></i></a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="main-wrap">
+            <div class="main">
+                <div class="content">
+                    <div class="about">
+                        <h1>Kobo Firmware Downloader</h1>
+                        <p>This tool will get the latest official firmware links directly from Kobo.</p>
+                        <p><b>How to use these links: </b> After you download the correct link for your firmware, extract the zip file into the
+                        <tt>.kobo</tt> folder of your Kobo eReader.</p>
+                        <p>To link to this page with a filter (by model, hardware revision, or firmware version), <a href="javascript:void(0);"
+            onclick="window.location.hash = prompt('Filter text', (window.location.hash || '').replace('#', '')) || ''">click here</a></p>
+                    </div>
+                    <div class="table-container">
+                        <table id="KoboFirmware"></table>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="footer">
+            <center>
+                Copyright 2017 <a href="https://github.com/geek1011" target="_blank">Patrick G</a>
+            </center>
+        </div>
+    </div>
+    
     <script>/* Array filter and map polyfill */
 void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,d=this.length;c<d;c++)b.push(a(this[c]));return b}),void 0===Array.prototype.filter&&(Array.prototype.filter=function(a){for(var b=[],c=0,d=this.length;c<d;c++)a(this[c])&&b.push(this[c]);return b});
     </script>
@@ -159,7 +358,12 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
         };
 
         /* CONFIG STARTS HERE */
-        KoboFirmware.affiliates = ["kobo", "rakutenbooks", "fnac", "bol"];
+        KoboFirmware.affiliates = [
+            "kobo", 
+            "rakutenbooks", 
+            "fnac", 
+            "bol"
+        ];
         KoboFirmware.devicesToCheck = {
             "00000000-0000-0000-0000-000000000310": "Kobo Touch A/B",
             "00000000-0000-0000-0000-000000000320": "Kobo Touch C",
@@ -363,7 +567,7 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
 
         KoboFirmware.UpdateTable = function () {
             var tableCode =
-                "<thead><tr><th>Kobo Model</th><th>Hardware Revision</th><th>Firmware Version</th><th>Firmware Release Date</th><th>Firmware Link</th></tr></thead><tbody>";
+                "<thead><tr><th class=\"col-model\">Kobo Model</th><th class=\"col-hardware-revision\">Hardware Revision</th><th class=\"col-version\">Firmware Version</th><th class=\"col-release-date\">Firmware Release Date</th><th class=\"col-links\">Links</th></tr></thead><tbody>";
             var highlighted = "nothighlighted";
             KoboFirmware.devices.map(function (device) {
                 var toHighlight = (
@@ -378,16 +582,16 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
                     highlighted = "highlighted";
                 }
                 tableCode += "<tr id=\"" + device.modelId + "\"" + (toHighlight ? " class=\"highlight\" " :
-                        "class=\"nohighlight\"") + "><td>" + device.modelName + "</td><td>" +
+                        "class=\"nohighlight\"") + "><td class=\"col-model\">" + device.modelName + "</td><td class=\"col-hardware-revision\">" +
                     device.hardwareRevision +
-                    "</td><td>" + (device.upgradeVersion != "" ? device.upgradeVersion :
+                    "</td><td class=\"col-version\">" + (device.upgradeVersion != "" ? device.upgradeVersion :
                         "loading") +
-                    "</td><td>" + device.upgradeReleaseDate +
-                    "</td><td><a onclick=\"ga('send',{hitType: 'event',eventCategory: 'KoboStuff',eventAction: 'DownloadFirmware',eventLabel: this.parentNode.parentNode.querySelector('td').innerHTML});\" target=\"_blank\" href=\"" +
+                    "</td><td class=\"col-release-date\">" + device.upgradeReleaseDate +
+                    "</td><td class=\"col-links\"><a class=\"button\" onclick=\"ga('send',{hitType: 'event',eventCategory: 'KoboStuff',eventAction: 'DownloadFirmware',eventLabel: this.parentNode.parentNode.querySelector('td').innerHTML});\" target=\"_blank\" href=\"" +
                     device.upgradeURL +
-                    "\">Download</a><br><a title=\"Release notes (usually useless)\" target=\"_blank\" href=\"" +
+                    "\"><i class=\"icon fa fa-download\" aria-hidden=\"true\"></i><span class=\"text\">Download</a><a class=\"button\" title=\"Release notes (usually useless)\" target=\"_blank\" href=\"" +
                     device.releaseNoteURL +
-                    "\">Release Notes</a></td></tr>";
+                    "\"><i class=\"icon fa fa-sticky-note-o\" aria-hidden=\"true\"></i><span class=\"text\">Release Notes</a></a></td></tr>";
             });
 
             tableCode += "</tbody>";
@@ -435,8 +639,6 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
         ga('create', 'UA-66226417-1', 'auto');
         ga('send', 'pageview');
     </script>
-    <a href="https://github.com/geek1011/KoboStuff/blob/gh-pages/kobofirmware.html"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67"
-            alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
 </body>
 
 </html>
