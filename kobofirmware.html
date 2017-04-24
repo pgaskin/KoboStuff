@@ -332,6 +332,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
                         <tt>.kobo</tt> folder of your Kobo eReader.</p>
                         <p>To link to this page with a filter (by model, hardware revision, or firmware version), <a href="javascript:void(0);"
             onclick="window.location.hash = prompt('Filter text (start with a ! if you want it to hide devices which do not match the filter instead of just graying them)', (window.location.hash || '').replace('#', '')) || ''">click here</a></p>
+                        <p id="KoboFirmwareCurrentFilterMessage"></p>
                     </div>
                     <div class="table-container">
                         <table id="KoboFirmware"></table>
@@ -679,6 +680,7 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
             document.getElementById("KoboFirmware").classList.remove("notonlyhighlighted");
             document.getElementById("KoboFirmware").classList.add(onlyhighlighted);
             document.getElementById("KoboFirmware").innerHTML = tableCode;
+            document.getElementById("KoboFirmwareCurrentFilterMessage").innerHTML = highlighted=="highlighted"?"Currently " + (onlyhighlighted=="onlyhighlighted"?"exclusively ":"") + "filtered by: " + window.location.hash.replace("!","").replace("#","") :"";
         };
 
         KoboFirmware.Init = function () {
