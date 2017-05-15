@@ -546,7 +546,7 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
         
         KoboFirmware.BBCodeAutoShown = false;
         KoboFirmware.ShowBBCodeForLatestRelease = function() {
-            var v = "":
+            var v = "";
             Promise.resolve(KoboFirmware.devices).then(KoboFirmware.promises.GreatestVersionedUpdateInfo).then(function getGreatestVersion(ui) {
                 return ui.upgradeVersion
             }).then(function generateBBCode(version) {
