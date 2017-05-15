@@ -582,14 +582,16 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
                 "<thead><tr><th class=\"col-model\">Kobo Model</th><th class=\"col-hardware-revision\">Hardware Revision</th><th class=\"col-version\">Firmware Version</th><th class=\"col-release-date\">Firmware Release Date</th><th class=\"col-links\">Links</th></tr></thead><tbody>";
             var highlighted = "nothighlighted";
             var onlyhighlighted = "notonlyhighlighted";
-            try {
-                if (window.location.hash.indexOf("bbcode")>-1) {
-                    if (!KoboFirmware.BBCodeAutoShown) {
-                        KoboFirmware.BBCodeAutoShown = true;
-                        KoboFirmware.ShowBBCodeForLatestRelease();
+            window.setTimeout(function() {
+                try {
+                    if (window.location.hash.indexOf("bbcode")>-1) {
+                        if (!KoboFirmware.BBCodeAutoShown) {
+                            KoboFirmware.BBCodeAutoShown = true;
+                            KoboFirmware.ShowBBCodeForLatestRelease();
+                        }
                     }
-                }
-            } catch (ex) {}
+                } catch (ex) {}
+            }, 3000);
             KoboFirmware.devices.map(function (device) {
                 var toHighlight = (window.location.hash.replace("!","").replace("#","").replace("+"," ")!=""?JSON.stringify(device).indexOf(window.location.hash.replace("!","").replace("#","").replace("+"," "))>-1:false);
                 if (toHighlight) {
