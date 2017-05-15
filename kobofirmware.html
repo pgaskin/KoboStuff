@@ -565,7 +565,7 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
                     return monthNames[monthIndex] + ' ' + day + ', ' + year;
                 })(new Date()) + ", it has been released to the devices: " + upToDateDevices.map(function(device) {
                     return device.modelName;
-                }).join(", ") + ". It has not been released to the: " + upToDateDevices.map(function(device) {
+                }).join(", ") + ". It has not been released to the: " + notUpToDateDevices.map(function(device) {
                     return device.modelName;
                 }).join(", ") + ". The affiliates used to check these firmware versions were: " + KoboFirmware.affiliates.join(", ") + ". \n\n[SIZE=5]Download Links[/SIZE]\n\n[LIST]\n[*]" + upToDateDevices.map(function(device) {
                     return "[B]" + device.modelName + "[/B] (" + device.hardwareRevision.replace("kobo", "mark ") + ") - [URL=" + device.upgradeURL + "]Download[/URL]" + " | [URL=" + device.releaseNoteURL + "]Release Notes[/URL]"
