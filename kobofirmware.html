@@ -513,10 +513,10 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
             return tel;
         };
         
-        KoboFirmware.AfterFirmwareDownload = function (rowEl, button) {
+        KoboFirmware.AfterFirmwareDownload = function (modelName) {
             console.log("Downloaded " + rowEl.querySelector('.col-model').innerHTML);
-            ga('send',{hitType: 'event',eventCategory: 'KoboStuff',eventAction: 'DownloadFirmware',eventLabel: rowEl.querySelector('.col-model').innerHTML});
-            KoboFirmware.ShowPopUp('While the firmware for your ' + rowEl.querySelector('.col-model').innerHTML + ' is downloading, why not try out another tool by Patrick G called <a target="_blank" href="http://geek1011.github.io/BookBrowser">BookBrowser</a>. It is a web-based ebook browser for viewing your epub books from any device. It even includes a web-based reader powered by <a target="_blank" href="http://geek1011.github.io/ePubViewer">ePubViewer</a>. There is also a online <a target="_blank" href="http://geek1011.github.io/BookBrowser/demo/">demo</a>.');
+            ga('send',{hitType: 'event',eventCategory: 'KoboStuff',eventAction: 'DownloadFirmware',eventLabel: modelName});
+            KoboFirmware.ShowPopUp('While the firmware for your ' + modelName + ' is downloading, why not try out another tool by Patrick G called <a target="_blank" href="http://geek1011.github.io/BookBrowser">BookBrowser</a>. It is a web-based ebook browser for viewing your epub books from any device. It even includes a web-based reader powered by <a target="_blank" href="http://geek1011.github.io/ePubViewer">ePubViewer</a>. There is also a online <a target="_blank" href="http://geek1011.github.io/BookBrowser/demo/">demo</a>.');
         };
         
         KoboFirmware.ShowFWVersions = function (modelId, modelName) {
@@ -535,14 +535,15 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
             	/* Resolve promises to actual results */
                 return Promise.all(r);
             }).then(function(device) {
-                var h = "<h3>Firmware versions by affiliate for " + modelName + "</h3><br>";
+                var h = "<h3>Other firmware versions for " + modelName + "</h3><br>";
                 device.map(function (d) {
-                    h = h + d.affiliate + ": <a href=\"" + d.upgradeURL + "\">" + d.upgradeVersion + "</a><br>";
+                    h = h + "Affiliate: " + d.affiliate + " - Firmware <a href=\"" + d.upgradeURL + "\" onclick=\"KoboFirmware.AfterFirmwareDownload('" + modelName + "')\">" + d.upgradeVersion + "</a><br>";
                 });
                 tel.innerHTML = h;
             }).catch(function (e) {
                 tel.innerHTML = 'Error getting version info';
             });
+            ga('send',{hitType: 'event',eventCategory: 'KoboStuff',eventAction: 'ShowOtherVersions',eventLabel: modelName);
         };
 
         KoboFirmware.UpdateTable = function () {
@@ -564,11 +565,11 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
                     "</td><td class=\"col-version\" title=\"Affiliate: " + device.affiliate + "\">" + (device.upgradeVersion != "" ? device.upgradeVersion + "<br><span class=\"affiliate\">Affiliate: " + device.affiliate + "</span>":
                         "loading") +
                     "</td><td class=\"col-release-date\">" + device.upgradeReleaseDate +
-                    "</td><td class=\"col-links\"><a class=\"button\" onclick=\"KoboFirmware.AfterFirmwareDownload(this.parentNode.parentNode, this);\" target=\"_blank\" href=\"" +
+                    "</td><td class=\"col-links\"><a class=\"button\" onclick=\"KoboFirmware.AfterFirmwareDownload(this.parentNode.parentNode.querySelector('.col-model').innerHTML);\" target=\"_blank\" href=\"" +
                     device.upgradeURL +
                     "\"><i class=\"icon fa fa-download\" aria-hidden=\"true\"></i><span class=\"text\">Download</a><a class=\"button\" title=\"Release notes (usually useless)\" target=\"_blank\" href=\"" +
                     device.releaseNoteURL +
-                    "\"><i class=\"icon fa fa-sticky-note-o\" aria-hidden=\"true\"></i><span class=\"text\">Release Notes</a><a href=\"javascript:void(0);\" onclick=\"KoboFirmware.ShowFWVersions('" + device.modelId + "', '" + device.modelName + "')\" class=\"button\"><i class=\"icon fa fa-search\" aria-hidden=\"true\"></i><span class=\"text\">See versions for other affiliates</a></td></tr>";
+                    "\"><i class=\"icon fa fa-sticky-note-o\" aria-hidden=\"true\"></i><span class=\"text\">Release Notes</a><a href=\"javascript:void(0);\" onclick=\"KoboFirmware.ShowFWVersions('" + device.modelId + "', '" + device.modelName + "')\" class=\"button\"><i class=\"icon fa fa-search\" aria-hidden=\"true\"></i><span class=\"text\">See other versions</a></td></tr>";
             });
 
             tableCode += "</tbody>";
