@@ -514,7 +514,6 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
         };
         
         KoboFirmware.AfterFirmwareDownload = function (modelName) {
-            console.log("Downloaded " + rowEl.querySelector('.col-model').innerHTML);
             ga('send',{hitType: 'event',eventCategory: 'KoboStuff',eventAction: 'DownloadFirmware',eventLabel: modelName});
             KoboFirmware.ShowPopUp('While the firmware for your ' + modelName + ' is downloading, why not try out another tool by Patrick G called <a target="_blank" href="http://geek1011.github.io/BookBrowser">BookBrowser</a>. It is a web-based ebook browser for viewing your epub books from any device. It even includes a web-based reader powered by <a target="_blank" href="http://geek1011.github.io/ePubViewer">ePubViewer</a>. There is also a online <a target="_blank" href="http://geek1011.github.io/BookBrowser/demo/">demo</a>.');
         };
