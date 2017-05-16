@@ -451,9 +451,10 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
             }
         }
 
+        KoboFirmware.InfoLoaded = false;
         KoboFirmware.LoadInfo = function () {
-            KoboFirmware.devices.map(function (device) {
-                Promise.all(
+            Promise.all(KoboFirmware.devices.map(function (device) {
+                return Promise.all(
                     KoboFirmware.affiliates.map(
                         KoboFirmware.promises.GetUpdateInfo.bind(null, device.modelId)
                     )
@@ -475,7 +476,7 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
                     device.upgradeVersion = e;
                     return KoboFirmware.promises.UpdateDeviceInfo(device);
                 });
-            });
+            })).then(function(){KoboFirmware.InfoLoaded = true;});
         };
         
         KoboFirmware.ShowPopUp = function (html) {
@@ -582,16 +583,21 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
                 "<thead><tr><th class=\"col-model\">Kobo Model</th><th class=\"col-hardware-revision\">Hardware Revision</th><th class=\"col-version\">Firmware Version</th><th class=\"col-release-date\">Firmware Release Date</th><th class=\"col-links\">Links</th></tr></thead><tbody>";
             var highlighted = "nothighlighted";
             var onlyhighlighted = "notonlyhighlighted";
-            window.setTimeout(function() {
+            var cfb = function () {
                 try {
-                    if (window.location.hash.indexOf("bbcode")>-1) {
-                        if (!KoboFirmware.BBCodeAutoShown) {
-                            KoboFirmware.BBCodeAutoShown = true;
-                            KoboFirmware.ShowBBCodeForLatestRelease();
+                    if (KoboFirmware.InfoLoaded) {
+                        if (window.location.hash.indexOf("bbcode")>-1) {
+                            if (!KoboFirmware.BBCodeAutoShown) {
+                                KoboFirmware.BBCodeAutoShown = true;
+                                KoboFirmware.ShowBBCodeForLatestRelease();
+                            }
                         }
+                    } else {
+                        window.setTimeout(cfb, 5000);
                     }
                 } catch (ex) {}
-            }, 5000);
+            };
+            cfb();
             KoboFirmware.devices.map(function (device) {
                 var toHighlight = (window.location.hash.replace("!","").replace("#","").replace("+"," ")!=""?JSON.stringify(device).indexOf(window.location.hash.replace("!","").replace("#","").replace("+"," "))>-1:false);
                 if (toHighlight) {
