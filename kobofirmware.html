@@ -570,7 +570,7 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
                     return device.modelName;
                 }).join(", ") + ". It has not been released to the: " + notUpToDateDevices.map(function(device) {
                     return device.modelName;
-                }).join(", ") + ". The affiliates used to check these firmware versions were: " + KoboFirmware.affiliates.join(", ") + ". \n\n[SIZE=5]Download Links[/SIZE]\n[B]Official Links: [/B]\n[LIST]\n[*]" + upToDateDevices.map(function(device) {
+                }).join(", ") + ". The affiliates used to check these firmware versions were: " + KoboFirmware.affiliates.join(", ") + ". \n\n[SIZE=5]Download Links[/SIZE]\n\n[B]Official Links: [/B]\n[LIST]\n[*]" + upToDateDevices.map(function(device) {
                     return "[B]" + device.modelName + "[/B] (" + device.hardwareRevision.replace("kobo", "mark ") + ") - [URL=" + device.upgradeURL + "]Download[/URL]" + " | [URL=" + device.releaseNoteURL + "]Release Notes[/URL]"
                 }).join("\n[*]") + "\n[/LIST]\n[B]You can also try these generic links at your own risk: [/B]\n[LIST]\n[*]" + (function(){
                     var aDownloadUrl = greatestUpdateInfo.upgradeURL;
