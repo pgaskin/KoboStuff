@@ -295,7 +295,7 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
         KoboFirmware.promises = {};
         KoboFirmware.promises.JSONP = function jsonp(timeout, jsonpurl, url) {
             var CALLBACK_CHARS = 'abcdefghijklmnopqrstuvwxyz0123456789';
-            var timeout = timeout || 7000;
+            var timeout = timeout || 15000;
 
             return new Promise(function (resolve, reject) {
                 var callback;
@@ -332,7 +332,7 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
             })
         };
 
-        KoboFirmware.promises.CustomJSONP = KoboFirmware.promises.JSONP.bind(null, 7000, "https://json2jsonp.com/");
+        KoboFirmware.promises.CustomJSONP = KoboFirmware.promises.JSONP.bind(null, 15000, "https://json2jsonp.com/");
 
         KoboFirmware.promises.GetUpdateInfo = function (modelId, affiliate) {
             return KoboFirmware.promises.CustomJSONP("https://api.kobobooks.com/1.0/UpgradeCheck/Device/" + modelId +
