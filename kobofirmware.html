@@ -578,26 +578,26 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
             ga('send',{hitType: 'event',eventCategory: 'KoboStuff',eventAction: 'BBCodeShown',eventLabel: "BBCode Generated | FW Version: " + v + " | Location hash: " + window.location.hash});
         };
 
+        KoboFirmware.cfb = function () {
+            try {
+                if (KoboFirmware.InfoLoaded) {
+                    if (window.location.hash.indexOf("bbcode")>-1) {
+                        if (!KoboFirmware.BBCodeAutoShown) {
+                            KoboFirmware.BBCodeAutoShown = true;
+                            KoboFirmware.ShowBBCodeForLatestRelease();
+                        }
+                    }
+                } else {
+                    window.setTimeout(KoboFirmware.cfb, 1000);
+                }
+            } catch (ex) {}
+        };
         KoboFirmware.UpdateTable = function () {
             var tableCode =
                 "<thead><tr><th class=\"col-model\">Kobo Model</th><th class=\"col-hardware-revision\">Hardware Revision</th><th class=\"col-version\">Firmware Version</th><th class=\"col-release-date\">Firmware Release Date</th><th class=\"col-links\">Links</th></tr></thead><tbody>";
             var highlighted = "nothighlighted";
             var onlyhighlighted = "notonlyhighlighted";
-            var cfb = function () {
-                try {
-                    if (KoboFirmware.InfoLoaded) {
-                        if (window.location.hash.indexOf("bbcode")>-1) {
-                            if (!KoboFirmware.BBCodeAutoShown) {
-                                KoboFirmware.BBCodeAutoShown = true;
-                                KoboFirmware.ShowBBCodeForLatestRelease();
-                            }
-                        }
-                    } else {
-                        window.setTimeout(cfb, 5000);
-                    }
-                } catch (ex) {}
-            };
-            cfb();
+            KoboFirmware.cfb();
             KoboFirmware.devices.map(function (device) {
                 var toHighlight = (window.location.hash.replace("!","").replace("#","").replace("+"," ")!=""?JSON.stringify(device).indexOf(window.location.hash.replace("!","").replace("#","").replace("+"," "))>-1:false);
                 if (toHighlight) {
