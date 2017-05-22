@@ -428,7 +428,7 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
                     releaseNoteURL: info.data.ReleaseNoteURL,
                     upgradeType: info.data.UpgradeType,
                     upgradeURL: info.data.UpgradeURL,
-                    upgradeVersion: info.data.UpgradeURL.replace('kobo-update-', '').replace('.zip', '').split('/').pop(),
+                    upgradeVersion: info.data.UpgradeURL.replace('kobo-update-', '').replace('.zip', '').split('/').pop().replace("AuraONE_", ""),
                     upgradeReleaseDate: KoboFirmware.util.FixDate(info.data.UpgradeURL.split("/")[5])
                 };
                 return Promise.resolve(r);
