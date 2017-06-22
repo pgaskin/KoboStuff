@@ -659,7 +659,7 @@ void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,
             document.getElementById("KoboFirmware").classList.remove("notonlyhighlighted");
             document.getElementById("KoboFirmware").classList.add(onlyhighlighted);
             document.getElementById("KoboFirmware").innerHTML = tableCode;
-            document.getElementById("KoboFirmwareCurrentFilterMessage").innerHTML = highlighted=="highlighted"?"Currently " + (onlyhighlighted=="onlyhighlighted"?"exclusively ":"") + "filtered by: " + window.location.hash.replace("!","").replace("#","").replace("+"," ") :"";
+            document.getElementById("KoboFirmwareCurrentFilterMessage").innerHTML = highlighted=="highlighted"?"Currently " + (onlyhighlighted=="onlyhighlighted"?"exclusively ":"") + "filtered by: " + window.location.hash.replace("!","").replace("#","").replace("+"," ") :". <a href=\"#\">Clear filter</a>";
         };
 
         KoboFirmware.Init = function () {
