@@ -27,14 +27,38 @@
             <div class="main">
                 <div class="content">
                     <div class="about">
-                        <h1>Kobo Firmware Downloader</h1>
-                        <p>This tool will get the latest official firmware links directly from Kobo.</p>
-                        <p><b>How to use these links: </b> After you download the correct link for your firmware, extract the zip file into the
-                        <tt>.kobo</tt> folder of your Kobo eReader.</p>
-                        <p>To generate BBCode to post to a forum, click <a href="#bbcode">here</a>, and wait for it to load.</p>
-                        <p>To link to this page with a filter (by model, hardware revision, or firmware version), <a href="javascript:void(0);"
-            onclick="window.location.hash = prompt('Filter text (start with a ! if you want it to hide devices which do not match the filter instead of just graying them)', (window.location.hash || '').replace('#', '').replace('+',' ')).replace(' ','+') || ''">click here</a></p>
-                        <p id="KoboFirmwareCurrentFilterMessage"></p>
+                        <div style="flex:1">
+                            <h1>Kobo Firmware Downloader</h1>
+                            <p>This tool will get the latest official firmware links directly from Kobo.</p>
+                            <p><b>How to use these links: </b> After you download the correct link for your firmware, extract the zip file into the
+                            <tt>.kobo</tt> folder of your Kobo eReader.</p>
+                            <p>To generate BBCode to post to a forum, click <a href="#bbcode">here</a>, and wait for it to load.</p>
+                            <p>To link to this page with a filter (by model, hardware revision, or firmware version), <a href="javascript:void(0);"
+                onclick="window.location.hash = prompt('Filter text (start with a ! if you want it to hide devices which do not match the filter instead of just graying them)', (window.location.hash || '').replace('#', '').replace('+',' ')).replace(' ','+') || ''">click here</a></p>
+                            <p id="KoboFirmwareCurrentFilterMessage"></p>
+                        </div>
+                        <div style="flex:0 0 200px;width: 200px;height:150px;background:rgba(0,0,0,0.01);">
+                            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                            <!-- KoboFirmware top ad -->
+                            <ins class="adsbygoogle"
+                                style="display:block"
+                                data-ad-client="ca-pub-3988246140848367"
+                                data-ad-slot="5968577335"
+                                data-ad-format="auto"></ins>
+                            <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                            </script>
+                        </div>
+                        <style>
+                            .about {
+                                display: flex;
+                            }
+                            @media only screen and (max-width: 400px) {
+                                .about {
+                                    display: block;
+                                }
+                            }
+                        </style>
                     </div>
                     <div class="table-container">
                         <table id="KoboFirmware"></table>
