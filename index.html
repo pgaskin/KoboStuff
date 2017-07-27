@@ -88,6 +88,9 @@
                         </tbody>
                     </table>
 
+                    <h2>Adding series metadata to kepub books</h2>
+                    <p>First, import the books. Then, open the KoboReader.sqlite file in a sqlite editor. Run the following query: <tt>select ImageId, Title, Series, SeriesNumber from content where ImageId like "file____%"</tt>, and find your book. You can then update the Series and SeriesNumber columns with the series information for the book.</p>
+
                     <h2>Getting the device information</h2>
                     <h3>The <tt>.kobo/version</tt> file</h3>
                     <p>
