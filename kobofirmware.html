@@ -15,7 +15,15 @@
         @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
 
         html {
-            background: #F4EEDB;
+            background: rgba(255, 255, 255, 1);
+            background: -moz-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+            background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(255, 255, 255, 1)), color-stop(47%, rgba(246, 246, 246, 1)), color-stop(100%, rgba(237, 237, 237, 1)));
+            background: -webkit-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+            background: -o-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+            background: -ms-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=1);
+
             color: #000000;
             font-family: 'Alegreya', serif;
         }
@@ -303,10 +311,9 @@
                 <a class="item share" href="https://github.com/geek1011/KoboStuff/blob/gh-pages/kobofirmware.html" target="_blank"><i class="fa fa-code"></i></a>
                 <a class="item share" href="https://github.com/geek1011/KoboStuff" target="_blank"><i class="fa fa-github"></i></a>
                 <a class="item share" href="https://plus.google.com/share?url=https%3A//geek1011.github.io/KoboStuff/kobofirmware.html" target="_blank"><i class="fa fa-google-plus"></i></a>
-                <a
-                    class="item share" href="https://twitter.com/home?status=Download%20the%20latest%20Kobo%20eReader%20firmware%20at%20https%3A//geek1011.github.io/KoboStuff/kobofirmware.html"
+                <a class="item share" href="https://twitter.com/home?status=Download%20the%20latest%20Kobo%20eReader%20firmware%20at%20https%3A//geek1011.github.io/KoboStuff/kobofirmware.html"
                     target="_blank"><i class="fa fa-twitter"></i></a><a class="item share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//geek1011.github.io/KoboStuff/kobofirmware.html"
-                        target="_blank"><i class="fa fa-facebook"></i></a>
+                    target="_blank"><i class="fa fa-facebook"></i></a>
             </div>
             <div class="clearfix"></div>
         </div>
@@ -1048,7 +1055,8 @@
                         .map(function (version) {
                             return [
                                 version.affiliate + " - " + version.version + " - " + '<a href="' +
-                                version.download + '" onclick="ga(\'send\', {hitType:\'event\',eventCategory:\'KoboStuff\',eventAction:\'DowloadFirmware\',eventLabel:device.model})">Download</a>'
+                                version.download +
+                                '" onclick="ga(\'send\', {hitType:\'event\',eventCategory:\'KoboStuff\',eventAction:\'DowloadFirmware\',eventLabel:device.model})">Download</a>'
                             ].join("\n");
                         }).join("<br>\n");
                     this.ga('send', {
