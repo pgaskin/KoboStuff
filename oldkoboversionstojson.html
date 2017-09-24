@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Old kobo versions to JSON</title>
+</head>
+
+<body>
+    <textarea id="in" cols="60" rows="50"></textarea>
+    <textarea id="out" cols="60" rows="50"></textarea>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.min.js"></script>
+    <script>
+        var i = document.getElementById("in");
+        var o = document.getElementById("out");
+        i.addEventListener("input", function() {
+            var t = i.value;
+            t = t.split("\n");
+            var c = t.map(function(r) {
+                return r.replace("\r","").split(",");
+            });
+            var l = {};
+            c.forEach(function(r) {
+                var d = {
+                    model: r[0],
+                    id: r[1],
+                    hardware: r[2],
+                    date: r[3],
+                    version: r[4],
+                    download: r[5]
+                };
+                l[d.id] = l[d.id] || [];
+                var n = [d];
+                n.push(...l[d.id]);
+                l[d.id] = n;
+            });
+            console.log(l);
+            o.innerHTML = JSON.stringify(l);
+        });
+    </script>
+</body>
+
+</html>
