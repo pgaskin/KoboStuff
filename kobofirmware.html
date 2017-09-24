@@ -397,7 +397,7 @@
                     <div class="image" v-if="showImage">
                         <img :src="device.image" alt="">
                     </div>
-                    <div class="model">{{ device.model }}</div>
+                    <div class="model" :title="device.id">{{ device.model }}</div>
                     <div class="hardware">{{ device.hardware }}</div>
                     <div class="version" :title="affiliatesWithLatestVersion(device)">{{ device.version }}</div>
                     <div class="date">{{ device.date }}</div>
