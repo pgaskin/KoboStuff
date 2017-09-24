@@ -241,6 +241,10 @@
             overflow-y: auto;
         }
 
+        .popup-wrapper.not-loaded {
+            display: none !important;
+        }
+
         .top {
             display: flex;
         }
@@ -395,7 +399,7 @@
             No devices matching "{{ filter }}" were found. <a v-on:click="filter=''">Click here</a> to clear the filter.
         </div>
         <p>To generate BBCode to post to a forum, click <a v-on:click="showBBCode()">here</a>.</p>
-        <div class="popup-wrapper" v-if="popup">
+        <div class="popup-wrapper not-loaded" v-if="popup">
             <div class="popup">
                 <div class="popup-content" v-html="popup"></div>
                 <div class="popup-header">
@@ -837,6 +841,7 @@
                 this.addDevice("00000000-0000-0000-0000-000000000375", "Kobo Aura Edition 2", "kobo6");
                 this.updateVersions();
                 document.getElementById("error").style.display = "none";
+                document.querySelector(".popup-wrapper").classList.remove("not-loaded");
             },
             watch: {
                 filter: function () {
