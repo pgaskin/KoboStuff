@@ -11,14 +11,18 @@
 <body>
     <textarea id="in" cols="60" rows="50"></textarea>
     <textarea id="out" cols="60" rows="50"></textarea>
+    <textarea id="bash" cols="60" rows="50"></textarea>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.min.js"></script>
     <script>
         var i = document.getElementById("in");
         var o = document.getElementById("out");
+        var b = document.getElementById("bash");
         i.addEventListener("input", function() {
             var t = i.value;
             t = t.split("\n");
-            var c = t.map(function(r) {
+            var c = t.filter(function(r) {
+                return !(r.indexOf("##")>-1)
+            }).map(function(r) {
                 return r.replace("\r","").split(",");
             });
             var l = {};
@@ -37,6 +41,15 @@
                 l[d.id] = n;
             });
             console.log(l);
+            b.innerHTML = "#!/bin/bash\n\n" + [].concat.apply([], Object.keys(l).map(function(k) {
+                return l[k];
+            })).map(function(d, i, a) {
+                return [
+                    "echo [" + (i+1).toString() + "/" + a.length.toString() + "] Downloading firmware " + d.version + " for " + d.model,
+                    "mkdir -p \"" + [d.hardware, d.model.replace("/", " "), d.id, d.date, d.version].join("/") + "\"",
+                    "wget -q --show-progress -c \"" + d.download + "\" -O \"" + [d.hardware, d.model.replace("/", " "), d.id, d.date, d.version, d.download.split("/").pop()].join("/") + "\""
+                ].join("\n");
+            }).join("\n")
             o.innerHTML = JSON.stringify(l);
         });
     </script>
