@@ -47,6 +47,11 @@
             border-radius: 3px 3px 0 0;
         }
 
+        .devices-wrapper {
+            max-width: 100vw;
+            overflow-x: auto;
+        }
+
         .devices {
             width: 100%;
         }
@@ -251,6 +256,12 @@
             display: block;
         }
 
+        @media only screen and (max-width:500px) {
+            .top {
+                display: block;
+            }
+        }
+
         .nav {
             margin: -20px;
             margin-bottom: 0;
@@ -352,29 +363,31 @@
             </div>
             <a v-on:click="useCardLayout = !useCardLayout">Toggle card layout</a>
         </div>
-        <div class="devices" :class="{ cards: useCardLayout, rows: !useCardLayout }">
-            <div class="device header">
-                <div class="image" v-if="showImage">Image</div>
-                <div class="model">Model</div>
-                <div class="hardware">Hardware</div>
-                <div class="version">FW Version</div>
-                <div class="date">FW Release Date</div>
-                <div class="links">Links</div>
-            </div>
-            <div class="device" v-for="device in filteredDevices()" :id="device.id">
-                <div class="image" v-if="showImage">
-                    <img :src="device.image" alt="">
+        <div class="devices-wrapper">
+            <div class="devices" :class="{ cards: useCardLayout, rows: !useCardLayout }">
+                <div class="device header">
+                    <div class="image" v-if="showImage">Image</div>
+                    <div class="model">Model</div>
+                    <div class="hardware">Hardware</div>
+                    <div class="version">FW Version</div>
+                    <div class="date">FW Release Date</div>
+                    <div class="links">Links</div>
                 </div>
-                <div class="model">{{ device.model }}</div>
-                <div class="hardware">{{ device.hardware }}</div>
-                <div class="version">{{ device.version }}</div>
-                <div class="date">{{ device.date }}</div>
-                <div class="links">
-                    <a class="link" v-on:click="ga('send', {hitType:'event',eventCategory:'KoboStuff',eventAction:'DowloadFirmware',eventLabel:device.model})"
-                        :href="device.download" v-if="device.download">Download</a>
-                    <a class="link" :href="device.notes" v-if="device.notes" target="_blank">Release Notes</a>
-                    <a class="link" v-on:click="showOtherAffiliates(device)" v-if="device.otherversions.length>1">Other Affiliates</a>
-                    <a class="link" v-on:click="showOtherVersions(device)" v-if="versions[device.id]">Other Versions</a>
+                <div class="device" v-for="device in filteredDevices()" :id="device.id">
+                    <div class="image" v-if="showImage">
+                        <img :src="device.image" alt="">
+                    </div>
+                    <div class="model">{{ device.model }}</div>
+                    <div class="hardware">{{ device.hardware }}</div>
+                    <div class="version">{{ device.version }}</div>
+                    <div class="date">{{ device.date }}</div>
+                    <div class="links">
+                        <a class="link" v-on:click="ga('send', {hitType:'event',eventCategory:'KoboStuff',eventAction:'DowloadFirmware',eventLabel:device.model})"
+                            :href="device.download" v-if="device.download">Download</a>
+                        <a class="link" :href="device.notes" v-if="device.notes" target="_blank">Release Notes</a>
+                        <a class="link" v-on:click="showOtherAffiliates(device)" v-if="device.otherversions.length>1">Other Affiliates</a>
+                        <a class="link" v-on:click="showOtherVersions(device)" v-if="versions[device.id]">Other Versions</a>
+                    </div>
                 </div>
             </div>
         </div>
