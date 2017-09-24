@@ -214,7 +214,7 @@
         }
 
         .popup-wrapper .popup {
-            flex: 0 0 450px;
+            flex: 0 0 500px;
             max-width: 100vw;
             display: flex;
             background: #ffffff;
@@ -1061,7 +1061,7 @@
                             return [
                                 version.affiliate + " - " + version.version + " - " + '<a href="' +
                                 version.download +
-                                '" onclick="ga(\'send\', {hitType:\'event\',eventCategory:\'KoboStuff\',eventAction:\'DowloadFirmware\',eventLabel:device.model})">Download</a>'
+                                '" onclick="ga(\'send\', {hitType:\'event\',eventCategory:\'KoboStuff\',eventAction:\'DowloadFirmware\',eventLabel:device.model})">Download</a> - <a href="' + version.notes + '">Release Notes</a>'
                             ].join("\n");
                         }).join("<br>\n");
                     this.ga('send', {
