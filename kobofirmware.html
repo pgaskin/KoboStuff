@@ -379,7 +379,7 @@
                     </div>
                     <div class="model">{{ device.model }}</div>
                     <div class="hardware">{{ device.hardware }}</div>
-                    <div class="version">{{ device.version }}</div>
+                    <div class="version" :title="affiliatesWithLatestVersion(device)">{{ device.version }}</div>
                     <div class="date">{{ device.date }}</div>
                     <div class="links">
                         <a class="link" v-on:click="ga('send', {hitType:'event',eventCategory:'KoboStuff',eventAction:'DowloadFirmware',eventLabel:device.model})"
@@ -870,6 +870,13 @@
                         otherversions: [],
                     })
                     return this.devices.length - 1;
+                },
+                affiliatesWithLatestVersion: function (device) {
+                    return "Affiliates with latest version: " + device.otherversions.filter(function (version) {
+                        return version.version == device.version;
+                    }).map(function (version) {
+                        return version.affiliate;
+                    }).join(", ");
                 },
                 updateVersions: function () {
                     this.devices.forEach(function (device, index) {
