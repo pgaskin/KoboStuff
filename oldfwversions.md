@@ -1,11 +1,12 @@
-## This list includes all the releases of the firmwares for all devices, except for the releases which are country-specific, or are known to have caused serious problems.
-## 
-## This list is based on:
-## - Before April 2014: https://wiki.mobileread.com/wiki/Kobo_Firmware_Releases
-## - After April 2014: My own script
-## 
-## model,id,hardware,date,version,download
-## 
+# Old Kobo firmware versions
+### This list includes all the releases of the firmwares for all devices, except for the releases which are country-specific, or are known to have caused serious problems.
+### 
+### This list is based on:
+### - Before April 2014: https://wiki.mobileread.com/wiki/Kobo_Firmware_Releases
+### - After April 2014: My own script
+### 
+### model,id,hardware,date,version,download
+### 
 Kobo Touch A/B,00000000-0000-0000-0000-000000000310,kobo3,October 2011,1.9.12,http://download.kobobooks.com/firmwares/kobo3/kobo3-upgrade-1.9.12.zip
 Kobo Touch A/B,00000000-0000-0000-0000-000000000310,kobo3,December 2011,1.9.16,http://download.kobobooks.com/firmwares/kobo3/bowfin/kobo3-update-1.9.16.zip
 Kobo Touch A/B,00000000-0000-0000-0000-000000000310,kobo3,March 2012,1.9.17,http://download.kobobooks.com/firmwares/kobo3/cod/kobo3-update-1.9.17.zip
