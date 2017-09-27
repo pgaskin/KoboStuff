@@ -1120,7 +1120,7 @@
                             return [
                                 version.version + " - " + version.date + ' - <a href="' +
                                 version.download +
-                                '" onclick="ga(\'send\', {hitType:\'event\',eventCategory:\'KoboStuff\',eventAction:\'DowloadFirmware\',eventLabel:"' + device.model + ' - ' + version.version + '"})">Download</a> - ' + version.hardware
+                                '" onclick="ga(\'send\', {hitType:\'event\',eventCategory:\'KoboStuff\',eventAction:\'DowloadFirmware\',eventLabel:\'' + device.model + ' - ' + version.version + '\'})">Download</a> - ' + version.hardware
                             ].join("\n");
                         }).join("<br>\n");
                     this.ga('send', {
