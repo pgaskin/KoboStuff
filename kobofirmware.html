@@ -974,11 +974,14 @@
                         document.body.appendChild(script);
                     });
                 },
-                fixDate: function (date) {
+                fixDate: function (date, version) {
                     var newDate = date;
                     newDate = newDate && newDate[0].toUpperCase() + newDate.slice(1);
                     newDate = [newDate.slice(0, newDate.search(/\d/)), " ", newDate.slice(newDate.search(
                         /\d/))].join('');
+                    if (version == "4.6.9960") {
+                        newDate = "October 2017";
+                    }
                     return newDate;
                 },
                 parseUpdateInfo: function (device, affiliate, info) {
@@ -992,7 +995,9 @@
                             affiliate: affiliate,
                             version: info.data.UpgradeURL.replace('kobo-update-', '').replace('.zip',
                                 '').split('/').pop().replace("AuraONE_", ""),
-                            date: this.fixDate(info.data.UpgradeURL.split("/")[5]),
+                            date: this.fixDate(info.data.UpgradeURL.split("/")[5], info.data.UpgradeURL.replace('kobo-update-', '').replace(
+                                '.zip',
+                                '').split('/').pop().replace("AuraONE_", "")),
                             upgradeType: info.data.UpgradeType,
                             download: info.data.UpgradeURL,
                             notes: info.data.ReleaseNoteURL,
@@ -1003,7 +1008,9 @@
                             version: info.data.UpgradeURL.replace('kobo-update-', '').replace(
                                 '.zip',
                                 '').split('/').pop().replace("AuraONE_", ""),
-                            date: this.fixDate(info.data.UpgradeURL.split("/")[5]),
+                            date: this.fixDate(info.data.UpgradeURL.split("/")[5], info.data.UpgradeURL.replace('kobo-update-', '').replace(
+                                '.zip',
+                                '').split('/').pop().replace("AuraONE_", "")),
                             upgradeType: info.data.UpgradeType,
                             download: info.data.UpgradeURL,
                             notes: info.data.ReleaseNoteURL
