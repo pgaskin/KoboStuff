@@ -1000,7 +1000,7 @@
                             hardware: device.hardware,
                             affiliate: affiliate,
                             version: info.data.UpgradeURL.replace('kobo-update-', '').replace('.zip',
-                                '').split('/').pop().replace("AuraONE_", ""),
+                                '').split('/').pop().replace("AuraONE_", "").replace("kobo-limitededitionupdate-", ""),
                             date: this.fixDate(info.data.UpgradeURL.split("/")[5], info.data.UpgradeURL.replace('kobo-update-', '').replace(
                                 '.zip',
                                 '').split('/').pop().replace("AuraONE_", "")),
