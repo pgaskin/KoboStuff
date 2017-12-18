@@ -142,6 +142,8 @@ Kobo Glo,00000000-0000-0000-0000-000000000330,kobo4,May 2017,4.4.9298,http://dow
 Kobo Glo,00000000-0000-0000-0000-000000000330,kobo4,July 2017,4.5.9587,http://download.kobobooks.com/firmwares/kobo4/July2017/kobo-update-4.5.9587.zip
 Kobo Glo,00000000-0000-0000-0000-000000000330,kobo4,October 2017,4.6.9960,http://download.kobobooks.com/firmwares/kobo4/July2017/kobo-update-4.6.9960.zip
 Kobo Glo,00000000-0000-0000-0000-000000000330,kobo4,October 2017,4.6.9995,http://download.kobobooks.com/firmwares/kobo4/Oct2017/kobo-update-4.6.9995.zip
+Kobo Glo,00000000-0000-0000-0000-000000000330,kobo4,November 2017,4.7.10075,http://download.kobobooks.com/firmwares/kobo4/rakuten-4.6/kobo-update-4.6.10075.zip
+Kobo Glo,00000000-0000-0000-0000-000000000330,kobo4,December 2017,4.7.10413,http://download.kobobooks.com/firmwares/kobo4/Dec2017/kobo-update-4.7.10413.zip
 #
 Kobo Glo HD,00000000-0000-0000-0000-000000000371,kobo6,April 2015,3.14.0,http://download.kobobooks.com/firmwares/kobo6/glohd-3140/kobo-update-3.14.0.zip
 Kobo Glo HD,00000000-0000-0000-0000-000000000371,kobo6,April 2015,3.15.0,http://download.kobobooks.com/firmwares/kobo6/april2015/kobo-update-3.15.0.zip
@@ -162,6 +164,8 @@ Kobo Glo HD,00000000-0000-0000-0000-000000000371,kobo6,May 2017,4.4.9298,http://
 Kobo Glo HD,00000000-0000-0000-0000-000000000371,kobo6,July 2017,4.5.9587,http://download.kobobooks.com/firmwares/kobo6/July2017/kobo-update-4.5.9587.zip
 Kobo Glo HD,00000000-0000-0000-0000-000000000371,kobo6,October 2017,4.6.9960,http://download.kobobooks.com/firmwares/kobo6/July2017/kobo-update-4.6.9960.zip
 Kobo Glo HD,00000000-0000-0000-0000-000000000371,kobo6,October 2017,4.6.9995,http://download.kobobooks.com/firmwares/kobo6/Oct2017/kobo-update-4.6.9995.zip
+Kobo Glo HD,00000000-0000-0000-0000-000000000371,kobo6,November 2017,4.7.10075,http://download.kobobooks.com/firmwares/kobo6/rakuten-4.6/kobo-update-4.6.10075.zip
+Kobo Glo HD,00000000-0000-0000-0000-000000000371,kobo6,December 2017,4.7.10413,http://download.kobobooks.com/firmwares/kobo6/Dec2017/kobo-update-4.7.10413.zip
 #
 Kobo Touch 2.0,00000000-0000-0000-0000-000000000372,kobo6,September 2015,3.18.0,http://download.kobobooks.com/firmwares/kobo6/september2015/kobo-update-3.18.0.zip
 Kobo Touch 2.0,00000000-0000-0000-0000-000000000372,kobo6,December 2015,3.19.5613,http://download.kobobooks.com/firmwares/kobo6/december2015/kobo-update-3.19.5613.zip
@@ -177,6 +181,8 @@ Kobo Touch 2.0,00000000-0000-0000-0000-000000000372,kobo6,May 2017,4.4.9298,http
 Kobo Touch 2.0,00000000-0000-0000-0000-000000000372,kobo6,July 2017,4.5.9587,http://download.kobobooks.com/firmwares/kobo6/July2017/kobo-update-4.5.9587.zip
 Kobo Touch 2.0,00000000-0000-0000-0000-000000000372,kobo6,October 2017,4.6.9960,http://download.kobobooks.com/firmwares/kobo6/July2017/kobo-update-4.6.9960.zip
 Kobo Touch 2.0,00000000-0000-0000-0000-000000000372,kobo6,October 2017,4.6.9995,http://download.kobobooks.com/firmwares/kobo6/Oct2017/kobo-update-4.6.9995.zip
+Kobo Touch 2.0,00000000-0000-0000-0000-000000000372,kobo6,November 2017,4.7.10075,http://download.kobobooks.com/firmwares/kobo6/rakuten-4.6/kobo-update-4.6.10075.zip
+Kobo Touch 2.0,00000000-0000-0000-0000-000000000372,kobo6,December 2017,4.7.10413,http://download.kobobooks.com/firmwares/kobo6/Dec2017/kobo-update-4.7.10413.zip
 #
 Kobo Aura,00000000-0000-0000-0000-000000000360,kobo5,October 2013,2.10.0,http://download.kobobooks.com/firmwares/kobo5/libertyvillage/kobo-update-2.10.0.zip
 Kobo Aura,00000000-0000-0000-0000-000000000360,kobo5,December 2013,3.1.0,http://download.kobobooks.com/firmwares/kobo5/blackfriday2013/kobo-update-3.1.0.zip
@@ -205,6 +211,8 @@ Kobo Aura,00000000-0000-0000-0000-000000000360,kobo5,May 2017,4.4.9298,http://do
 Kobo Aura,00000000-0000-0000-0000-000000000360,kobo5,July 2017,4.5.9587,http://download.kobobooks.com/firmwares/kobo5/July2017/kobo-update-4.5.9587.zip
 Kobo Aura,00000000-0000-0000-0000-000000000360,kobo5,October 2017,4.6.9960,http://download.kobobooks.com/firmwares/kobo5/July2017/kobo-update-4.6.9960.zip
 Kobo Aura,00000000-0000-0000-0000-000000000360,kobo5,October 2017,4.6.9995,http://download.kobobooks.com/firmwares/kobo5/Oct2017/kobo-update-4.6.9995.zip
+Kobo Aura,00000000-0000-0000-0000-000000000360,kobo5,November 2017,4.7.10075,http://download.kobobooks.com/firmwares/kobo5/rakuten-4.6/kobo-update-4.6.10075.zip
+Kobo Aura,00000000-0000-0000-0000-000000000360,kobo5,December 2017,4.7.10413,http://download.kobobooks.com/firmwares/kobo5/Dec2017/kobo-update-4.7.10413.zip
 #
 Kobo Aura HD,00000000-0000-0000-0000-000000000350,kobo4,April 2013,2.5.0,http://download.kobobooks.com/firmwares/kobo4/goleafsgo/kobo-update-2.5.0.zip
 Kobo Aura HD,00000000-0000-0000-0000-000000000350,kobo4,April 2013,2.5.1,http://download.kobobooks.com/firmwares/kobo4/leafs2013/kobo-update-2.5.1.zip
@@ -242,6 +250,8 @@ Kobo Aura HD,00000000-0000-0000-0000-000000000350,kobo4,May 2017,4.4.9298,http:/
 Kobo Aura HD,00000000-0000-0000-0000-000000000350,kobo4,July 2017,4.5.9587,http://download.kobobooks.com/firmwares/kobo4/July2017/kobo-update-4.5.9587.zip
 Kobo Aura HD,00000000-0000-0000-0000-000000000350,kobo4,October 2017,4.6.9960,http://download.kobobooks.com/firmwares/kobo4/July2017/kobo-update-4.6.9960.zip
 Kobo Aura HD,00000000-0000-0000-0000-000000000350,kobo4,October 2017,4.6.9995,http://download.kobobooks.com/firmwares/kobo4/Oct2017/kobo-update-4.6.9995.zip
+Kobo Aura HD,00000000-0000-0000-0000-000000000350,kobo4,November 2017,4.7.10075,http://download.kobobooks.com/firmwares/kobo4/rakuten-4.6/kobo-update-4.6.10075.zip
+Kobo Aura HD,00000000-0000-0000-0000-000000000350,kobo4,December 2017,4.7.10413,http://download.kobobooks.com/firmwares/kobo4/Dec2017/kobo-update-4.7.10413.zip
 #
 Kobo Aura H2O,00000000-0000-0000-0000-000000000370,kobo5,August 2014,3.7.0,http://download.kobobooks.com/firmwares/kobo5/dahlialaunch/kobo-update-3.7.0.zip
 Kobo Aura H2O,00000000-0000-0000-0000-000000000370,kobo5,August 2013,3.8.0,http://download.kobobooks.com/firmwares/kobo5/intimeforlabourday2014/kobo-update-3.8.0.zip
@@ -265,11 +275,15 @@ Kobo Aura H2O,00000000-0000-0000-0000-000000000370,kobo5,May 2017,4.4.9298,http:
 Kobo Aura H2O,00000000-0000-0000-0000-000000000370,kobo5,July 2017,4.5.9587,http://download.kobobooks.com/firmwares/kobo5/July2017/kobo-update-4.5.9587.zip
 Kobo Aura H2O,00000000-0000-0000-0000-000000000370,kobo5,October 2017,4.6.9960,http://download.kobobooks.com/firmwares/kobo5/July2017/kobo-update-4.6.9960.zip
 Kobo Aura H2O,00000000-0000-0000-0000-000000000370,kobo5,October 2017,4.6.9995,http://download.kobobooks.com/firmwares/kobo5/Oct2017/kobo-update-4.6.9995.zip
+Kobo Aura H2O,00000000-0000-0000-0000-000000000370,kobo5,November 2017,4.7.10075,http://download.kobobooks.com/firmwares/kobo5/rakuten-4.6/kobo-update-4.6.10075.zip
+Kobo Aura H2O,00000000-0000-0000-0000-000000000370,kobo5,December 2017,4.7.10413,http://download.kobobooks.com/firmwares/kobo5/Dec2017/kobo-update-4.7.10413.zip
 #
 Kobo Aura H2O Edition 2,00000000-0000-0000-0000-000000000374,kobo6,May 2017,4.4.9298,http://download.kobobooks.com/firmwares/kobo6/May2017/kobo-update-4.4.9298.zip
 Kobo Aura H2O Edition 2,00000000-0000-0000-0000-000000000374,kobo6,May 2017,4.3.9349,http://download.kobobooks.com/firmwares/kobo6/May2017/AuraONE_kobo-update-4.4.9349.zip
 Kobo Aura H2O Edition 2,00000000-0000-0000-0000-000000000374,kobo6,July 2017,4.5.9587,http://download.kobobooks.com/firmwares/kobo6/July2017/kobo-update-4.5.9587.zip
 Kobo Aura H2O Edition 2,00000000-0000-0000-0000-000000000374,kobo6,October 2017,4.6.9960,http://download.kobobooks.com/firmwares/kobo6/July2017/kobo-update-4.6.9960.zip
+Kobo Aura H2O Edition 2,00000000-0000-0000-0000-000000000374,kobo6,November 2017,4.7.10075,http://download.kobobooks.com/firmwares/kobo6/rakuten-4.6/kobo-update-4.6.10075.zip
+Kobo Aura H2O Edition 2,00000000-0000-0000-0000-000000000374,kobo6,December 2017,4.7.10413,http://download.kobobooks.com/firmwares/kobo6/Dec2017/kobo-update-4.7.10413.zip
 #
 Kobo Aura ONE,00000000-0000-0000-0000-000000000373,kobo6,September 2016,4.0.7523,http://download.kobobooks.com/firmwares/kobo6/september2016/kobo-update-4.0.7523.zip
 Kobo Aura ONE,00000000-0000-0000-0000-000000000373,kobo6,November 2016,4.1.7729,http://download.kobobooks.com/firmwares/kobo6/October2016/kobo-update-4.1.7729.zip
@@ -287,6 +301,10 @@ Kobo Aura ONE,00000000-0000-0000-0000-000000000373,kobo6,May 2017,4.3.9349,http:
 Kobo Aura ONE,00000000-0000-0000-0000-000000000373,kobo6,July 2017,4.5.9587,http://download.kobobooks.com/firmwares/kobo6/July2017/kobo-update-4.5.9587.zip
 Kobo Aura ONE,00000000-0000-0000-0000-000000000373,kobo6,October 2017,4.6.9960,http://download.kobobooks.com/firmwares/kobo6/July2017/kobo-update-4.6.9960.zip
 Kobo Aura ONE,00000000-0000-0000-0000-000000000373,kobo6,October 2017,4.6.9995,http://download.kobobooks.com/firmwares/kobo6/Oct2017/kobo-update-4.6.9995.zip
+Kobo Aura ONE,00000000-0000-0000-0000-000000000373,kobo6,November 2017,4.7.10075,http://download.kobobooks.com/firmwares/kobo6/rakuten-4.6/kobo-update-4.6.10075.zip
+Kobo Aura ONE,00000000-0000-0000-0000-000000000373,kobo6,December 2017,4.7.10413,http://download.kobobooks.com/firmwares/kobo6/Dec2017/kobo-update-4.7.10413.zip
+#
+Kobo Aura ONE Limited Edition,00000000-0000-0000-0000-000000000381,kobo6,December 2017,4.7.10364,http://download.kobobooks.com/firmwares/kobo6/Dec2017/kobo-limitededitionupdate-4.7.10364.zip
 #
 Kobo Aura Edition 2,00000000-0000-0000-0000-000000000375,kobo6,September 2016,4.0.7523,http://download.kobobooks.com/firmwares/kobo6/september2016/kobo-update-4.0.7523.zip
 Kobo Aura Edition 2,00000000-0000-0000-0000-000000000375,kobo6,November 2016,4.1.7729,http://download.kobobooks.com/firmwares/kobo6/October2016/kobo-update-4.1.7729.zip
@@ -304,3 +322,5 @@ Kobo Aura Edition 2,00000000-0000-0000-0000-000000000375,kobo6,May 2017,4.3.9349
 Kobo Aura Edition 2,00000000-0000-0000-0000-000000000375,kobo6,July 2017,4.5.9587,http://download.kobobooks.com/firmwares/kobo6/July2017/kobo-update-4.5.9587.zip
 Kobo Aura Edition 2,00000000-0000-0000-0000-000000000375,kobo6,October 2017,4.6.9960,http://download.kobobooks.com/firmwares/kobo6/July2017/kobo-update-4.6.9960.zip
 Kobo Aura Edition 2,00000000-0000-0000-0000-000000000375,kobo6,October 2017,4.6.9995,http://download.kobobooks.com/firmwares/kobo6/Oct2017/kobo-update-4.6.9995.zip
+Kobo Aura Edition 2,00000000-0000-0000-0000-000000000375,kobo6,November 2017,4.7.10075,http://download.kobobooks.com/firmwares/kobo6/rakuten-4.6/kobo-update-4.6.10075.zip
+Kobo Aura Edition 2,00000000-0000-0000-0000-000000000375,kobo6,December 2017,4.7.10413,http://download.kobobooks.com/firmwares/kobo6/Dec2017/kobo-update-4.7.10413.zip
