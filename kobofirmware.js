@@ -255,7 +255,7 @@ function getVersions() {
             els.notes.onclick = (function (device, event) {
                 event.preventDefault();
                 document.querySelector(".modal-wrapper.notes .title").innerHTML = "Release notes for " + device.latest.version;
-                window.open(device.latest.notes, "notes");
+                window.open(device.latest.notes.replace("http:", "https:"), "notes");
                 document.querySelector(".modal-wrapper.notes").classList.remove("hidden");
             }).bind(null, device);
 
