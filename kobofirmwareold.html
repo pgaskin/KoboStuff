@@ -9,538 +9,1273 @@
     <meta name="author" content="Patrick G">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Alegreya:400,400i,700,700i,900,900i');
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css');
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+
+        html {
+            background: rgba(255, 255, 255, 1);
+            background: -moz-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+            background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(255, 255, 255, 1)), color-stop(47%, rgba(246, 246, 246, 1)), color-stop(100%, rgba(237, 237, 237, 1)));
+            background: -webkit-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+            background: -o-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+            background: -ms-radial-gradient(center, ellipse cover, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+            background: radial-gradient(ellipse at center, rgba(255, 255, 255, 1) 0%, rgba(246, 246, 246, 1) 47%, rgba(237, 237, 237, 1) 100%);
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed', GradientType=1);
+
+            color: #000000;
+            font-family: 'Alegreya', serif;
+            font-size: 18px;
+        }
+
+        a,
+        a:link,
+        a:visited {
+            color: #2C4A52;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .content {
+            display: block;
+            background: #FEFEFE;
+            padding: 20px;
+            margin: 10px auto;
+            max-width: 1024px;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .devices-wrapper {
+            max-width: 100vw;
+            overflow-x: auto;
+        }
+
+        .devices {
+            width: 100%;
+        }
+
+        .devices.rows {
+            display: table;
+            border-collapse: collapse;
+        }
+
+        .devices.rows>.device {
+            display: table-row;
+        }
+
+        .devices.rows>.device:nth-child(odd) {
+            background: rgba(0, 0, 64, 0.025);
+        }
+
+        .devices.rows>.device:hover {
+            background: rgba(0, 0, 64, 0.075);
+        }
+
+        .devices.rows>.device>div {
+            display: table-cell;
+            padding: 12px 5px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+            vertical-align: middle;
+        }
+
+        .devices.rows>.device>div>img {
+            display: block;
+            max-width: 100%;
+            max-height: 50px;
+        }
+
+        .devices.rows>.device.header {
+            font-weight: 700;
+            background: rgba(0, 0, 64, 0.2);
+        }
+
+        .devices.rows>.device.header>div {
+            /*text-align: center;*/
+        }
+
+        .devices.rows>.device>div.links>a.link,
+        .devices.rows>.device>div.links>a.link:link,
+        .devices.rows>.device>div.links>a.link:visited {
+            display: inline-block;
+            font-size: 0.9em;
+            border: 1px solid #537072;
+            color: #537072;
+            margin-bottom: 6px;
+            margin-right: 3px;
+            border-radius: 3px;
+            padding: 2px 5px;
+        }
+
+        .devices.rows>.device>div.links>a.link:hover {
+            background: #D2E8E9;
+        }
+
+        .devices.rows>.device>div.links>a.link:active {
+            background: #2C4A52;
+            border: 1px solid #2C4A52;
+            color: #FFFFFF;
+        }
+
+        .devices.cards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: stretch;
+        }
+
+        .devices.cards>.device {
+            flex: 0 0 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: stretch;
+            background: #FFFFFF;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
+            margin: 10px;
+            border-radius: 2px;
+            padding: 15px;
+            overflow: hidden;
+        }
+
+        .devices.cards>.device>div {
+            flex: 0 0 auto;
+            display: block;
+        }
+
+        .devices.cards>.device>div>img {
+            display: block;
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .devices.cards>.device>div.image {
+            margin-bottom: 10px;
+        }
+
+        .devices.cards>.device>div.model {
+            font-size: 1.4em;
+            padding: 5px 0;
+        }
+
+        .devices.cards>.device>div.hardware {
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .devices.cards>.device>div.version {
+            font-size: 1.2em;
+        }
+
+        .devices.cards>.device>div.date {
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .devices.cards>.device>div.links {
+            font-size: 1em;
+            padding-top: 10px;
+        }
+
+        .devices.cards>.device>div.links>a.link,
+        .devices.cards>.device>div.links>a.link:link,
+        .devices.cards>.device>div.links>a.link:visited {
+            display: inline-block;
+            font-size: 0.9em;
+            border: 1px solid #537072;
+            color: #537072;
+            margin-bottom: 6px;
+            margin-right: 3px;
+            border-radius: 3px;
+            padding: 2px 5px;
+        }
+
+        .devices.cards>.device>div.links>a.link:hover {
+            background: #D2E8E9;
+        }
+
+        .devices.cards>.device>div.links>a.link:active {
+            background: #2C4A52;
+            border: 1px solid #2C4A52;
+            color: #FFFFFF;
+        }
+
+        .devices.cards>.device.header {
+            display: none;
+        }
+
+        .popup-wrapper {
+            display: flex;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .popup-wrapper .popup {
+            flex: 0 0 500px;
+            max-width: 100vw;
+            display: flex;
+            background: #ffffff;
+            max-height: 60vh;
+        }
+
+        .popup-wrapper .popup .popup-header {
+            flex: 0 0 auto;
+            display: block;
+            padding: 10px;
+            border-left: 1px solid rgba(0, 0, 0, 0.2);
+            text-align: right;
+        }
+
+        .popup-wrapper .popup .popup-content {
+            flex: 1;
+            display: block;
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        .popup-wrapper.not-loaded {
+            display: none !important;
+        }
+
+        .top {
+            display: flex;
+        }
+
+        .top-text {
+            flex: 1;
+            display: block;
+        }
+
+        .top-ad {
+            flex: 0 0 300px;
+            display: block;
+            text-align: center;
+            padding: 10px 5px;
+            align-self: stretch;
+            background: rgba(0,0,64,0.05);
+        }
+
+        .bottom-ad {
+            display: block;
+            text-align: center;
+            padding: 10px 5px;
+            align-self: stretch;
+            background: rgba(0,0,64,0.05);
+        }
+
+        .nav {
+            margin: -20px;
+            margin-bottom: 0;
+            background: #e5e5e5;
+            border-bottom: 1px solid #bbbbbb;
+        }
+
+        .nav .left {
+            float: left;
+        }
+
+        .nav .right {
+            float: right;
+        }
+
+        .nav a.item {
+            display: inline-block;
+            color: #000000;
+            padding: 5px 5px;
+            text-decoration: none;
+        }
+
+        .nav a.item.share {
+            width: 20px;
+            text-align: center;
+        }
+
+        .nav .left a.item {
+            border-right: 1px solid #bbbbbb;
+        }
+
+        .nav .right a.item {
+            border-left: 1px solid #bbbbbb;
+        }
+
+        .nav a.item:hover {
+            background: #d5d5d5;
+        }
+
+        .nav a.item:active {
+            background: #c5c5c5;
+        }
+
+        .clearfix {
+            display: block;
+            clear: both;
+        }
+
+        @media only screen and (max-width:500px) {
+            .top {
+                display: block;
+            }
+
+            .nav .right,
+            .no-mobile {
+                display: none !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div class="app">
+    <div id="error" class="content" style="z-index:1000">There was an error loading the page. Please <a href="https://github.com/geek1011/KoboStuff/issues/new">report an issue</a>        or email me at <tt>geek1011 (at) outlook (dot) com</tt> and tell me what happened and which browser you were using.
+        You can also try the <a href="kobofirmwareold.html">old version</a>.</div>
+
+    <div class="content" id="app">
         <div class="nav">
             <div class="left">
-                <a class="item logo" href="https://github.com/geek1011">Patrick G</a><a class="item" href="https://geek1011.github.io/ePubViewer" target="_blank" title="A web-based epub viewer">ePubViewer</a><a class="item" href="https://geek1011.github.io/BookBrowser" target="_blank" title="A web-based library and viewer for your books">BookBrowser</a><a class="item" href="https://geek1011.github.io/SimpleMarkdown" target="_blank" title="A powerful markdown editor for Windows">SimpleMarkdown</a>
+                <a class="item logo" href="https://github.com/geek1011">Patrick G</a><a class="item" href="https://geek1011.github.io/ePubViewer"
+                    target="_blank" title="A web-based epub viewer">ePubViewer</a><a class="item" href="https://geek1011.github.io/BookBrowser"
+                    target="_blank" title="A web-based library and viewer for your books">BookBrowser</a><a class="item no-mobile" href="https://geek1011.github.io/SimpleMarkdown"
+                    target="_blank" title="A powerful markdown editor for Windows">SimpleMarkdown</a><a class="item no-mobile" href="https://geek1011.github.io/kepubify"
+                    target="_blank" title="Convert epubs to kepubs">kepubify</a>
             </div>
             <div class="right">
-                <a class="item share" href="https://github.com/geek1011/KoboStuff/blob/gh-pages/kobofirmware.html" target="_blank"><i class="fa fa-code"></i></a><a class="item share" href="https://github.com/geek1011/KoboStuff" target="_blank"><i class="fa fa-github"></i></a><a class="item share" href="https://plus.google.com/share?url=https%3A//geek1011.github.io/KoboStuff/kobofirmware.html" target="_blank"><i class="fa fa-google-plus"></i></a><a class="item share" href="https://twitter.com/home?status=Download%20the%20latest%20Kobo%20eReader%20firmware%20at%20https%3A//geek1011.github.io/KoboStuff/kobofirmware.html" target="_blank"><i class="fa fa-twitter"></i></a><a class="item share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//geek1011.github.io/KoboStuff/kobofirmware.html" target="_blank"><i class="fa fa-facebook"></i></a>
+                <a class="item share" href="https://github.com/geek1011/KoboStuff/blob/gh-pages/kobofirmware.html" target="_blank"><i class="fa fa-code"></i></a>
+                <a class="item share" href="https://github.com/geek1011/KoboStuff" target="_blank"><i class="fa fa-github"></i></a>
+                <a class="item share" href="https://plus.google.com/share?url=https%3A//geek1011.github.io/KoboStuff/kobofirmware.html" target="_blank"><i class="fa fa-google-plus"></i></a>
+                <a class="item share" href="https://twitter.com/home?status=Download%20the%20latest%20Kobo%20eReader%20firmware%20at%20https%3A//geek1011.github.io/KoboStuff/kobofirmware.html"
+                    target="_blank"><i class="fa fa-twitter"></i></a><a class="item share" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//geek1011.github.io/KoboStuff/kobofirmware.html"
+                    target="_blank"><i class="fa fa-facebook"></i></a>
             </div>
             <div class="clearfix"></div>
         </div>
-        <div class="main-wrap">
-            <div class="main">
-                <div class="content">
-                    <div class="about">
-                        <div style="flex:1">
-                            <h1>Kobo Firmware Downloader</h1>
-                            <p>This tool will get the latest official firmware links directly from Kobo.</p>
-                            <p><b>How to use these links: </b> After you download the correct link for your firmware, extract the zip file into the
-                            <tt>.kobo</tt> folder of your Kobo eReader.</p>
-                            <p>To generate BBCode to post to a forum, click <a href="#bbcode">here</a>, and wait for it to load.</p>
-                            <p>To link to this page with a filter (by model, hardware revision, or firmware version), <a href="javascript:void(0);"
-                onclick="window.location.hash = prompt('Filter text (start with a ! if you want it to hide devices which do not match the filter instead of just graying them)', (window.location.hash || '').replace('#', '').replace('+',' ')).replace(' ','+') || ''">click here</a></p>
-                            <p id="KoboFirmwareCurrentFilterMessage"></p>
-                        </div>
-                        <div style="flex:0 0 300px;width: 300px;height:250px;background:rgba(0,0,0,0.01);">
-                            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- New kobofirmware top ad -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:300px;height:250px"
-     data-ad-client="ca-pub-3988246140848367"
-     data-ad-slot="8642842137"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-                        </div>
-                        <style>
-                            .about {
-                                display: flex;
-                            }
-                            @media only screen and (max-width: 500px) {
-                                .about {
-                                    display: block;
-                                }
-                            }
-                        </style>
-                    </div>
-                    <div class="table-container">
-                        <table id="KoboFirmware"></table>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
+
+        <div class="top">
+            <div class="top-text">
+                <h1>Kobo Firmware Downloader</h1>
+                <p>This tool will get the latest official firmware links directly from Kobo.</p>
+                <p><b>How to use these links: </b> After you download the correct link for your firmware, extract the zip file
+                    into the
+                    <tt>.kobo</tt> folder of your Kobo eReader.</p>
+                <p>To link to this page with a filter (by model, hardware revision, or current firmware version), enter a filter below,
+                    and then copy the url of the page. You can view older version by clicking the other versions button.</p>
+                <p>If this page is not working, you can try the <a href="kobofirmwareold.html">old version</a></p>
+            </div>
+            <div class="top-ad">
+                <script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- New kobofirmware top ad -->
+                <ins class="adsbygoogle" style="display:inline-block;width:300px;height:250px" data-ad-client="ca-pub-3988246140848367" data-ad-slot="8642842137"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
             </div>
         </div>
-        <div>
+
+        <div style="display: flex;justify-content:space-between;padding: 10px 5px;background: rgba(0, 0, 64, 0.08);">
+            <div>
+                Filter: <input autocomplete="off" type="text" v-model="filter" placeholder="Filter devices...">
+            </div>
+            <a v-on:click="useCardLayout = !useCardLayout">Toggle card layout</a>
+        </div>
+        <div class="devices-wrapper">
+            <div class="devices" :class="{ cards: useCardLayout, rows: !useCardLayout }">
+                <div class="device header">
+                    <div class="image" v-if="showImage">Image</div>
+                    <div class="model">Model</div>
+                    <div class="hardware">Hardware</div>
+                    <div class="version">FW Version</div>
+                    <div class="date">FW Release Date</div>
+                    <div class="links">Links</div>
+                </div>
+                <div class="device" v-for="device in filteredDevices()" :id="device.id">
+                    <div class="image" v-if="showImage">
+                        <img :src="device.image" alt="">
+                    </div>
+                    <div class="model" :title="device.id">{{ device.model }}</div>
+                    <div class="hardware">{{ device.hardware }}</div>
+                    <div class="version" :title="affiliatesWithLatestVersion(device)">{{ device.version }}</div>
+                    <div class="date">{{ device.date }}</div>
+                    <div class="links">
+                        <a class="link" v-on:click="ga('send', {hitType:'event',eventCategory:'KoboStuff',eventAction:'DowloadFirmware',eventLabel:device.model})"
+                            :href="device.download" v-if="device.download">Download</a>
+                        <a class="link" :href="device.notes" v-if="device.notes" target="_blank">Release Notes</a>
+                        <a class="link" v-on:click="showOtherAffiliates(device)" v-if="device.otherversions.length>1">Other Affiliates</a>
+                        <a class="link" v-on:click="showOtherVersions(device)" v-if="versions[device.id]">Other Versions</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="no-devices-found" v-if="filteredDevices().length<1">
+            No devices matching "{{ filter }}" were found. <a v-on:click="filter=''">Click here</a> to clear the filter.
+        </div>
+        <p>To generate BBCode to post to a forum, click <a v-on:click="showBBCode()">here</a>.</p>
+        <div class="popup-wrapper not-loaded" v-if="popup">
+            <div class="popup">
+                <div class="popup-content" v-html="popup"></div>
+                <div class="popup-header">
+                    <a v-on:click="popup=''">Close</a>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-ad">
             <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- KoboFirmware bottom banner -->
-<ins class="adsbygoogle"
-     style="display:block;width:100%;height:120px;margin: 30px 0;"
-     data-ad-client="ca-pub-3988246140848367"
-     data-ad-slot="4432968537"
-     data-ad-format="auto"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+            <!-- KoboFirmware bottom banner -->
+            <ins class="adsbygoogle" style="display:block;width:100%;height:120px;margin: 30px 0;" data-ad-client="ca-pub-3988246140848367"
+                data-ad-slot="4432968537" data-ad-format="auto"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
-        <div class="footer">
-            <center>
-                Copyright 2017 <a href="https://github.com/geek1011" target="_blank">Patrick G</a>
-            </center>
-        </div>
+
+        <br>
+        <center>
+            Copyright 2018 Patrick G
+        </center>
     </div>
-    
-    <script>/* Array filter and map polyfill */
-void 0===Array.prototype.map&&(Array.prototype.map=function(a){for(var b=[],c=0,d=this.length;c<d;c++)b.push(a(this[c]));return b}),void 0===Array.prototype.filter&&(Array.prototype.filter=function(a){for(var b=[],c=0,d=this.length;c<d;c++)a(this[c])&&b.push(this[c]);return b});
-    </script>
-    <script>/* Promise polyfill */
-!function(t,e){"object"==typeof exports&&"undefined"!=typeof module?module.exports=e():"function"==typeof define&&define.amd?define(e):t.ES6Promise=e()}(this,function(){"use strict";function t(t){return"function"==typeof t||"object"==typeof t&&null!==t}function e(t){return"function"==typeof t}function n(t){I=t}function r(t){J=t}function o(){return function(){return process.nextTick(a)}}function i(){return"undefined"!=typeof H?function(){H(a)}:c()}function s(){var t=0,e=new V(a),n=document.createTextNode("");return e.observe(n,{characterData:!0}),function(){n.data=t=++t%2}}function u(){var t=new MessageChannel;return t.port1.onmessage=a,function(){return t.port2.postMessage(0)}}function c(){var t=setTimeout;return function(){return t(a,1)}}function a(){for(var t=0;t<G;t+=2){var e=$[t],n=$[t+1];e(n),$[t]=void 0,$[t+1]=void 0}G=0}function f(){try{var t=require,e=t("vertx");return H=e.runOnLoop||e.runOnContext,i()}catch(n){return c()}}function l(t,e){var n=arguments,r=this,o=new this.constructor(p);void 0===o[et]&&k(o);var i=r._state;return i?!function(){var t=n[i-1];J(function(){return x(i,o,t,r._result)})}():E(r,o,t,e),o}function h(t){var e=this;if(t&&"object"==typeof t&&t.constructor===e)return t;var n=new e(p);return g(n,t),n}function p(){}function v(){return new TypeError("You cannot resolve a promise with itself")}function d(){return new TypeError("A promises callback cannot return that same promise.")}function _(t){try{return t.then}catch(e){return it.error=e,it}}function y(t,e,n,r){try{t.call(e,n,r)}catch(o){return o}}function m(t,e,n){J(function(t){var r=!1,o=y(n,e,function(n){r||(r=!0,e!==n?g(t,n):S(t,n))},function(e){r||(r=!0,j(t,e))},"Settle: "+(t._label||" unknown promise"));!r&&o&&(r=!0,j(t,o))},t)}function b(t,e){e._state===rt?S(t,e._result):e._state===ot?j(t,e._result):E(e,void 0,function(e){return g(t,e)},function(e){return j(t,e)})}function w(t,n,r){n.constructor===t.constructor&&r===l&&n.constructor.resolve===h?b(t,n):r===it?j(t,it.error):void 0===r?S(t,n):e(r)?m(t,n,r):S(t,n)}function g(e,n){e===n?j(e,v()):t(n)?w(e,n,_(n)):S(e,n)}function A(t){t._onerror&&t._onerror(t._result),P(t)}function S(t,e){t._state===nt&&(t._result=e,t._state=rt,0!==t._subscribers.length&&J(P,t))}function j(t,e){t._state===nt&&(t._state=ot,t._result=e,J(A,t))}function E(t,e,n,r){var o=t._subscribers,i=o.length;t._onerror=null,o[i]=e,o[i+rt]=n,o[i+ot]=r,0===i&&t._state&&J(P,t)}function P(t){var e=t._subscribers,n=t._state;if(0!==e.length){for(var r=void 0,o=void 0,i=t._result,s=0;s<e.length;s+=3)r=e[s],o=e[s+n],r?x(n,r,o,i):o(i);t._subscribers.length=0}}function T(){this.error=null}function M(t,e){try{return t(e)}catch(n){return st.error=n,st}}function x(t,n,r,o){var i=e(r),s=void 0,u=void 0,c=void 0,a=void 0;if(i){if(s=M(r,o),s===st?(a=!0,u=s.error,s=null):c=!0,n===s)return void j(n,d())}else s=o,c=!0;n._state!==nt||(i&&c?g(n,s):a?j(n,u):t===rt?S(n,s):t===ot&&j(n,s))}function C(t,e){try{e(function(e){g(t,e)},function(e){j(t,e)})}catch(n){j(t,n)}}function O(){return ut++}function k(t){t[et]=ut++,t._state=void 0,t._result=void 0,t._subscribers=[]}function Y(t,e){this._instanceConstructor=t,this.promise=new t(p),this.promise[et]||k(this.promise),B(e)?(this._input=e,this.length=e.length,this._remaining=e.length,this._result=new Array(this.length),0===this.length?S(this.promise,this._result):(this.length=this.length||0,this._enumerate(),0===this._remaining&&S(this.promise,this._result))):j(this.promise,q())}function q(){return new Error("Array Methods must be provided an Array")}function F(t){return new Y(this,t).promise}function D(t){var e=this;return new e(B(t)?function(n,r){for(var o=t.length,i=0;i<o;i++)e.resolve(t[i]).then(n,r)}:function(t,e){return e(new TypeError("You must pass an array to race."))})}function K(t){var e=this,n=new e(p);return j(n,t),n}function L(){throw new TypeError("You must pass a resolver function as the first argument to the promise constructor")}function N(){throw new TypeError("Failed to construct 'Promise': Please use the 'new' operator, this object constructor cannot be called as a function.")}function U(t){this[et]=O(),this._result=this._state=void 0,this._subscribers=[],p!==t&&("function"!=typeof t&&L(),this instanceof U?C(this,t):N())}function W(){var t=void 0;if("undefined"!=typeof global)t=global;else if("undefined"!=typeof self)t=self;else try{t=Function("return this")()}catch(e){throw new Error("polyfill failed because global object is unavailable in this environment")}var n=t.Promise;if(n){var r=null;try{r=Object.prototype.toString.call(n.resolve())}catch(e){}if("[object Promise]"===r&&!n.cast)return}t.Promise=U}var z=void 0;z=Array.isArray?Array.isArray:function(t){return"[object Array]"===Object.prototype.toString.call(t)};var B=z,G=0,H=void 0,I=void 0,J=function(t,e){$[G]=t,$[G+1]=e,G+=2,2===G&&(I?I(a):tt())},Q="undefined"!=typeof window?window:void 0,R=Q||{},V=R.MutationObserver||R.WebKitMutationObserver,X="undefined"==typeof self&&"undefined"!=typeof process&&"[object process]"==={}.toString.call(process),Z="undefined"!=typeof Uint8ClampedArray&&"undefined"!=typeof importScripts&&"undefined"!=typeof MessageChannel,$=new Array(1e3),tt=void 0;tt=X?o():V?s():Z?u():void 0===Q&&"function"==typeof require?f():c();var et=Math.random().toString(36).substring(16),nt=void 0,rt=1,ot=2,it=new T,st=new T,ut=0;return Y.prototype._enumerate=function(){for(var t=this.length,e=this._input,n=0;this._state===nt&&n<t;n++)this._eachEntry(e[n],n)},Y.prototype._eachEntry=function(t,e){var n=this._instanceConstructor,r=n.resolve;if(r===h){var o=_(t);if(o===l&&t._state!==nt)this._settledAt(t._state,e,t._result);else if("function"!=typeof o)this._remaining--,this._result[e]=t;else if(n===U){var i=new n(p);w(i,t,o),this._willSettleAt(i,e)}else this._willSettleAt(new n(function(e){return e(t)}),e)}else this._willSettleAt(r(t),e)},Y.prototype._settledAt=function(t,e,n){var r=this.promise;r._state===nt&&(this._remaining--,t===ot?j(r,n):this._result[e]=n),0===this._remaining&&S(r,this._result)},Y.prototype._willSettleAt=function(t,e){var n=this;E(t,void 0,function(t){return n._settledAt(rt,e,t)},function(t){return n._settledAt(ot,e,t)})},U.all=F,U.race=D,U.resolve=h,U.reject=K,U._setScheduler=n,U._setAsap=r,U._asap=J,U.prototype={constructor:U,then:l,"catch":function(t){return this.then(null,t)}},U.polyfill=W,U.Promise=U,U}),ES6Promise.polyfill();
+
+    <script>
+        /* Array filter and map polyfill */
+        void 0 === Array.prototype.map && (Array.prototype.map = function (a) {
+            for (var b = [], c = 0, d = this.length; c < d; c++) b.push(a(this[c]));
+            return b
+        }), void 0 === Array.prototype.filter && (Array.prototype.filter = function (a) {
+            for (var b = [], c = 0, d = this.length; c < d; c++) a(this[c]) && b.push(this[c]);
+            return b
+        });
     </script>
     <script>
-        Element.prototype.remove=function(){this.parentElement.removeChild(this)},NodeList.prototype.remove=HTMLCollection.prototype.remove=function(){for(var a=this.length-1;a>=0;a--)this[a]&&this[a].parentElement&&this[a].parentElement.removeChild(this[a])};
-    </script>
-    <script>
-        var KoboFirmware = {};
-        KoboFirmware.util = {};
-        KoboFirmware.util.FixDate = function (date) {
-            var newDate = date;
-            newDate = newDate && newDate[0].toUpperCase() + newDate.slice(1);
-            newDate = [newDate.slice(0, newDate.search(/\d/)), " ", newDate.slice(newDate.search(/\d/))].join('');
-            return newDate;
-        };
+        /* Promise polyfill */ ! function (t, e) {
+            "object" == typeof exports && "undefined" != typeof module ? module.exports = e() : "function" == typeof define &&
+                define.amd ? define(e) : t.ES6Promise = e()
+        }(this, function () {
+            "use strict";
 
-        /* CONFIG STARTS HERE */
-        KoboFirmware.affiliates = [ /* Used for main table */
-            "kobo", 
-            "rakutenbooks", 
-            "bestbuyca",
-            "fnac", 
-            "bol",
-            "beta",
-	    "walmartca"
-        ];
-        KoboFirmware.moreAffiliates = KoboFirmware.affiliates.concat([ /* Used for detail fw version view */
-            "indigo"
-        ]);
-        KoboFirmware.devicesToCheck = {
-            "00000000-0000-0000-0000-000000000310": "Kobo Touch A/B",
-            "00000000-0000-0000-0000-000000000320": "Kobo Touch C",
-            "00000000-0000-0000-0000-000000000340": "Kobo Mini",
-            "00000000-0000-0000-0000-000000000330": "Kobo Glo",
-            "00000000-0000-0000-0000-000000000371": "Kobo Glo HD",
-            "00000000-0000-0000-0000-000000000372": "Kobo Touch 2.0",
-            "00000000-0000-0000-0000-000000000360": "Kobo Aura",
-            "00000000-0000-0000-0000-000000000350": "Kobo Aura HD",
-            "00000000-0000-0000-0000-000000000370": "Kobo Aura H2O",
-            "00000000-0000-0000-0000-000000000374": "Kobo Aura H2O Edition 2",
-            "00000000-0000-0000-0000-000000000373": "Kobo Aura ONE",
-            "00000000-0000-0000-0000-000000000375": "Kobo Aura Edition 2"
-        };
-        /* CONFIG ENDS HERE */
-
-        KoboFirmware.devices = [];
-        KoboFirmware.promises = {};
-        KoboFirmware.promises.JSONP = function jsonp(timeout, jsonpurl, url) {
-            var CALLBACK_CHARS = 'abcdefghijklmnopqrstuvwxyz0123456789';
-            var timeout = timeout || 15000;
-
-            return new Promise(function (resolve, reject) {
-                var callback;
-                while (!callback || window[callback] !== undefined) {
-                    callback = 'JSONP_';
-                    for (var i = 0; i < 10; i++) {
-                        callback += CALLBACK_CHARS[Math.random() * CALLBACK_CHARS.length | 0];
-                    }
-                }
-
-                function cleanup() {
-                    delete window[callback];
-                    script.remove();
-                }
-
-                var ticket = setTimeout(function () {
-                    cleanup();
-                    reject("Connection timed out");
-                }, timeout);
-
-                window[callback] = function (data) {
-                    clearTimeout(ticket);
-                    cleanup();
-                    resolve({
-                        url: url,
-                        data: data
-                    });
-                };
-
-                var script = document.createElement('script');
-                script.src = jsonpurl + '?url=' + encodeURIComponent(url) + '&callback=' +
-                    encodeURIComponent(callback);
-                document.body.appendChild(script);
-            })
-        };
-
-        KoboFirmware.promises.CustomJSONP = KoboFirmware.promises.JSONP.bind(null, 15000, "https://json2jsonp.com/");
-
-        KoboFirmware.promises.GetUpdateInfo = function (modelId, affiliate) {
-            return KoboFirmware.promises.CustomJSONP("https://api.kobobooks.com/1.0/UpgradeCheck/Device/" + modelId +
-                "/" + affiliate + "/0.0/N");
-        };
-
-        KoboFirmware.promises.GreatestVersion = function (versions) {
-            return new Promise(function (resolve, reject) {
-                var versionCompare = function (v1, v2, options) {
-                    var lexicographical = options && options.lexicographical,
-                        zeroExtend = options && options.zeroExtend,
-                        v1parts = v1.split('.'),
-                        v2parts = v2.split('.');
-
-                    function isValidPart(x) {
-                        return (lexicographical ? /^\d+[A-Za-z]*$/ : /^\d+$/).test(x);
-                    }
-
-                    if (!v1parts.every(isValidPart) || !v2parts.every(isValidPart)) {
-                        return NaN;
-                    }
-
-                    if (zeroExtend) {
-                        while (v1parts.length < v2parts.length) v1parts.push("0");
-                        while (v2parts.length < v1parts.length) v2parts.push("0");
-                    }
-
-                    if (!lexicographical) {
-                        v1parts = v1parts.map(Number);
-                        v2parts = v2parts.map(Number);
-                    }
-
-                    for (var i = 0; i < v1parts.length; ++i) {
-                        if (v2parts.length == i) {
-                            return 1;
-                        }
-
-                        if (v1parts[i] == v2parts[i]) {
-                            continue;
-                        } else if (v1parts[i] > v2parts[i]) {
-                            return 1;
-                        } else {
-                            return -1;
-                        }
-                    }
-
-                    if (v1parts.length != v2parts.length) {
-                        return -1;
-                    }
-
-                    return 0;
-                }
-
-                if (versions.length < 1) {
-                    reject("No versions specified")
-                    return;
-                }
-
-                var currentVersion = versions[0];
-                for (var i = 0; i < versions.length; i++) {
-                    currentVersion = versionCompare(currentVersion, versions[i], {
-                            lexicographical: false,
-                            zeroExtend: false
-                        }) == 1 ? currentVersion :
-                        versions[i];
-                }
-
-                resolve(currentVersion);
-            });
-        };
-
-        KoboFirmware.promises.GreatestVersionedUpdateInfo = function (parsedUpdateInfo) {
-            return new Promise(function (resolve, reject) {
-                var versions = parsedUpdateInfo.map(function (i) {
-                    return i.upgradeVersion;
-                });
-                KoboFirmware.promises.GreatestVersion(versions).then(function (r) {
-                    resolve(parsedUpdateInfo[versions.indexOf(r)]);
-                }).catch(reject);
-            });
-        }
-
-        KoboFirmware.promises._ParseUpdateInfo = function (modelId, info) {
-            var r = {};
-            try {
-                r = {
-                    modelId: modelId,
-                    affiliate: info.url.split("/")[7],
-                    modelName: KoboFirmware.devices.filter(function (device) {
-                        return device.modelId == modelId;
-                    })[0].modelName,
-                    hardwareRevision: info.data.UpgradeURL.split("/")[4],
-                    releaseNoteURL: info.data.ReleaseNoteURL,
-                    upgradeType: info.data.UpgradeType,
-                    upgradeURL: info.data.UpgradeURL,
-                    upgradeVersion: info.data.UpgradeURL.replace('kobo-update-', '').replace('.zip', '').split('/').pop().replace("AuraONE_", ""),
-                    upgradeReleaseDate: KoboFirmware.util.FixDate(info.data.UpgradeURL.split("/")[5])
-                };
-                return Promise.resolve(r);
-            } catch (e) {
-                console.warn(e);
-                return Promise.reject("Error parsing update info");
+            function t(t) {
+                return "function" == typeof t || "object" == typeof t && null !== t
             }
-        };
 
-        KoboFirmware.promises.ParseUpdateInfo = function (modelId) {
-            return KoboFirmware.promises._ParseUpdateInfo.bind(null, modelId);
-        }
-
-        KoboFirmware.promises.UpdateDeviceInfo = function (device) {
-            try {
-                KoboFirmware.devices = KoboFirmware.devices.map(function (k) {
-                    return k.modelId == device.modelId ? device : k;
-                });
-                return Promise.resolve(device);
-            } catch (e) {
-                console.warn(e);
-                return Promise.reject("Error updating device table");
+            function e(t) {
+                return "function" == typeof t
             }
-        }
 
-        KoboFirmware.InfoLoaded = false;
-        KoboFirmware.LoadInfo = function () {
-            Promise.all(KoboFirmware.devices.map(function (device) {
-                return Promise.all(
-                    KoboFirmware.affiliates.map(
-                        KoboFirmware.promises.GetUpdateInfo.bind(null, device.modelId)
-                    )
-                ).then(function (r) {
-                    return new Promise(function (resolve, reject) {
-                        resolve(r.map(
-                            KoboFirmware.promises.ParseUpdateInfo(device.modelId)
-                        ));
-                    });
-                }).then(function (r) {
-                	/* Resolve promises to actual results */
-                    return Promise.all(r);
-                }).then(
-                    KoboFirmware.promises.GreatestVersionedUpdateInfo
-                ).then(
-                    KoboFirmware.promises.UpdateDeviceInfo
-                ).catch(function (e) {
-                    console.warn(e);
-                    device.upgradeVersion = e;
-                    return KoboFirmware.promises.UpdateDeviceInfo(device);
-                });
-            })).then(function(){KoboFirmware.InfoLoaded = true;});
-        };
-        
-        KoboFirmware.ShowPopUp = function (html) {
-            var pid = new Date().getTime().toString();
-            
-            var wel = document.createElement("div");
-            wel.className = "fw-msg-wrapper";
-            wel.id = pid;
-            
-            var pel = document.createElement("div");
-            pel.className = "fw-msg";
-            pel.appendChild(document.createElement("style")).innerHTML = '.fw-msg-wrapper {display:block;position:fixed;bottom:0;left:0;right:0;top:0;display:flex;justify-content:center;flex-direction:column;background:rgba(0,0,0,0.4);} .fw-msg {display:block;margin:auto;width:400px;max-width:100%;height:250px;background: white;border: 1px solid #bbbbbb;z-index:1000;padding: 5px;overflow-y:auto;text-align: left;vertical-align:middle;} .fw-msg-header {display:block;border-bottom:1px solid #bbbbbb;} .fw-msg-close {background: #eeeeee;display:inline-block;padding:5px;width:15px;text-align:center;cursor: pointer;} .fw-msg-close:hover {background:#dddddd;}';
-            
-            var hel = document.createElement("div");
-            hel.className = "fw-msg-header";
-            var cel = document.createElement("a");
-            cel.className = "fw-msg-close";
-            cel.setAttribute("data-msg-id", pid);
-            cel.innerText = "X";
-            cel.addEventListener("click", function(e) {
-                document.getElementById(e.target.getAttribute("data-msg-id")).style.display = "none";
-            });
-            hel.appendChild(cel);
-            pel.appendChild(hel);
-            
-            var tel = document.createElement("div");
-            tel.className = "fw-msg-content";
-            tel.innerHTML = html;
-            pel.appendChild(tel);
-            
-            wel.appendChild(pel);
-            document.body.appendChild(wel);
-            
-            return tel;
-        };
-        
-        KoboFirmware.AfterFirmwareDownload = function (modelName) {
-            ga('send',{hitType: 'event',eventCategory: 'KoboStuff',eventAction: 'DownloadFirmware',eventLabel: modelName});
-            KoboFirmware.ShowPopUp('While the firmware for your ' + modelName + ' is downloading, why not try out another tool by Patrick G called <a target="_blank" href="http://geek1011.github.io/BookBrowser">BookBrowser</a>. It is a web-based ebook browser for viewing your epub and pdf books from any device. It even includes a web-based reader powered by <a target="_blank" href="http://geek1011.github.io/ePubViewer">ePubViewer</a>.');
-        };
-        
-        KoboFirmware.ShowFWVersions = function (modelId, modelName) {
-            tel = KoboFirmware.ShowPopUp("Looking up versions for " + modelName);
-            Promise.all(
-                KoboFirmware.moreAffiliates.map(
-                    KoboFirmware.promises.GetUpdateInfo.bind(null, modelId)
+            function n(t) {
+                I = t
+            }
+
+            function r(t) {
+                J = t
+            }
+
+            function o() {
+                return function () {
+                    return process.nextTick(a)
+                }
+            }
+
+            function i() {
+                return "undefined" != typeof H ? function () {
+                    H(a)
+                } : c()
+            }
+
+            function s() {
+                var t = 0,
+                    e = new V(a),
+                    n = document.createTextNode("");
+                return e.observe(n, {
+                        characterData: !0
+                    }),
+                    function () {
+                        n.data = t = ++t % 2
+                    }
+            }
+
+            function u() {
+                var t = new MessageChannel;
+                return t.port1.onmessage = a,
+                    function () {
+                        return t.port2.postMessage(0)
+                    }
+            }
+
+            function c() {
+                var t = setTimeout;
+                return function () {
+                    return t(a, 1)
+                }
+            }
+
+            function a() {
+                for (var t = 0; t < G; t += 2) {
+                    var e = $[t],
+                        n = $[t + 1];
+                    e(n), $[t] = void 0, $[t + 1] = void 0
+                }
+                G = 0
+            }
+
+            function f() {
+                try {
+                    var t = require,
+                        e = t("vertx");
+                    return H = e.runOnLoop || e.runOnContext, i()
+                } catch (n) {
+                    return c()
+                }
+            }
+
+            function l(t, e) {
+                var n = arguments,
+                    r = this,
+                    o = new this.constructor(p);
+                void 0 === o[et] && k(o);
+                var i = r._state;
+                return i ? ! function () {
+                    var t = n[i - 1];
+                    J(function () {
+                        return x(i, o, t, r._result)
+                    })
+                }() : E(r, o, t, e), o
+            }
+
+            function h(t) {
+                var e = this;
+                if (t && "object" == typeof t && t.constructor === e) return t;
+                var n = new e(p);
+                return g(n, t), n
+            }
+
+            function p() {}
+
+            function v() {
+                return new TypeError("You cannot resolve a promise with itself")
+            }
+
+            function d() {
+                return new TypeError("A promises callback cannot return that same promise.")
+            }
+
+            function _(t) {
+                try {
+                    return t.then
+                } catch (e) {
+                    return it.error = e, it
+                }
+            }
+
+            function y(t, e, n, r) {
+                try {
+                    t.call(e, n, r)
+                } catch (o) {
+                    return o
+                }
+            }
+
+            function m(t, e, n) {
+                J(function (t) {
+                    var r = !1,
+                        o = y(n, e, function (n) {
+                            r || (r = !0, e !== n ? g(t, n) : S(t, n))
+                        }, function (e) {
+                            r || (r = !0, j(t, e))
+                        }, "Settle: " + (t._label || " unknown promise"));
+                    !r && o && (r = !0, j(t, o))
+                }, t)
+            }
+
+            function b(t, e) {
+                e._state === rt ? S(t, e._result) : e._state === ot ? j(t, e._result) : E(e, void 0, function (e) {
+                    return g(t, e)
+                }, function (e) {
+                    return j(t, e)
+                })
+            }
+
+            function w(t, n, r) {
+                n.constructor === t.constructor && r === l && n.constructor.resolve === h ? b(t, n) : r === it ? j(
+                    t, it.error) : void 0 === r ? S(t, n) : e(r) ? m(t, n, r) : S(t, n)
+            }
+
+            function g(e, n) {
+                e === n ? j(e, v()) : t(n) ? w(e, n, _(n)) : S(e, n)
+            }
+
+            function A(t) {
+                t._onerror && t._onerror(t._result), P(t)
+            }
+
+            function S(t, e) {
+                t._state === nt && (t._result = e, t._state = rt, 0 !== t._subscribers.length && J(P, t))
+            }
+
+            function j(t, e) {
+                t._state === nt && (t._state = ot, t._result = e, J(A, t))
+            }
+
+            function E(t, e, n, r) {
+                var o = t._subscribers,
+                    i = o.length;
+                t._onerror = null, o[i] = e, o[i + rt] = n, o[i + ot] = r, 0 === i && t._state && J(P, t)
+            }
+
+            function P(t) {
+                var e = t._subscribers,
+                    n = t._state;
+                if (0 !== e.length) {
+                    for (var r = void 0, o = void 0, i = t._result, s = 0; s < e.length; s += 3) r = e[s], o = e[s +
+                        n], r ? x(n, r, o, i) : o(i);
+                    t._subscribers.length = 0
+                }
+            }
+
+            function T() {
+                this.error = null
+            }
+
+            function M(t, e) {
+                try {
+                    return t(e)
+                } catch (n) {
+                    return st.error = n, st
+                }
+            }
+
+            function x(t, n, r, o) {
+                var i = e(r),
+                    s = void 0,
+                    u = void 0,
+                    c = void 0,
+                    a = void 0;
+                if (i) {
+                    if (s = M(r, o), s === st ? (a = !0, u = s.error, s = null) : c = !0, n === s) return void j(n,
+                        d())
+                } else s = o, c = !0;
+                n._state !== nt || (i && c ? g(n, s) : a ? j(n, u) : t === rt ? S(n, s) : t === ot && j(n, s))
+            }
+
+            function C(t, e) {
+                try {
+                    e(function (e) {
+                        g(t, e)
+                    }, function (e) {
+                        j(t, e)
+                    })
+                } catch (n) {
+                    j(t, n)
+                }
+            }
+
+            function O() {
+                return ut++
+            }
+
+            function k(t) {
+                t[et] = ut++, t._state = void 0, t._result = void 0, t._subscribers = []
+            }
+
+            function Y(t, e) {
+                this._instanceConstructor = t, this.promise = new t(p), this.promise[et] || k(this.promise), B(e) ?
+                    (this._input = e, this.length = e.length, this._remaining = e.length, this._result = new Array(
+                        this.length), 0 === this.length ? S(this.promise, this._result) : (this.length = this.length ||
+                        0, this._enumerate(), 0 === this._remaining && S(this.promise, this._result))) : j(this.promise,
+                        q())
+            }
+
+            function q() {
+                return new Error("Array Methods must be provided an Array")
+            }
+
+            function F(t) {
+                return new Y(this, t).promise
+            }
+
+            function D(t) {
+                var e = this;
+                return new e(B(t) ? function (n, r) {
+                    for (var o = t.length, i = 0; i < o; i++) e.resolve(t[i]).then(n, r)
+                } : function (t, e) {
+                    return e(new TypeError("You must pass an array to race."))
+                })
+            }
+
+            function K(t) {
+                var e = this,
+                    n = new e(p);
+                return j(n, t), n
+            }
+
+            function L() {
+                throw new TypeError(
+                    "You must pass a resolver function as the first argument to the promise constructor")
+            }
+
+            function N() {
+                throw new TypeError(
+                    "Failed to construct 'Promise': Please use the 'new' operator, this object constructor cannot be called as a function."
                 )
-            ).then(function (r) {
-                return new Promise(function (resolve, reject) {
-                    resolve(r.map(
-                        KoboFirmware.promises.ParseUpdateInfo(modelId)
-                    ));
-                });
-            }).then(function (r) {
-            	/* Resolve promises to actual results */
-                return Promise.all(r);
-            }).then(function(device) {
-                var h = "<h3>Other firmware versions for " + modelName + "</h3><br>";
-                device.map(function (d) {
-                    h = h + "Affiliate: " + d.affiliate + " - Firmware <a href=\"" + d.upgradeURL + "\" onclick=\"KoboFirmware.AfterFirmwareDownload('" + modelName + "')\">" + d.upgradeVersion + "</a><br>";
-                });
-                tel.innerHTML = h;
-            }).catch(function (e) {
-                tel.innerHTML = 'Error getting version info';
-            });
-            ga('send',{hitType: 'event',eventCategory: 'KoboStuff',eventAction: 'ShowOtherVersions',eventLabel: modelName});
-        };
-        
-        KoboFirmware.BBCodeAutoShown = false;
-        KoboFirmware.ShowBBCodeForLatestRelease = function() {
-            var v = "";
-            var greatestUpdateInfo = {};
-            Promise.resolve(KoboFirmware.devices).then(KoboFirmware.promises.GreatestVersionedUpdateInfo).then(function getGreatestVersion(ui) {
-                greatestUpdateInfo = ui;
-                return ui.upgradeVersion;
-            }).then(function generateBBCode(version) {
-                v = version;
-                var upToDateDevices = KoboFirmware.devices.filter(function(device) {
-                    return device.upgradeVersion == version;
-                });
-                var notUpToDateDevices = KoboFirmware.devices.filter(function(device) {
-                    return device.upgradeVersion != version;
-                });
-                var bbcode = "[SIZE=5]Kobo Firmware " + version + "[/SIZE]\n\nKobo firmware " + version + " has been released. As of " + (function formatDate(date) {
-                    var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-                    var day = date.getDate();
-                    var monthIndex = date.getMonth();
-                    var year = date.getFullYear();
-                    return monthNames[monthIndex] + ' ' + day + ', ' + year;
-                })(new Date()) + ", it has been released to the devices: " + upToDateDevices.map(function(device) {
-                    return device.modelName;
-                }).join(", ") + ". It has not been released to the: " + notUpToDateDevices.map(function(device) {
-                    return device.modelName;
-                }).join(", ") + ". The affiliates used to check these firmware versions were: " + KoboFirmware.affiliates.join(", ") + ". \n\n\n[SIZE=5]Download Links[/SIZE]\n\n[B]Official Links: [/B]\n[LIST]\n[*]" + upToDateDevices.map(function(device) {
-                    return "[B]" + device.modelName + "[/B] (" + device.hardwareRevision.replace("kobo", "mark ") + ") - [URL=" + device.upgradeURL + "]Download[/URL]" + " | [URL=" + device.releaseNoteURL + "]Release Notes[/URL]"
-                }).join("\n[*]") + "\n[/LIST]\n[B]You can also try these generic links at your own risk: [/B]\n[LIST]\n[*]" + (function(){
-                    var aDownloadUrl = greatestUpdateInfo.upgradeURL;
-                    var spl = aDownloadUrl.split("/");
-                    return ["3","4","5","6"].map(function(mark){
-                        var nurlt = spl;
-                        nurlt[4] = "kobo" + mark;
-                        var nurl = nurlt.join("/");
-                        return "[B]Mark " + mark + "[/B] - [URL=" + nurl + "]Download[/URL]";
-                    });
-                })().join("\n[*]") + "\n[/LIST]\n\n[SIZE=1]Generated by [URL=https://geek1011.github.io/KoboStuff/kobofirmware.html]Kobo Firmware Download Links[/URL] by [URL=https://github.com/geek1011]Patrick G[/URL]. [URL=https://github.com/geek1011/KoboStuff/blob/gh-pages/kobofirmware.html]Source Code[/URL][/SIZE]";
-                return bbcode;
-            }).then(function(bbcode) {
-                KoboFirmware.ShowPopUp("<h3>Generated BBCode</h3><textarea readonly onclick=\"this.selectionStart = 0;this.selectionEnd = this.textLength;\" style=\"width: 100%;height: 100px;font-size: 8px\">" + bbcode + "</textarea><br><i>Please be a good person and leave the credit link in at the bottom.</i>")
-            });
-            ga('send',{hitType: 'event',eventCategory: 'KoboStuff',eventAction: 'BBCodeShown',eventLabel: "BBCode Generated | FW Version: " + v + " | Location hash: " + window.location.hash});
-        };
+            }
 
-        KoboFirmware.cfb = function () {
-            try {
-                if (KoboFirmware.InfoLoaded) {
-                    if (window.location.hash.indexOf("bbcode")>-1) {
-                        if (!KoboFirmware.BBCodeAutoShown) {
-                            KoboFirmware.BBCodeAutoShown = true;
-                            KoboFirmware.ShowBBCodeForLatestRelease();
-                        }
+            function U(t) {
+                this[et] = O(), this._result = this._state = void 0, this._subscribers = [], p !== t && ("function" !=
+                    typeof t && L(), this instanceof U ? C(this, t) : N())
+            }
+
+            function W() {
+                var t = void 0;
+                if ("undefined" != typeof global) t = global;
+                else if ("undefined" != typeof self) t = self;
+                else try {
+                    t = Function("return this")()
+                } catch (e) {
+                    throw new Error("polyfill failed because global object is unavailable in this environment")
+                }
+                var n = t.Promise;
+                if (n) {
+                    var r = null;
+                    try {
+                        r = Object.prototype.toString.call(n.resolve())
+                    } catch (e) {}
+                    if ("[object Promise]" === r && !n.cast) return
+                }
+                t.Promise = U
+            }
+            var z = void 0;
+            z = Array.isArray ? Array.isArray : function (t) {
+                return "[object Array]" === Object.prototype.toString.call(t)
+            };
+            var B = z,
+                G = 0,
+                H = void 0,
+                I = void 0,
+                J = function (t, e) {
+                    $[G] = t, $[G + 1] = e, G += 2, 2 === G && (I ? I(a) : tt())
+                },
+                Q = "undefined" != typeof window ? window : void 0,
+                R = Q || {},
+                V = R.MutationObserver || R.WebKitMutationObserver,
+                X = "undefined" == typeof self && "undefined" != typeof process && "[object process]" === {}.toString
+                .call(process),
+                Z = "undefined" != typeof Uint8ClampedArray && "undefined" != typeof importScripts && "undefined" !=
+                typeof MessageChannel,
+                $ = new Array(1e3),
+                tt = void 0;
+            tt = X ? o() : V ? s() : Z ? u() : void 0 === Q && "function" == typeof require ? f() : c();
+            var et = Math.random().toString(36).substring(16),
+                nt = void 0,
+                rt = 1,
+                ot = 2,
+                it = new T,
+                st = new T,
+                ut = 0;
+            return Y.prototype._enumerate = function () {
+                    for (var t = this.length, e = this._input, n = 0; this._state === nt && n < t; n++) this._eachEntry(
+                        e[n], n)
+                }, Y.prototype._eachEntry = function (t, e) {
+                    var n = this._instanceConstructor,
+                        r = n.resolve;
+                    if (r === h) {
+                        var o = _(t);
+                        if (o === l && t._state !== nt) this._settledAt(t._state, e, t._result);
+                        else if ("function" != typeof o) this._remaining--, this._result[e] = t;
+                        else if (n === U) {
+                            var i = new n(p);
+                            w(i, t, o), this._willSettleAt(i, e)
+                        } else this._willSettleAt(new n(function (e) {
+                            return e(t)
+                        }), e)
+                    } else this._willSettleAt(r(t), e)
+                }, Y.prototype._settledAt = function (t, e, n) {
+                    var r = this.promise;
+                    r._state === nt && (this._remaining--, t === ot ? j(r, n) : this._result[e] = n), 0 === this._remaining &&
+                        S(r, this._result)
+                }, Y.prototype._willSettleAt = function (t, e) {
+                    var n = this;
+                    E(t, void 0, function (t) {
+                        return n._settledAt(rt, e, t)
+                    }, function (t) {
+                        return n._settledAt(ot, e, t)
+                    })
+                }, U.all = F, U.race = D, U.resolve = h, U.reject = K, U._setScheduler = n, U._setAsap = r, U._asap =
+                J, U.prototype = {
+                    constructor: U,
+                    then: l,
+                    "catch": function (t) {
+                        return this.then(null, t)
                     }
-                } else {
-                    window.setTimeout(KoboFirmware.cfb, 1000);
-                }
-            } catch (ex) {}
-        };
-        KoboFirmware.UpdateTable = function () {
-            var tableCode =
-                "<thead><tr><th class=\"col-model\">Kobo Model</th><th class=\"col-hardware-revision\">Hardware Revision</th><th class=\"col-version\">Firmware Version</th><th class=\"col-release-date\">Firmware Release Date</th><th class=\"col-links\">Links</th></tr></thead><tbody>";
-            var highlighted = "nothighlighted";
-            var onlyhighlighted = "notonlyhighlighted";
-            KoboFirmware.cfb();
-            KoboFirmware.devices.map(function (device) {
-                var toHighlight = (window.location.hash.replace("!","").replace("#","").replace("+"," ")!=""?JSON.stringify(device).indexOf(window.location.hash.replace("!","").replace("#","").replace("+"," "))>-1:false);
-                if (toHighlight) {
-                    highlighted = "highlighted";
-                }
-                if (window.location.hash.indexOf("!")>-1) {
-                    onlyhighlighted = "onlyhighlighted";
-                }
-                tableCode += [
-                    "<tr id=\"" + device.modelId + "\"" + (toHighlight ? " class=\"highlight\" " :
-                        "class=\"nohighlight\"") + ">",
-                    "<td class=\"col-model\">",
-                    device.modelName,
-                    "</td>",
-                    "<td class=\"col-hardware-revision\">",
-                    device.hardwareRevision,
-                    "</td>",
-                    "<td class=\"col-version\" title=\"Affiliate: " + device.affiliate + "\">",
-                    (device.upgradeVersion != "" ? device.upgradeVersion + "<br><span class=\"affiliate\">Affiliate: " + device.affiliate + "</span>": "loading"),
-                    "</td>",
-                    "<td class=\"col-release-date\">" + device.upgradeReleaseDate +
-                    "</td>",
-                    "<td class=\"col-links\">",
-                    "    <a class=\"button\" onclick=\"KoboFirmware.AfterFirmwareDownload(this.parentNode.parentNode.querySelector('.col-model').innerHTML);\" target=\"_blank\" href=\"" + device.upgradeURL +"\">",
-                    "        <i class=\"icon fa fa-download\" aria-hidden=\"true\"></i>",
-                    "        <span class=\"text\">Download</span>",
-                    "    </a>",
-                    "    <a class=\"button\" title=\"Release notes (usually useless)\" target=\"_blank\" href=\"" +
-                    device.releaseNoteURL + "\">",
-                    "        <i class=\"icon fa fa-sticky-note-o\" aria-hidden=\"true\"></i>",
-                    "        <span class=\"text\">Release Notes</span>",
-                    "    </a>",
-                    "    <a href=\"javascript:void(0);\" onclick=\"KoboFirmware.ShowFWVersions('" + device.modelId + "', '" + device.modelName + "')\" class=\"button\">",
-                    "        <i class=\"icon fa fa-search\" aria-hidden=\"true\"></i>",
-                    "        <span class=\"text\">See other versions</span>",
-                    "    </a>",
-                    "</td>",
-                    "</tr>"
-                ].join("\n");
-            });
-
-            tableCode += "</tbody>";
-            document.getElementById("KoboFirmware").classList.remove("highlighted");
-            document.getElementById("KoboFirmware").classList.add(highlighted);
-            document.getElementById("KoboFirmware").classList.remove("notonlyhighlighted");
-            document.getElementById("KoboFirmware").classList.add(onlyhighlighted);
-            document.getElementById("KoboFirmware").innerHTML = tableCode;
-            document.getElementById("KoboFirmwareCurrentFilterMessage").innerHTML = highlighted=="highlighted"?"Currently " + (onlyhighlighted=="onlyhighlighted"?"exclusively ":"") + "filtered by: " + window.location.hash.replace("!","").replace("#","").replace("+"," ") + ". <a href=\"#\">Clear filter</a>" :"";
-        };
-
-        KoboFirmware.Init = function () {
-            (function InitDeviceTable() {
-                for (k in KoboFirmware.devicesToCheck) {
-                    if (KoboFirmware.devicesToCheck.hasOwnProperty(k)) {
-                        KoboFirmware.devices.push({
-                            modelId: k,
-                            modelName: KoboFirmware.devicesToCheck[k],
-                            hardwareRevision: "",
-                            releaseNoteURL: "javascript:alert('Not ready yet');",
-                            upgradeType: "",
-                            upgradeURL: "javascript:alert('Not ready yet');",
-                            upgradeVersion: "",
-                            upgradeReleaseDate: ""
-                        });
-                    }
-                }
-            })();
-            KoboFirmware.LoadInfo();
-                window.setInterval(KoboFirmware.UpdateTable, 800);
-        };
-        KoboFirmware.Init();
+                }, U.polyfill = W, U.Promise = U, U
+        }), ES6Promise.polyfill();
     </script>
     <script>
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r;
-            i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date();
-            a = s.createElement(o),
-                m = s.getElementsByTagName(o)[0];
-            a.async = 1;
-            a.src = g;
-            m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        Element.prototype.remove = function () {
+            this.parentElement.removeChild(this)
+        }, NodeList.prototype.remove = HTMLCollection.prototype.remove = function () {
+            for (var a = this.length - 1; a >= 0; a--) this[a] && this[a].parentElement && this[a].parentElement.removeChild(
+                this[a])
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.4.4/vue.min.js"></script>
+    <script>
+        var filter = window.location.hash.replace("#", "") || "";
+        var ga = ga || function (a, b) {
+            console.log("Could not send to google analytics", a, b)
+        };
+        var app = new Vue({
+            el: '#app',
+            data: {
+                useCardLayout: false,
+                showImage: false,
+                popup: null,
+                affiliates: [
+                    "kobo",
+                    "rakutenbooks",
+                    "bestbuyca",
+                    "fnac",
+                    "beta",
+                    "walmartca"
+                ],
+                devices: [],
+                versions: {"00000000-0000-0000-0000-000000000310":[{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"October 2017","version":"4.6.9995","download":"http://download.kobobooks.com/firmwares/kobo3/Oct2017/kobo-update-4.6.9995.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"October 2017","version":"4.6.9960","download":"http://download.kobobooks.com/firmwares/kobo3/July2017/kobo-update-4.6.9960.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"July 2017","version":"4.5.9587","download":"http://download.kobobooks.com/firmwares/kobo3/July2017/kobo-update-4.5.9587.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"May 2017","version":"4.4.9298","download":"http://download.kobobooks.com/firmwares/kobo3/May2017/kobo-update-4.4.9298.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"April 2017","version":"4.3.9084","download":"http://download.kobobooks.com/firmwares/kobo3/rakuten-439084/kobo-update-4.3.9084.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"March 2017","version":"4.3.8966","download":"http://download.kobobooks.com/firmwares/kobo3/Mar2017/kobo-update-4.3.8966.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"March 2017","version":"4.3.8945","download":"http://download.kobobooks.com/firmwares/kobo3/Mar2017/kobo-update-4.3.8945.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"March 2017","version":"4.3.8929","download":"http://download.kobobooks.com/firmwares/kobo3/Mar2017/kobo-update-4.3.8929.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"March 2017","version":"4.3.8871","download":"http://download.kobobooks.com/firmwares/kobo3/Feb2017/kobo-update-4.3.8871.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"February 2017","version":"4.3.8842","download":"http://download.kobobooks.com/firmwares/kobo3/Feb2017/kobo-update-4.3.8842.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"February 2017","version":"4.2.8432","download":"http://download.kobobooks.com/firmwares/kobo3/Jan2017/kobo-update-4.2.8432.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"December 2015","version":"3.19.5761","download":"http://download.kobobooks.com/firmwares/kobo3/january2016/kobo-update-3.19.5761.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"December 2015","version":"3.19.5613","download":"http://download.kobobooks.com/firmwares/kobo3/december2015/kobo-update-3.19.5613.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"September 2015","version":"3.18.0","download":"http://download.kobobooks.com/firmwares/kobo3/september2015/kobo-update-3.18.0.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"August 2015","version":"3.17.3","download":"http://download.kobobooks.com/firmwares/kobo3/3173/kobo-update-3.17.3.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"August 2015","version":"3.17.0","download":"http://download.kobobooks.com/firmwares/kobo3/august2015/kobo-update-3.17.0.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"June 2015","version":"3.16.0","download":"http://download.kobobooks.com/firmwares/kobo3/hello_MR/kobo-update-3.16.0.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"October 2014","version":"3.11.0","download":"http://download.kobobooks.com/firmwares/kobo3/mapleleafs2014/kobo-update-3.11.0.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"August 2014","version":"3.8.0","download":"http://download.kobobooks.com/firmwares/kobo3/intimeforlabourday2014/kobo-update-3.8.0.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"May 2014","version":"3.3.1","download":"http://download.kobobooks.com/firmwares/kobo3/pt-br-331/kobo-update-3.3.1.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"April 2014","version":"3.3.0","download":"http://download.kobobooks.com/firmwares/kobo3/easter2014/kobo-update-3.3.0.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"February 2014","version":"3.2.0","download":"http://download.kobobooks.com/firmwares/kobo3/kobocares/kobo-update-3.2.0.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"November 2013","version":"3.0.0","download":"http://download.kobobooks.com/firmwares/kobo3/babak/kobo-update-3.0.0.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"June 2013","version":"2.6.1","download":"http://download.kobobooks.com/firmwares/kobo3/koborocks/kobo-update-2.6.1.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"June 2013","version":"2.6.0","download":"http://download.kobobooks.com/firmwares/kobo3/rakutenrocks/kobo-update-2.6.0.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"May 2013","version":"2.5.2","download":"http://download.kobobooks.com/firmwares/kobo3/bleedblue/kobo-update-2.5.2.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"April 2013","version":"2.5.1","download":"http://download.kobobooks.com/firmwares/kobo3/leafs2013/kobo-update-2.5.1.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"April 2013","version":"2.5.0","download":"http://download.kobobooks.com/firmwares/kobo3/goleafsgo/kobo-update-2.5.0.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"October 2012","version":"2.2.0","download":"http://download.kobobooks.com/firmwares/kobo3/coffey/kobo-update-2.2.0.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"October 2012","version":"2.1.5","download":"http://download.kobobooks.com/firmwares/kobo3/brodeur/kobo-update-2.1.5.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"August 2012","version":"2.1.1","download":"http://download.kobobooks.com/firmwares/kobo3/rgreen/kobo3-update-2.1.1.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"July 2012","version":"2.0.2","download":"http://download.kobobooks.com/firmwares/kobo3/Eel/kobo3-update-2.0.2.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"July 2012","version":"2.0.0","download":"http://download.kobobooks.com/firmwares/kobo3/Devario/kobo3-update-2.0.0.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"March 2012","version":"1.9.17","download":"http://download.kobobooks.com/firmwares/kobo3/cod/kobo3-update-1.9.17.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"December 2011","version":"1.9.16","download":"http://download.kobobooks.com/firmwares/kobo3/bowfin/kobo3-update-1.9.16.zip"},{"model":"Kobo Touch A/B","id":"00000000-0000-0000-0000-000000000310","hardware":"kobo3","date":"October 2011","version":"1.9.12","download":"http://download.kobobooks.com/firmwares/kobo3/kobo3-upgrade-1.9.12.zip"}],"00000000-0000-0000-0000-000000000320":[{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"October 2017","version":"4.6.9995","download":"http://download.kobobooks.com/firmwares/kobo4/Oct2017/kobo-update-4.6.9995.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"October 2017","version":"4.6.9960","download":"http://download.kobobooks.com/firmwares/kobo4/July2017/kobo-update-4.6.9960.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"July 2017","version":"4.5.9587","download":"http://download.kobobooks.com/firmwares/kobo4/July2017/kobo-update-4.5.9587.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"May 2017","version":"4.4.9298","download":"http://download.kobobooks.com/firmwares/kobo4/May2017/kobo-update-4.4.9298.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"April 2017","version":"4.3.9084","download":"http://download.kobobooks.com/firmwares/kobo4/rakuten-439084/kobo-update-4.3.9084.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"March 2017","version":"4.3.8966","download":"http://download.kobobooks.com/firmwares/kobo4/Mar2017/kobo-update-4.3.8966.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"March 2017","version":"4.3.8945","download":"http://download.kobobooks.com/firmwares/kobo4/Mar2017/kobo-update-4.3.8945.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"March 2017","version":"4.3.8929","download":"http://download.kobobooks.com/firmwares/kobo4/Mar2017/kobo-update-4.3.8929.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"March 2017","version":"4.3.8871","download":"http://download.kobobooks.com/firmwares/kobo4/Feb2017/kobo-update-4.3.8871.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"February 2017","version":"4.3.8842","download":"http://download.kobobooks.com/firmwares/kobo4/Feb2017/kobo-update-4.3.8842.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"February 2017","version":"4.2.8432","download":"http://download.kobobooks.com/firmwares/kobo4/Jan2017/kobo-update-4.2.8432.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"December 2015","version":"3.19.5761","download":"http://download.kobobooks.com/firmwares/kobo4/january2016/kobo-update-3.19.5761.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"December 2015","version":"3.19.5613","download":"http://download.kobobooks.com/firmwares/kobo4/december2015/kobo-update-3.19.5613.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"September 2015","version":"3.18.0","download":"http://download.kobobooks.com/firmwares/kobo4/september2015/kobo-update-3.18.0.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"August 2015","version":"3.17.3","download":"http://download.kobobooks.com/firmwares/kobo4/3173/kobo-update-3.17.3.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"August 2015","version":"3.17.0","download":"http://download.kobobooks.com/firmwares/kobo4/august2015/kobo-update-3.17.0.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"June 2015","version":"3.16.0","download":"http://download.kobobooks.com/firmwares/kobo4/hello_MR/kobo-update-3.16.0.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"April 2015","version":"3.15.0","download":"http://download.kobobooks.com/firmwares/kobo4/april2015/kobo-update-3.15.0.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"January 2014","version":"3.12.1","download":"http://download.kobobooks.com/firmwares/kobo4/icecold2015/kobo-update-3.12.1.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"December 2014","version":"3.12.0","download":"http://download.kobobooks.com/firmwares/kobo4/wethenorth2014/kobo-update-3.12.0.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"October 2014","version":"3.11.0","download":"http://download.kobobooks.com/firmwares/kobo4/mapleleafs2014/kobo-update-3.11.0.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"August 2014","version":"3.8.0","download":"http://download.kobobooks.com/firmwares/kobo4/intimeforlabourday2014/kobo-update-3.8.0.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"May 2014","version":"3.3.1","download":"http://download.kobobooks.com/firmwares/kobo4/pt-br-331/kobo-update-3.3.1.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"April 2014","version":"3.3.0","download":"http://download.kobobooks.com/firmwares/kobo4/easter2014/kobo-update-3.3.0.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"February 2014","version":"3.2.0","download":"http://download.kobobooks.com/firmwares/kobo4/kobocares/kobo-update-3.2.0.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"December 2013","version":"3.1.1","download":"http://download.kobobooks.com//firmwares/kobo4/indigoblitz2013/kobo-update-3.1.1.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"December 2013","version":"3.1.0","download":"http://download.kobobooks.com/firmwares/kobo4/blackfriday2013/kobo-update-3.1.0.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"November 2013","version":"3.0.0","download":"http://download.kobobooks.com/firmwares/kobo4/babak/kobo-update-3.0.0.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"October 2013","version":"2.10.0","download":"http://download.kobobooks.com/firmwares/kobo4/libertyvillage/kobo-update-2.10.0.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"September 2013","version":"2.8.1","download":"http://download.kobobooks.com/firmwares/kobo4/kobothunder/kobo-update-2.8.1.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"September 2013","version":"2.6.2","download":"http://download.kobobooks.com/firmwares/kobo4/koborocks_v2/kobo-update-2.6.2.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"June 2013","version":"2.6.1","download":"http://download.kobobooks.com/firmwares/kobo4/koborocks/kobo-update-2.6.1.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"June 2013","version":"2.6.0","download":"http://download.kobobooks.com/firmwares/kobo4/rakutenrocks/kobo-update-2.6.0.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"May 2013","version":"2.5.2","download":"http://download.kobobooks.com/firmwares/kobo4/bleedblue/kobo-update-2.5.2.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"April 2013","version":"2.5.1","download":"http://download.kobobooks.com/firmwares/kobo4/leafs2013/kobo-update-2.5.1.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"April 2013","version":"2.5.0","download":"http://download.kobobooks.com/firmwares/kobo4/goleafsgo/kobo-update-2.5.0.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"November 2012","version":"2.2.1","download":"http://download.kobobooks.com/firmwares/kobo4/jordan/kobo-update-2.2.1.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"October 2012","version":"2.2.0","download":"http://download.kobobooks.com/firmwares/kobo4/coffey/kobo-update-2.2.0.zip"},{"model":"Kobo Touch C","id":"00000000-0000-0000-0000-000000000320","hardware":"kobo4","date":"October 2012","version":"2.1.5","download":"http://download.kobobooks.com/firmwares/kobo4/brodeur/kobo-update-2.1.5.zip"}],"00000000-0000-0000-0000-000000000340":[{"model":"Kobo Mini","id":"00000000-0000-0000-0000-000000000340","hardware":"kobo4","date":"December 2015","version":"3.19.5761","download":"http://download.kobobooks.com/firmwares/kobo4/january2016/kobo-update-3.19.5761.zip"},{"model":"Kobo Mini","id":"00000000-0000-0000-0000-000000000340","hardware":"kobo4","date":"December 2015","version":"3.19.5613","download":"http://download.kobobooks.com/firmwares/kobo4/december2015/kobo-update-3.19.5613.zip"},{"model":"Kobo Mini","id":"00000000-0000-0000-0000-000000000340","hardware":"kobo4","date":"September 2015","version":"3.18.0","download":"http://download.kobobooks.com/firmwares/kobo4/september2015/kobo-update-3.18.0.zip"},{"model":"Kobo Mini","id":"00000000-0000-0000-0000-000000000340","hardware":"kobo4","date":"August 2015","version":"3.17.3","download":"http://download.kobobooks.com/firmwares/kobo4/3173/kobo-update-3.17.3.zip"},{"model":"Kobo Mini","id":"00000000-0000-0000-0000-000000000340","hardware":"kobo4","date":"August 2015","version":"3.17.0","download":"http://download.kobobooks.com/firmwares/kobo4/august2015/kobo-update-3.17.0.zip"},{"model":"Kobo Mini","id":"00000000-0000-0000-0000-000000000340","hardware":"kobo4","date":"May 2014","version":"3.4.1","download":"http://download.kobobooks.com/firmwares/kobo4/miniforkids/kobo-update-3.4.1.zip"},{"model":"Kobo Mini","id":"00000000-0000-0000-0000-000000000340","hardware":"kobo4","date":"February 2014","version":"3.2.0","download":"http://download.kobobooks.com/firmwares/kobo4/kobocares/kobo-update-3.2.0.zip"},{"model":"Kobo Mini","id":"00000000-0000-0000-0000-000000000340","hardware":"kobo4","date":"December 2013","version":"3.1.1","download":"http://download.kobobooks.com//firmwares/kobo4/indigoblitz2013/kobo-update-3.1.1.zip"},{"model":"Kobo Mini","id":"00000000-0000-0000-0000-000000000340","hardware":"kobo4","date":"December 2013","version":"3.1.0","download":"http://download.kobobooks.com/firmwares/kobo4/blackfriday2013/kobo-update-3.1.0.zip"},{"model":"Kobo Mini","id":"00000000-0000-0000-0000-000000000340","hardware":"kobo4","date":"November 2013","version":"3.0.0","download":"http://download.kobobooks.com/firmwares/kobo4/babak/kobo-update-3.0.0.zip"},{"model":"Kobo Mini","id":"00000000-0000-0000-0000-000000000340","hardware":"kobo4","date":"October 2013","version":"2.10.0","download":"http://download.kobobooks.com/firmwares/kobo4/libertyvillage/kobo-update-2.10.0.zip"},{"model":"Kobo Mini","id":"00000000-0000-0000-0000-000000000340","hardware":"kobo4","date":"September 2013","version":"2.8.1","download":"http://download.kobobooks.com/firmwares/kobo4/kobothunder/kobo-update-2.8.1.zip"},{"model":"Kobo Mini","id":"00000000-0000-0000-0000-000000000340","hardware":"kobo4","date":"September 2013","version":"2.6.2","download":"http://download.kobobooks.com/firmwares/kobo4/koborocks_v2/kobo-update-2.6.2.zip"},{"model":"Kobo Mini","id":"00000000-0000-0000-0000-000000000340","hardware":"kobo4","date":"June 2013","version":"2.6.1","download":"http://download.kobobooks.com/firmwares/kobo4/koborocks/kobo-update-2.6.1.zip"},{"model":"Kobo Mini","id":"00000000-0000-0000-0000-000000000340","hardware":"kobo4","date":"June 2013","version":"2.6.0","download":"http://download.kobobooks.com/firmwares/kobo4/rakutenrocks/kobo-update-2.6.0.zip"},{"model":"Kobo Mini","id":"00000000-0000-0000-0000-000000000340","hardware":"kobo4","date":"May 2013","version":"2.5.2","download":"http://download.kobobooks.com/firmwares/kobo4/bleedblue/kobo-update-2.5.2.zip"},{"model":"Kobo Mini","id":"00000000-0000-0000-0000-000000000340","hardware":"kobo4","date":"April 2013","version":"2.5.1","download":"http://download.kobobooks.com/firmwares/kobo4/leafs2013/kobo-update-2.5.1.zip"},{"model":"Kobo Mini","id":"00000000-0000-0000-0000-000000000340","hardware":"kobo4","date":"April 2013","version":"2.5.0","download":"http://download.kobobooks.com/firmwares/kobo4/goleafsgo/kobo-update-2.5.0.zip"},{"model":"Kobo Mini","id":"00000000-0000-0000-0000-000000000340","hardware":"kobo4","date":"November 2012","version":"2.2.1","download":"http://download.kobobooks.com/firmwares/kobo4/jordan/kobo-update-2.2.1.zip"},{"model":"Kobo Mini","id":"00000000-0000-0000-0000-000000000340","hardware":"kobo4","date":"October 2012","version":"2.2.0","download":"http://download.kobobooks.com/firmwares/kobo4/coffey/kobo-update-2.2.0.zip"},{"model":"Kobo Mini","id":"00000000-0000-0000-0000-000000000340","hardware":"kobo4","date":"October 2012","version":"2.1.5","download":"http://download.kobobooks.com/firmwares/kobo4/brodeur/kobo-update-2.1.5.zip"}],"00000000-0000-0000-0000-000000000330":[{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"December 2017","version":"4.7.10413","download":"http://download.kobobooks.com/firmwares/kobo4/Dec2017/kobo-update-4.7.10413.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"November 2017","version":"4.7.10075","download":"http://download.kobobooks.com/firmwares/kobo4/rakuten-4.6/kobo-update-4.6.10075.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"October 2017","version":"4.6.9995","download":"http://download.kobobooks.com/firmwares/kobo4/Oct2017/kobo-update-4.6.9995.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"October 2017","version":"4.6.9960","download":"http://download.kobobooks.com/firmwares/kobo4/July2017/kobo-update-4.6.9960.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"July 2017","version":"4.5.9587","download":"http://download.kobobooks.com/firmwares/kobo4/July2017/kobo-update-4.5.9587.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"May 2017","version":"4.4.9298","download":"http://download.kobobooks.com/firmwares/kobo4/May2017/kobo-update-4.4.9298.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"April 2017","version":"4.3.9084","download":"http://download.kobobooks.com/firmwares/kobo4/rakuten-439084/kobo-update-4.3.9084.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"March 2017","version":"4.3.8966","download":"http://download.kobobooks.com/firmwares/kobo4/Mar2017/kobo-update-4.3.8966.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"March 2017","version":"4.3.8945","download":"http://download.kobobooks.com/firmwares/kobo4/Mar2017/kobo-update-4.3.8945.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"March 2017","version":"4.3.8929","download":"http://download.kobobooks.com/firmwares/kobo4/Mar2017/kobo-update-4.3.8929.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"March 2017","version":"4.3.8871","download":"http://download.kobobooks.com/firmwares/kobo4/Feb2017/kobo-update-4.3.8871.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"February 2017","version":"4.3.8842","download":"http://download.kobobooks.com/firmwares/kobo4/Feb2017/kobo-update-4.3.8842.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"February 2017","version":"4.2.8432","download":"http://download.kobobooks.com/firmwares/kobo4/Jan2017/kobo-update-4.2.8432.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"December 2015","version":"3.19.5761","download":"http://download.kobobooks.com/firmwares/kobo4/january2016/kobo-update-3.19.5761.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"December 2015","version":"3.19.5613","download":"http://download.kobobooks.com/firmwares/kobo4/december2015/kobo-update-3.19.5613.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"September 2015","version":"3.18.0","download":"http://download.kobobooks.com/firmwares/kobo4/september2015/kobo-update-3.18.0.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"August 2015","version":"3.17.3","download":"http://download.kobobooks.com/firmwares/kobo4/3173/kobo-update-3.17.3.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"August 2015","version":"3.17.0","download":"http://download.kobobooks.com/firmwares/kobo4/august2015/kobo-update-3.17.0.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"April 2015","version":"3.15.0","download":"http://download.kobobooks.com/firmwares/kobo4/april2015/kobo-update-3.15.0.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"January 2014","version":"3.12.1","download":"http://download.kobobooks.com/firmwares/kobo4/icecold2015/kobo-update-3.12.1.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"December 2014","version":"3.12.0","download":"http://download.kobobooks.com/firmwares/kobo4/wethenorth2014/kobo-update-3.12.0.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"October 2014","version":"3.11.0","download":"http://download.kobobooks.com/firmwares/kobo4/mapleleafs2014/kobo-update-3.11.0.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"August 2014","version":"3.8.0","download":"http://download.kobobooks.com/firmwares/kobo4/intimeforlabourday2014/kobo-update-3.8.0.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"July 2014","version":"3.5.0","download":"http://download.kobobooks.com/firmwares/kobo4/fifa2014/kobo-update-3.5.0.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"May 2014","version":"3.3.1","download":"http://download.kobobooks.com/firmwares/kobo4/pt-br-331/kobo-update-3.3.1.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"April 2014","version":"3.3.0","download":"http://download.kobobooks.com/firmwares/kobo4/easter2014/kobo-update-3.3.0.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"February 2014","version":"3.2.0","download":"http://download.kobobooks.com/firmwares/kobo4/kobocares/kobo-update-3.2.0.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"December 2013","version":"3.1.1","download":"http://download.kobobooks.com//firmwares/kobo4/indigoblitz2013/kobo-update-3.1.1.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"December 2013","version":"3.1.0","download":"http://download.kobobooks.com/firmwares/kobo4/blackfriday2013/kobo-update-3.1.0.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"November 2013","version":"3.0.0","download":"http://download.kobobooks.com/firmwares/kobo4/babak/kobo-update-3.0.0.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"October 2013","version":"2.10.0","download":"http://download.kobobooks.com/firmwares/kobo4/libertyvillage/kobo-update-2.10.0.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"September 2013","version":"2.8.1","download":"http://download.kobobooks.com/firmwares/kobo4/kobothunder/kobo-update-2.8.1.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"September 2013","version":"2.6.2","download":"http://download.kobobooks.com/firmwares/kobo4/koborocks_v2/kobo-update-2.6.2.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"June 2013","version":"2.6.1","download":"http://download.kobobooks.com/firmwares/kobo4/koborocks/kobo-update-2.6.1.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"June 2013","version":"2.6.0","download":"http://download.kobobooks.com/firmwares/kobo4/rakutenrocks/kobo-update-2.6.0.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"May 2013","version":"2.5.2","download":"http://download.kobobooks.com/firmwares/kobo4/bleedblue/kobo-update-2.5.2.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"April 2013","version":"2.5.1","download":"http://download.kobobooks.com/firmwares/kobo4/leafs2013/kobo-update-2.5.1.zip"},{"model":"Kobo Glo","id":"00000000-0000-0000-0000-000000000330","hardware":"kobo4","date":"April 2013","version":"2.5.0","download":"http://download.kobobooks.com/firmwares/kobo4/goleafsgo/kobo-update-2.5.0.zip"}],"00000000-0000-0000-0000-000000000371":[{"model":"Kobo Glo HD","id":"00000000-0000-0000-0000-000000000371","hardware":"kobo6","date":"December 2017","version":"4.7.10413","download":"http://download.kobobooks.com/firmwares/kobo6/Dec2017/kobo-update-4.7.10413.zip"},{"model":"Kobo Glo HD","id":"00000000-0000-0000-0000-000000000371","hardware":"kobo6","date":"November 2017","version":"4.7.10075","download":"http://download.kobobooks.com/firmwares/kobo6/rakuten-4.6/kobo-update-4.6.10075.zip"},{"model":"Kobo Glo HD","id":"00000000-0000-0000-0000-000000000371","hardware":"kobo6","date":"October 2017","version":"4.6.9995","download":"http://download.kobobooks.com/firmwares/kobo6/Oct2017/kobo-update-4.6.9995.zip"},{"model":"Kobo Glo HD","id":"00000000-0000-0000-0000-000000000371","hardware":"kobo6","date":"October 2017","version":"4.6.9960","download":"http://download.kobobooks.com/firmwares/kobo6/July2017/kobo-update-4.6.9960.zip"},{"model":"Kobo Glo HD","id":"00000000-0000-0000-0000-000000000371","hardware":"kobo6","date":"July 2017","version":"4.5.9587","download":"http://download.kobobooks.com/firmwares/kobo6/July2017/kobo-update-4.5.9587.zip"},{"model":"Kobo Glo HD","id":"00000000-0000-0000-0000-000000000371","hardware":"kobo6","date":"May 2017","version":"4.4.9298","download":"http://download.kobobooks.com/firmwares/kobo6/May2017/kobo-update-4.4.9298.zip"},{"model":"Kobo Glo HD","id":"00000000-0000-0000-0000-000000000371","hardware":"kobo6","date":"April 2017","version":"4.3.9084","download":"http://download.kobobooks.com/firmwares/kobo6/rakuten-439084/kobo-update-4.3.9084.zip"},{"model":"Kobo Glo HD","id":"00000000-0000-0000-0000-000000000371","hardware":"kobo6","date":"March 2017","version":"4.3.8966","download":"http://download.kobobooks.com/firmwares/kobo6/Mar2017/kobo-update-4.3.8966.zip"},{"model":"Kobo Glo HD","id":"00000000-0000-0000-0000-000000000371","hardware":"kobo6","date":"March 2017","version":"4.3.8945","download":"http://download.kobobooks.com/firmwares/kobo6/Mar2017/kobo-update-4.3.8945.zip"},{"model":"Kobo Glo HD","id":"00000000-0000-0000-0000-000000000371","hardware":"kobo6","date":"March 2017","version":"4.3.8929","download":"http://download.kobobooks.com/firmwares/kobo6/Mar2017/kobo-update-4.3.8929.zip"},{"model":"Kobo Glo HD","id":"00000000-0000-0000-0000-000000000371","hardware":"kobo6","date":"March 2017","version":"4.3.8871","download":"http://download.kobobooks.com/firmwares/kobo6/Feb2017/kobo-update-4.3.8871.zip"},{"model":"Kobo Glo HD","id":"00000000-0000-0000-0000-000000000371","hardware":"kobo6","date":"February 2017","version":"4.3.8842","download":"http://download.kobobooks.com/firmwares/kobo6/Feb2017/kobo-update-4.3.8842.zip"},{"model":"Kobo Glo HD","id":"00000000-0000-0000-0000-000000000371","hardware":"kobo6","date":"February 2017","version":"4.2.8432","download":"http://download.kobobooks.com/firmwares/kobo6/Jan2017/kobo-update-4.2.8432.zip"},{"model":"Kobo Glo HD","id":"00000000-0000-0000-0000-000000000371","hardware":"kobo6","date":"December 2015","version":"3.19.5761","download":"http://download.kobobooks.com/firmwares/kobo6/january2016/kobo-update-3.19.5761.zip"},{"model":"Kobo Glo HD","id":"00000000-0000-0000-0000-000000000371","hardware":"kobo6","date":"December 2015","version":"3.19.5613","download":"http://download.kobobooks.com/firmwares/kobo6/december2015/kobo-update-3.19.5613.zip"},{"model":"Kobo Glo HD","id":"00000000-0000-0000-0000-000000000371","hardware":"kobo6","date":"September 2015","version":"3.18.0","download":"http://download.kobobooks.com/firmwares/kobo6/september2015/kobo-update-3.18.0.zip"},{"model":"Kobo Glo HD","id":"00000000-0000-0000-0000-000000000371","hardware":"kobo6","date":"August 2015","version":"3.17.3","download":"http://download.kobobooks.com/firmwares/kobo6/3173/kobo-update-3.17.3.zip"},{"model":"Kobo Glo HD","id":"00000000-0000-0000-0000-000000000371","hardware":"kobo6","date":"August 2015","version":"3.17.0","download":"http://download.kobobooks.com/firmwares/kobo6/august2015/kobo-update-3.17.0.zip"},{"model":"Kobo Glo HD","id":"00000000-0000-0000-0000-000000000371","hardware":"kobo6","date":"June 2015","version":"3.16.0","download":"http://download.kobobooks.com/firmwares/kobo6/hello_MR/kobo-update-3.16.0.zip"},{"model":"Kobo Glo HD","id":"00000000-0000-0000-0000-000000000371","hardware":"kobo6","date":"April 2015","version":"3.15.0","download":"http://download.kobobooks.com/firmwares/kobo6/april2015/kobo-update-3.15.0.zip"},{"model":"Kobo Glo HD","id":"00000000-0000-0000-0000-000000000371","hardware":"kobo6","date":"April 2015","version":"3.14.0","download":"http://download.kobobooks.com/firmwares/kobo6/glohd-3140/kobo-update-3.14.0.zip"}],"00000000-0000-0000-0000-000000000372":[{"model":"Kobo Touch 2.0","id":"00000000-0000-0000-0000-000000000372","hardware":"kobo6","date":"December 2017","version":"4.7.10413","download":"http://download.kobobooks.com/firmwares/kobo6/Dec2017/kobo-update-4.7.10413.zip"},{"model":"Kobo Touch 2.0","id":"00000000-0000-0000-0000-000000000372","hardware":"kobo6","date":"November 2017","version":"4.7.10075","download":"http://download.kobobooks.com/firmwares/kobo6/rakuten-4.6/kobo-update-4.6.10075.zip"},{"model":"Kobo Touch 2.0","id":"00000000-0000-0000-0000-000000000372","hardware":"kobo6","date":"October 2017","version":"4.6.9995","download":"http://download.kobobooks.com/firmwares/kobo6/Oct2017/kobo-update-4.6.9995.zip"},{"model":"Kobo Touch 2.0","id":"00000000-0000-0000-0000-000000000372","hardware":"kobo6","date":"October 2017","version":"4.6.9960","download":"http://download.kobobooks.com/firmwares/kobo6/July2017/kobo-update-4.6.9960.zip"},{"model":"Kobo Touch 2.0","id":"00000000-0000-0000-0000-000000000372","hardware":"kobo6","date":"July 2017","version":"4.5.9587","download":"http://download.kobobooks.com/firmwares/kobo6/July2017/kobo-update-4.5.9587.zip"},{"model":"Kobo Touch 2.0","id":"00000000-0000-0000-0000-000000000372","hardware":"kobo6","date":"May 2017","version":"4.4.9298","download":"http://download.kobobooks.com/firmwares/kobo6/May2017/kobo-update-4.4.9298.zip"},{"model":"Kobo Touch 2.0","id":"00000000-0000-0000-0000-000000000372","hardware":"kobo6","date":"April 2017","version":"4.3.9084","download":"http://download.kobobooks.com/firmwares/kobo6/rakuten-439084/kobo-update-4.3.9084.zip"},{"model":"Kobo Touch 2.0","id":"00000000-0000-0000-0000-000000000372","hardware":"kobo6","date":"March 2017","version":"4.3.8966","download":"http://download.kobobooks.com/firmwares/kobo6/Mar2017/kobo-update-4.3.8966.zip"},{"model":"Kobo Touch 2.0","id":"00000000-0000-0000-0000-000000000372","hardware":"kobo6","date":"March 2017","version":"4.3.8945","download":"http://download.kobobooks.com/firmwares/kobo6/Mar2017/kobo-update-4.3.8945.zip"},{"model":"Kobo Touch 2.0","id":"00000000-0000-0000-0000-000000000372","hardware":"kobo6","date":"March 2017","version":"4.3.8929","download":"http://download.kobobooks.com/firmwares/kobo6/Mar2017/kobo-update-4.3.8929.zip"},{"model":"Kobo Touch 2.0","id":"00000000-0000-0000-0000-000000000372","hardware":"kobo6","date":"March 2017","version":"4.3.8871","download":"http://download.kobobooks.com/firmwares/kobo6/Feb2017/kobo-update-4.3.8871.zip"},{"model":"Kobo Touch 2.0","id":"00000000-0000-0000-0000-000000000372","hardware":"kobo6","date":"February 2017","version":"4.3.8842","download":"http://download.kobobooks.com/firmwares/kobo6/Feb2017/kobo-update-4.3.8842.zip"},{"model":"Kobo Touch 2.0","id":"00000000-0000-0000-0000-000000000372","hardware":"kobo6","date":"February 2017","version":"4.2.8432","download":"http://download.kobobooks.com/firmwares/kobo6/Jan2017/kobo-update-4.2.8432.zip"},{"model":"Kobo Touch 2.0","id":"00000000-0000-0000-0000-000000000372","hardware":"kobo6","date":"December 2015","version":"3.19.5761","download":"http://download.kobobooks.com/firmwares/kobo6/january2016/kobo-update-3.19.5761.zip"},{"model":"Kobo Touch 2.0","id":"00000000-0000-0000-0000-000000000372","hardware":"kobo6","date":"December 2015","version":"3.19.5613","download":"http://download.kobobooks.com/firmwares/kobo6/december2015/kobo-update-3.19.5613.zip"},{"model":"Kobo Touch 2.0","id":"00000000-0000-0000-0000-000000000372","hardware":"kobo6","date":"September 2015","version":"3.18.0","download":"http://download.kobobooks.com/firmwares/kobo6/september2015/kobo-update-3.18.0.zip"}],"00000000-0000-0000-0000-000000000360":[{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"December 2017","version":"4.7.10413","download":"http://download.kobobooks.com/firmwares/kobo5/Dec2017/kobo-update-4.7.10413.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"November 2017","version":"4.7.10075","download":"http://download.kobobooks.com/firmwares/kobo5/rakuten-4.6/kobo-update-4.6.10075.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"October 2017","version":"4.6.9995","download":"http://download.kobobooks.com/firmwares/kobo5/Oct2017/kobo-update-4.6.9995.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"October 2017","version":"4.6.9960","download":"http://download.kobobooks.com/firmwares/kobo5/July2017/kobo-update-4.6.9960.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"July 2017","version":"4.5.9587","download":"http://download.kobobooks.com/firmwares/kobo5/July2017/kobo-update-4.5.9587.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"May 2017","version":"4.4.9298","download":"http://download.kobobooks.com/firmwares/kobo5/May2017/kobo-update-4.4.9298.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"April 2017","version":"4.3.9084","download":"http://download.kobobooks.com/firmwares/kobo5/rakuten-439084/kobo-update-4.3.9084.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"March 2017","version":"4.3.8966","download":"http://download.kobobooks.com/firmwares/kobo5/Mar2017/kobo-update-4.3.8966.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"March 2017","version":"4.3.8945","download":"http://download.kobobooks.com/firmwares/kobo5/Mar2017/kobo-update-4.3.8945.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"March 2017","version":"4.3.8929","download":"http://download.kobobooks.com/firmwares/kobo5/Mar2017/kobo-update-4.3.8929.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"March 2017","version":"4.3.8871","download":"http://download.kobobooks.com/firmwares/kobo5/Feb2017/kobo-update-4.3.8871.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"February 2017","version":"4.3.8842","download":"http://download.kobobooks.com/firmwares/kobo5/Feb2017/kobo-update-4.3.8842.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"February 2017","version":"4.2.8432","download":"http://download.kobobooks.com/firmwares/kobo5/Jan2017/kobo-update-4.2.8432.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"December 2015","version":"3.19.5761","download":"http://download.kobobooks.com/firmwares/kobo5/january2016/kobo-update-3.19.5761.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"December 2015","version":"3.19.5613","download":"http://download.kobobooks.com/firmwares/kobo5/december2015/kobo-update-3.19.5613.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"September 2015","version":"3.18.0","download":"http://download.kobobooks.com/firmwares/kobo5/september2015/kobo-update-3.18.0.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"August 2015","version":"3.17.3","download":"http://download.kobobooks.com/firmwares/kobo5/3173/kobo-update-3.17.3.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"August 2015","version":"3.17.0","download":"http://download.kobobooks.com/firmwares/kobo5/august2015/kobo-update-3.17.0.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"April 2015","version":"3.15.0","download":"http://download.kobobooks.com/firmwares/kobo5/april2015/kobo-update-3.15.0.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"January 2014","version":"3.12.1","download":"http://download.kobobooks.com/firmwares/kobo5/icecold2015/kobo-update-3.12.1.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"December 2014","version":"3.12.0","download":"http://download.kobobooks.com/firmwares/kobo5/wethenorth2014/kobo-update-3.12.0.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"October 2014","version":"3.11.0","download":"http://download.kobobooks.com/firmwares/kobo5/mapleleafs2014/kobo-update-3.11.0.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"August 2014","version":"3.8.0","download":"http://download.kobobooks.com/firmwares/kobo5/intimeforlabourday2014/kobo-update-3.8.0.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"July 2014","version":"3.5.0","download":"http://download.kobobooks.com/firmwares/kobo5/fifa2014/kobo-update-3.5.0.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"May 2014","version":"3.3.1","download":"http://download.kobobooks.com/firmwares/kobo5/pt-br-331/kobo-update-3.3.1.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"April 2014","version":"3.3.0","download":"http://download.kobobooks.com/firmwares/kobo5/easter2014/kobo-update-3.3.0.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"December 2013","version":"3.1.1","download":"http://download.kobobooks.com//firmwares/kobo5/indigoblitz2013/kobo-update-3.1.1.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"December 2013","version":"3.1.0","download":"http://download.kobobooks.com/firmwares/kobo5/blackfriday2013/kobo-update-3.1.0.zip"},{"model":"Kobo Aura","id":"00000000-0000-0000-0000-000000000360","hardware":"kobo5","date":"October 2013","version":"2.10.0","download":"http://download.kobobooks.com/firmwares/kobo5/libertyvillage/kobo-update-2.10.0.zip"}],"00000000-0000-0000-0000-000000000350":[{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"December 2017","version":"4.7.10413","download":"http://download.kobobooks.com/firmwares/kobo4/Dec2017/kobo-update-4.7.10413.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"November 2017","version":"4.7.10075","download":"http://download.kobobooks.com/firmwares/kobo4/rakuten-4.6/kobo-update-4.6.10075.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"October 2017","version":"4.6.9995","download":"http://download.kobobooks.com/firmwares/kobo4/Oct2017/kobo-update-4.6.9995.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"October 2017","version":"4.6.9960","download":"http://download.kobobooks.com/firmwares/kobo4/July2017/kobo-update-4.6.9960.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"July 2017","version":"4.5.9587","download":"http://download.kobobooks.com/firmwares/kobo4/July2017/kobo-update-4.5.9587.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"May 2017","version":"4.4.9298","download":"http://download.kobobooks.com/firmwares/kobo4/May2017/kobo-update-4.4.9298.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"April 2017","version":"4.3.9084","download":"http://download.kobobooks.com/firmwares/kobo4/rakuten-439084/kobo-update-4.3.9084.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"March 2017","version":"4.3.8966","download":"http://download.kobobooks.com/firmwares/kobo4/Mar2017/kobo-update-4.3.8966.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"March 2017","version":"4.3.8945","download":"http://download.kobobooks.com/firmwares/kobo4/Mar2017/kobo-update-4.3.8945.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"March 2017","version":"4.3.8929","download":"http://download.kobobooks.com/firmwares/kobo4/Mar2017/kobo-update-4.3.8929.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"March 2017","version":"4.3.8871","download":"http://download.kobobooks.com/firmwares/kobo4/Feb2017/kobo-update-4.3.8871.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"February 2017","version":"4.3.8842","download":"http://download.kobobooks.com/firmwares/kobo4/Feb2017/kobo-update-4.3.8842.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"February 2017","version":"4.2.8432","download":"http://download.kobobooks.com/firmwares/kobo4/Jan2017/kobo-update-4.2.8432.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"December 2015","version":"3.19.5761","download":"http://download.kobobooks.com/firmwares/kobo4/january2016/kobo-update-3.19.5761.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"December 2015","version":"3.19.5613","download":"http://download.kobobooks.com/firmwares/kobo4/december2015/kobo-update-3.19.5613.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"September 2015","version":"3.18.0","download":"http://download.kobobooks.com/firmwares/kobo4/september2015/kobo-update-3.18.0.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"August 2015","version":"3.17.3","download":"http://download.kobobooks.com/firmwares/kobo4/3173/kobo-update-3.17.3.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"August 2015","version":"3.17.0","download":"http://download.kobobooks.com/firmwares/kobo4/august2015/kobo-update-3.17.0.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"April 2015","version":"3.15.0","download":"http://download.kobobooks.com/firmwares/kobo4/april2015/kobo-update-3.15.0.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"January 2014","version":"3.12.1","download":"http://download.kobobooks.com/firmwares/kobo4/icecold2015/kobo-update-3.12.1.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"December 2014","version":"3.12.0","download":"http://download.kobobooks.com/firmwares/kobo4/wethenorth2014/kobo-update-3.12.0.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"October 2014","version":"3.11.0","download":"http://download.kobobooks.com/firmwares/kobo4/mapleleafs2014/kobo-update-3.11.0.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"August 2014","version":"3.8.0","download":"http://download.kobobooks.com/firmwares/kobo4/intimeforlabourday2014/kobo-update-3.8.0.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"July 2014","version":"3.5.0","download":"http://download.kobobooks.com/firmwares/kobo4/fifa2014/kobo-update-3.5.0.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"May 2014","version":"3.3.1","download":"http://download.kobobooks.com/firmwares/kobo4/pt-br-331/kobo-update-3.3.1.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"April 2014","version":"3.3.0","download":"http://download.kobobooks.com/firmwares/kobo4/easter2014/kobo-update-3.3.0.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"February 2014","version":"3.2.0","download":"http://download.kobobooks.com/firmwares/kobo4/kobocares/kobo-update-3.2.0.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"December 2013","version":"3.1.1","download":"http://download.kobobooks.com//firmwares/kobo4/indigoblitz2013/kobo-update-3.1.1.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"December 2013","version":"3.1.0","download":"http://download.kobobooks.com/firmwares/kobo4/blackfriday2013/kobo-update-3.1.0.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"November 2013","version":"3.0.0","download":"http://download.kobobooks.com/firmwares/kobo4/babak/kobo-update-3.0.0.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"October 2013","version":"2.10.0","download":"http://download.kobobooks.com/firmwares/kobo4/libertyvillage/kobo-update-2.10.0.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"September 2013","version":"2.8.1","download":"http://download.kobobooks.com/firmwares/kobo4/kobothunder/kobo-update-2.8.1.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"September 2013","version":"2.6.2","download":"http://download.kobobooks.com/firmwares/kobo4/koborocks_v2/kobo-update-2.6.2.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"June 2013","version":"2.6.1","download":"http://download.kobobooks.com/firmwares/kobo4/koborocks/kobo-update-2.6.1.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"June 2013","version":"2.6.0","download":"http://download.kobobooks.com/firmwares/kobo4/rakutenrocks/kobo-update-2.6.0.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"May 2013","version":"2.5.2","download":"http://download.kobobooks.com/firmwares/kobo4/bleedblue/kobo-update-2.5.2.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"April 2013","version":"2.5.1","download":"http://download.kobobooks.com/firmwares/kobo4/leafs2013/kobo-update-2.5.1.zip"},{"model":"Kobo Aura HD","id":"00000000-0000-0000-0000-000000000350","hardware":"kobo4","date":"April 2013","version":"2.5.0","download":"http://download.kobobooks.com/firmwares/kobo4/goleafsgo/kobo-update-2.5.0.zip"}],"00000000-0000-0000-0000-000000000370":[{"model":"Kobo Aura H2O","id":"00000000-0000-0000-0000-000000000370","hardware":"kobo5","date":"December 2017","version":"4.7.10413","download":"http://download.kobobooks.com/firmwares/kobo5/Dec2017/kobo-update-4.7.10413.zip"},{"model":"Kobo Aura H2O","id":"00000000-0000-0000-0000-000000000370","hardware":"kobo5","date":"November 2017","version":"4.7.10075","download":"http://download.kobobooks.com/firmwares/kobo5/rakuten-4.6/kobo-update-4.6.10075.zip"},{"model":"Kobo Aura H2O","id":"00000000-0000-0000-0000-000000000370","hardware":"kobo5","date":"October 2017","version":"4.6.9995","download":"http://download.kobobooks.com/firmwares/kobo5/Oct2017/kobo-update-4.6.9995.zip"},{"model":"Kobo Aura H2O","id":"00000000-0000-0000-0000-000000000370","hardware":"kobo5","date":"October 2017","version":"4.6.9960","download":"http://download.kobobooks.com/firmwares/kobo5/July2017/kobo-update-4.6.9960.zip"},{"model":"Kobo Aura H2O","id":"00000000-0000-0000-0000-000000000370","hardware":"kobo5","date":"July 2017","version":"4.5.9587","download":"http://download.kobobooks.com/firmwares/kobo5/July2017/kobo-update-4.5.9587.zip"},{"model":"Kobo Aura H2O","id":"00000000-0000-0000-0000-000000000370","hardware":"kobo5","date":"May 2017","version":"4.4.9298","download":"http://download.kobobooks.com/firmwares/kobo5/May2017/kobo-update-4.4.9298.zip"},{"model":"Kobo Aura H2O","id":"00000000-0000-0000-0000-000000000370","hardware":"kobo5","date":"April 2017","version":"4.3.9084","download":"http://download.kobobooks.com/firmwares/kobo5/rakuten-439084/kobo-update-4.3.9084.zip"},{"model":"Kobo Aura H2O","id":"00000000-0000-0000-0000-000000000370","hardware":"kobo5","date":"March 2017","version":"4.3.8966","download":"http://download.kobobooks.com/firmwares/kobo5/Mar2017/kobo-update-4.3.8966.zip"},{"model":"Kobo Aura H2O","id":"00000000-0000-0000-0000-000000000370","hardware":"kobo5","date":"March 2017","version":"4.3.8945","download":"http://download.kobobooks.com/firmwares/kobo5/Mar2017/kobo-update-4.3.8945.zip"},{"model":"Kobo Aura H2O","id":"00000000-0000-0000-0000-000000000370","hardware":"kobo5","date":"March 2017","version":"4.3.8929","download":"http://download.kobobooks.com/firmwares/kobo5/Mar2017/kobo-update-4.3.8929.zip"},{"model":"Kobo Aura H2O","id":"00000000-0000-0000-0000-000000000370","hardware":"kobo5","date":"March 2017","version":"4.3.8871","download":"http://download.kobobooks.com/firmwares/kobo5/Feb2017/kobo-update-4.3.8871.zip"},{"model":"Kobo Aura H2O","id":"00000000-0000-0000-0000-000000000370","hardware":"kobo5","date":"February 2017","version":"4.3.8842","download":"http://download.kobobooks.com/firmwares/kobo5/Feb2017/kobo-update-4.3.8842.zip"},{"model":"Kobo Aura H2O","id":"00000000-0000-0000-0000-000000000370","hardware":"kobo5","date":"February 2017","version":"4.2.8432","download":"http://download.kobobooks.com/firmwares/kobo5/Jan2017/kobo-update-4.2.8432.zip"},{"model":"Kobo Aura H2O","id":"00000000-0000-0000-0000-000000000370","hardware":"kobo5","date":"December 2015","version":"3.19.5761","download":"http://download.kobobooks.com/firmwares/kobo5/january2016/kobo-update-3.19.5761.zip"},{"model":"Kobo Aura H2O","id":"00000000-0000-0000-0000-000000000370","hardware":"kobo5","date":"December 2015","version":"3.19.5613","download":"http://download.kobobooks.com/firmwares/kobo5/december2015/kobo-update-3.19.5613.zip"},{"model":"Kobo Aura H2O","id":"00000000-0000-0000-0000-000000000370","hardware":"kobo5","date":"September 2015","version":"3.18.0","download":"http://download.kobobooks.com/firmwares/kobo5/september2015/kobo-update-3.18.0.zip"},{"model":"Kobo Aura H2O","id":"00000000-0000-0000-0000-000000000370","hardware":"kobo5","date":"August 2015","version":"3.17.3","download":"http://download.kobobooks.com/firmwares/kobo5/3173/kobo-update-3.17.3.zip"},{"model":"Kobo Aura H2O","id":"00000000-0000-0000-0000-000000000370","hardware":"kobo5","date":"August 2015","version":"3.17.0","download":"http://download.kobobooks.com/firmwares/kobo5/august2015/kobo-update-3.17.0.zip"},{"model":"Kobo Aura H2O","id":"00000000-0000-0000-0000-000000000370","hardware":"kobo5","date":"April 2015","version":"3.15.0","download":"http://download.kobobooks.com/firmwares/kobo5/april2015/kobo-update-3.15.0.zip"},{"model":"Kobo Aura H2O","id":"00000000-0000-0000-0000-000000000370","hardware":"kobo5","date":"January 2014","version":"3.12.1","download":"http://download.kobobooks.com/firmwares/kobo5/icecold2015/kobo-update-3.12.1.zip"},{"model":"Kobo Aura H2O","id":"00000000-0000-0000-0000-000000000370","hardware":"kobo5","date":"December 2014","version":"3.12.0","download":"http://download.kobobooks.com/firmwares/kobo5/wethenorth2014/kobo-update-3.12.0.zip"},{"model":"Kobo Aura H2O","id":"00000000-0000-0000-0000-000000000370","hardware":"kobo5","date":"October 2014","version":"3.11.0","download":"http://download.kobobooks.com/firmwares/kobo5/mapleleafs2014/kobo-update-3.11.0.zip"},{"model":"Kobo Aura H2O","id":"00000000-0000-0000-0000-000000000370","hardware":"kobo5","date":"August 2013","version":"3.8.0","download":"http://download.kobobooks.com/firmwares/kobo5/intimeforlabourday2014/kobo-update-3.8.0.zip"},{"model":"Kobo Aura H2O","id":"00000000-0000-0000-0000-000000000370","hardware":"kobo5","date":"August 2014","version":"3.7.0","download":"http://download.kobobooks.com/firmwares/kobo5/dahlialaunch/kobo-update-3.7.0.zip"}],"00000000-0000-0000-0000-000000000374":[{"model":"Kobo Aura H2O Edition 2","id":"00000000-0000-0000-0000-000000000374","hardware":"kobo6","date":"December 2017","version":"4.7.10413","download":"http://download.kobobooks.com/firmwares/kobo6/Dec2017/kobo-update-4.7.10413.zip"},{"model":"Kobo Aura H2O Edition 2","id":"00000000-0000-0000-0000-000000000374","hardware":"kobo6","date":"November 2017","version":"4.7.10075","download":"http://download.kobobooks.com/firmwares/kobo6/rakuten-4.6/kobo-update-4.6.10075.zip"},{"model":"Kobo Aura H2O Edition 2","id":"00000000-0000-0000-0000-000000000374","hardware":"kobo6","date":"October 2017","version":"4.6.9960","download":"http://download.kobobooks.com/firmwares/kobo6/July2017/kobo-update-4.6.9960.zip"},{"model":"Kobo Aura H2O Edition 2","id":"00000000-0000-0000-0000-000000000374","hardware":"kobo6","date":"July 2017","version":"4.5.9587","download":"http://download.kobobooks.com/firmwares/kobo6/July2017/kobo-update-4.5.9587.zip"},{"model":"Kobo Aura H2O Edition 2","id":"00000000-0000-0000-0000-000000000374","hardware":"kobo6","date":"May 2017","version":"4.3.9349","download":"http://download.kobobooks.com/firmwares/kobo6/May2017/AuraONE_kobo-update-4.4.9349.zip"},{"model":"Kobo Aura H2O Edition 2","id":"00000000-0000-0000-0000-000000000374","hardware":"kobo6","date":"May 2017","version":"4.4.9298","download":"http://download.kobobooks.com/firmwares/kobo6/May2017/kobo-update-4.4.9298.zip"}],"00000000-0000-0000-0000-000000000373":[{"model":"Kobo Aura ONE","id":"00000000-0000-0000-0000-000000000373","hardware":"kobo6","date":"December 2017","version":"4.7.10413","download":"http://download.kobobooks.com/firmwares/kobo6/Dec2017/kobo-update-4.7.10413.zip"},{"model":"Kobo Aura ONE","id":"00000000-0000-0000-0000-000000000373","hardware":"kobo6","date":"November 2017","version":"4.7.10075","download":"http://download.kobobooks.com/firmwares/kobo6/rakuten-4.6/kobo-update-4.6.10075.zip"},{"model":"Kobo Aura ONE","id":"00000000-0000-0000-0000-000000000373","hardware":"kobo6","date":"October 2017","version":"4.6.9995","download":"http://download.kobobooks.com/firmwares/kobo6/Oct2017/kobo-update-4.6.9995.zip"},{"model":"Kobo Aura ONE","id":"00000000-0000-0000-0000-000000000373","hardware":"kobo6","date":"October 2017","version":"4.6.9960","download":"http://download.kobobooks.com/firmwares/kobo6/July2017/kobo-update-4.6.9960.zip"},{"model":"Kobo Aura ONE","id":"00000000-0000-0000-0000-000000000373","hardware":"kobo6","date":"July 2017","version":"4.5.9587","download":"http://download.kobobooks.com/firmwares/kobo6/July2017/kobo-update-4.5.9587.zip"},{"model":"Kobo Aura ONE","id":"00000000-0000-0000-0000-000000000373","hardware":"kobo6","date":"May 2017","version":"4.3.9349","download":"http://download.kobobooks.com/firmwares/kobo6/May2017/AuraONE_kobo-update-4.4.9349.zip"},{"model":"Kobo Aura ONE","id":"00000000-0000-0000-0000-000000000373","hardware":"kobo6","date":"May 2017","version":"4.4.9298","download":"http://download.kobobooks.com/firmwares/kobo6/May2017/kobo-update-4.4.9298.zip"},{"model":"Kobo Aura ONE","id":"00000000-0000-0000-0000-000000000373","hardware":"kobo6","date":"April 2017","version":"4.3.9084","download":"http://download.kobobooks.com/firmwares/kobo6/rakuten-439084/kobo-update-4.3.9084.zip"},{"model":"Kobo Aura ONE","id":"00000000-0000-0000-0000-000000000373","hardware":"kobo6","date":"March 2017","version":"4.3.8966","download":"http://download.kobobooks.com/firmwares/kobo6/Mar2017/kobo-update-4.3.8966.zip"},{"model":"Kobo Aura ONE","id":"00000000-0000-0000-0000-000000000373","hardware":"kobo6","date":"March 2017","version":"4.3.8945","download":"http://download.kobobooks.com/firmwares/kobo6/Mar2017/kobo-update-4.3.8945.zip"},{"model":"Kobo Aura ONE","id":"00000000-0000-0000-0000-000000000373","hardware":"kobo6","date":"March 2017","version":"4.3.8929","download":"http://download.kobobooks.com/firmwares/kobo6/Mar2017/kobo-update-4.3.8929.zip"},{"model":"Kobo Aura ONE","id":"00000000-0000-0000-0000-000000000373","hardware":"kobo6","date":"March 2017","version":"4.3.8871","download":"http://download.kobobooks.com/firmwares/kobo6/Feb2017/kobo-update-4.3.8871.zip"},{"model":"Kobo Aura ONE","id":"00000000-0000-0000-0000-000000000373","hardware":"kobo6","date":"February 2017","version":"4.3.8842","download":"http://download.kobobooks.com/firmwares/kobo6/Feb2017/kobo-update-4.3.8842.zip"},{"model":"Kobo Aura ONE","id":"00000000-0000-0000-0000-000000000373","hardware":"kobo6","date":"February 2017","version":"4.2.8432","download":"http://download.kobobooks.com/firmwares/kobo6/Jan2017/kobo-update-4.2.8432.zip"},{"model":"Kobo Aura ONE","id":"00000000-0000-0000-0000-000000000373","hardware":"kobo6","date":"January 2017","version":"4.2.8283","download":"http://download.kobobooks.com/firmwares/kobo6/Jan2017/kobo-update-4.2.8283.zip"},{"model":"Kobo Aura ONE","id":"00000000-0000-0000-0000-000000000373","hardware":"kobo6","date":"December 2016","version":"4.2.8110","download":"http://download.kobobooks.com/firmwares/kobo6/December2016/kobo-update-4.2.8110.zip"},{"model":"Kobo Aura ONE","id":"00000000-0000-0000-0000-000000000373","hardware":"kobo6","date":"November 2016","version":"4.1.7729","download":"http://download.kobobooks.com/firmwares/kobo6/October2016/kobo-update-4.1.7729.zip"},{"model":"Kobo Aura ONE","id":"00000000-0000-0000-0000-000000000373","hardware":"kobo6","date":"September 2016","version":"4.0.7523","download":"http://download.kobobooks.com/firmwares/kobo6/september2016/kobo-update-4.0.7523.zip"}],"00000000-0000-0000-0000-000000000381":[{"model":"Kobo Aura ONE Limited Edition","id":"00000000-0000-0000-0000-000000000381","hardware":"kobo6","date":"December 2017","version":"4.7.10364","download":"http://download.kobobooks.com/firmwares/kobo6/Dec2017/kobo-limitededitionupdate-4.7.10364.zip"}],"00000000-0000-0000-0000-000000000375":[{"model":"Kobo Aura Edition 2","id":"00000000-0000-0000-0000-000000000375","hardware":"kobo6","date":"December 2017","version":"4.7.10413","download":"http://download.kobobooks.com/firmwares/kobo6/Dec2017/kobo-update-4.7.10413.zip"},{"model":"Kobo Aura Edition 2","id":"00000000-0000-0000-0000-000000000375","hardware":"kobo6","date":"November 2017","version":"4.7.10075","download":"http://download.kobobooks.com/firmwares/kobo6/rakuten-4.6/kobo-update-4.6.10075.zip"},{"model":"Kobo Aura Edition 2","id":"00000000-0000-0000-0000-000000000375","hardware":"kobo6","date":"October 2017","version":"4.6.9995","download":"http://download.kobobooks.com/firmwares/kobo6/Oct2017/kobo-update-4.6.9995.zip"},{"model":"Kobo Aura Edition 2","id":"00000000-0000-0000-0000-000000000375","hardware":"kobo6","date":"October 2017","version":"4.6.9960","download":"http://download.kobobooks.com/firmwares/kobo6/July2017/kobo-update-4.6.9960.zip"},{"model":"Kobo Aura Edition 2","id":"00000000-0000-0000-0000-000000000375","hardware":"kobo6","date":"July 2017","version":"4.5.9587","download":"http://download.kobobooks.com/firmwares/kobo6/July2017/kobo-update-4.5.9587.zip"},{"model":"Kobo Aura Edition 2","id":"00000000-0000-0000-0000-000000000375","hardware":"kobo6","date":"May 2017","version":"4.3.9349","download":"http://download.kobobooks.com/firmwares/kobo6/May2017/AuraONE_kobo-update-4.4.9349.zip"},{"model":"Kobo Aura Edition 2","id":"00000000-0000-0000-0000-000000000375","hardware":"kobo6","date":"May 2017","version":"4.4.9298","download":"http://download.kobobooks.com/firmwares/kobo6/May2017/kobo-update-4.4.9298.zip"},{"model":"Kobo Aura Edition 2","id":"00000000-0000-0000-0000-000000000375","hardware":"kobo6","date":"April 2017","version":"4.3.9084","download":"http://download.kobobooks.com/firmwares/kobo6/rakuten-439084/kobo-update-4.3.9084.zip"},{"model":"Kobo Aura Edition 2","id":"00000000-0000-0000-0000-000000000375","hardware":"kobo6","date":"March 2017","version":"4.3.8966","download":"http://download.kobobooks.com/firmwares/kobo6/Mar2017/kobo-update-4.3.8966.zip"},{"model":"Kobo Aura Edition 2","id":"00000000-0000-0000-0000-000000000375","hardware":"kobo6","date":"March 2017","version":"4.3.8945","download":"http://download.kobobooks.com/firmwares/kobo6/Mar2017/kobo-update-4.3.8945.zip"},{"model":"Kobo Aura Edition 2","id":"00000000-0000-0000-0000-000000000375","hardware":"kobo6","date":"March 2017","version":"4.3.8929","download":"http://download.kobobooks.com/firmwares/kobo6/Mar2017/kobo-update-4.3.8929.zip"},{"model":"Kobo Aura Edition 2","id":"00000000-0000-0000-0000-000000000375","hardware":"kobo6","date":"March 2017","version":"4.3.8871","download":"http://download.kobobooks.com/firmwares/kobo6/Feb2017/kobo-update-4.3.8871.zip"},{"model":"Kobo Aura Edition 2","id":"00000000-0000-0000-0000-000000000375","hardware":"kobo6","date":"February 2017","version":"4.3.8842","download":"http://download.kobobooks.com/firmwares/kobo6/Feb2017/kobo-update-4.3.8842.zip"},{"model":"Kobo Aura Edition 2","id":"00000000-0000-0000-0000-000000000375","hardware":"kobo6","date":"February 2017","version":"4.2.8432","download":"http://download.kobobooks.com/firmwares/kobo6/Jan2017/kobo-update-4.2.8432.zip"},{"model":"Kobo Aura Edition 2","id":"00000000-0000-0000-0000-000000000375","hardware":"kobo6","date":"January 2017","version":"4.2.8283","download":"http://download.kobobooks.com/firmwares/kobo6/Jan2017/kobo-update-4.2.8283.zip"},{"model":"Kobo Aura Edition 2","id":"00000000-0000-0000-0000-000000000375","hardware":"kobo6","date":"December 2016","version":"4.2.8110","download":"http://download.kobobooks.com/firmwares/kobo6/December2016/kobo-update-4.2.8110.zip"},{"model":"Kobo Aura Edition 2","id":"00000000-0000-0000-0000-000000000375","hardware":"kobo6","date":"November 2016","version":"4.1.7729","download":"http://download.kobobooks.com/firmwares/kobo6/October2016/kobo-update-4.1.7729.zip"},{"model":"Kobo Aura Edition 2","id":"00000000-0000-0000-0000-000000000375","hardware":"kobo6","date":"September 2016","version":"4.0.7523","download":"http://download.kobobooks.com/firmwares/kobo6/september2016/kobo-update-4.0.7523.zip"}]},
+                filter: filter || "",
+            },
+            created: function () {
+                console.log("App ready");
+                this.addDevice("00000000-0000-0000-0000-000000000310", "Kobo Touch A/B", "kobo3");
+                this.addDevice("00000000-0000-0000-0000-000000000320", "Kobo Touch C", "kobo4");
+                this.addDevice("00000000-0000-0000-0000-000000000340", "Kobo Mini", "kobo4");
+                this.addDevice("00000000-0000-0000-0000-000000000330", "Kobo Glo", "kobo4");
+                this.addDevice("00000000-0000-0000-0000-000000000371", "Kobo Glo HD", "kobo6");
+                this.addDevice("00000000-0000-0000-0000-000000000372", "Kobo Touch 2.0", "kobo6");
+                this.addDevice("00000000-0000-0000-0000-000000000360", "Kobo Aura", "kobo5");
+                this.addDevice("00000000-0000-0000-0000-000000000350", "Kobo Aura HD", "kobo4");
+                this.addDevice("00000000-0000-0000-0000-000000000370", "Kobo Aura H2O", "kobo5");
+                this.addDevice("00000000-0000-0000-0000-000000000374", "Kobo Aura H2O Edition 2", "kobo6");
+                this.addDevice("00000000-0000-0000-0000-000000000373", "Kobo Aura ONE", "kobo6");
+                this.addDevice("00000000-0000-0000-0000-000000000381", "Kobo Aura ONE Limited Edition", "kobo6")
+                this.addDevice("00000000-0000-0000-0000-000000000375", "Kobo Aura Edition 2", "kobo6");
+                this.updateVersions();
+                document.getElementById("error").style.display = "none";
+                document.querySelector(".popup-wrapper").classList.remove("not-loaded");
+            },
+            watch: {
+                filter: function () {
+                    window.location.hash = this.filter;
+                }
+            },
+            methods: {
+                filteredDevices: function () {
+                    var filter = this.filter.toLowerCase();
+                    return this.devices.filter(function (device) {
+                        if (!filter) return true;
+                        if (device.model.toLowerCase().indexOf(filter) > -1) return true;
+                        if (device.id.toLowerCase().indexOf(filter) > -1) return true;
+                        if (device.version.toLowerCase().indexOf(filter) > -1) return true;
+                        if (device.date.toLowerCase().indexOf(filter) > -1) return true;
+                        if (device.hardware.toLowerCase().indexOf(filter) > -1) return true;
+                        return false;
+                    });
+                },
+                addDevice: function (id, model, hardware) {
+                    this.devices.push({
+                        id: id,
+                        image: id + ".jpg",
+                        model: model,
+                        hardware: hardware,
+                        affiliate: "",
+                        version: "loading",
+                        date: "",
+                        download: "",
+                        notes: "",
+                        otherversions: [],
+                    })
+                    return this.devices.length - 1;
+                },
+                affiliatesWithLatestVersion: function (device) {
+                    return "Affiliates with latest version: " + device.otherversions.filter(function (version) {
+                        return version.version == device.version;
+                    }).map(function (version) {
+                        return version.affiliate;
+                    }).join(", ");
+                },
+                updateVersions: function () {
+                    this.devices.forEach(function (device, index) {
+                        var affiliatePromises = this.affiliates.map(function (affiliate) {
+                            return this.jsonp(
+                                "https://api.kobobooks.com/1.0/UpgradeCheck/Device/" +
+                                device.id +
+                                "/" + affiliate + "/0.0/N").then(this.parseUpdateInfo.bind(
+                                self, device, affiliate));
+                        }.bind(this));
 
-        ga('create', 'UA-66226417-1', 'auto');
-        ga('send', 'pageview');
+                        Promise.all(affiliatePromises).then(this.greatestUpdateInfo.bind(this)).then(
+                            function (info) {
+                                this.devices[index] = info;
+                                window.setTimeout(function () {
+                                    this.$forceUpdate();
+                                }.bind(this), 500);
+                            }.bind(this)).catch(function (err) {
+                            console.warn("Error getting update info: ", affiliate, device.id,
+                                device.model, err)
+                            var info = device;
+                            info.version = "Error loading info";
+                            info.date = "";
+                            info.download = "";
+                            info.notes = "";
+                            info.otherversions = [];
+                            this.devices[index] = info;
+                            window.setTimeout(function () {
+                                this.$forceUpdate();
+                            }.bind(this), 500);
+                        }.bind(this));
+                    }.bind(this))
+                },
+                jsonp: function jsonp(url) {
+                    var CALLBACK_CHARS = 'abcdefghijklmnopqrstuvwxyz0123456789';
+                    var timeout = 30000;
+                    var jsonpurl = "https://json2jsonp.com/";
+
+                    return new Promise(function (resolve, reject) {
+                        var callback;
+                        while (!callback || window[callback] !== undefined) {
+                            callback = 'JSONP_';
+                            for (var i = 0; i < 10; i++) {
+                                callback += CALLBACK_CHARS[Math.random() * CALLBACK_CHARS.length |
+                                    0];
+                            }
+                        }
+
+                        function cleanup() {
+                            delete window[callback];
+                            script.remove();
+                        }
+
+                        var ticket = setTimeout(function () {
+                            cleanup();
+                            reject("Connection timed out");
+                        }, timeout);
+
+                        window[callback] = function (data) {
+                            clearTimeout(ticket);
+                            cleanup();
+                            resolve({
+                                url: url,
+                                data: data
+                            });
+                        };
+
+                        var script = document.createElement('script');
+                        script.src = jsonpurl + '?url=' + encodeURIComponent(url) +
+                            '&callback=' +
+                            encodeURIComponent(callback);
+                        document.body.appendChild(script);
+                    });
+                },
+                fixDate: function (date, version) {
+                    var newDate = date;
+                    newDate = newDate && newDate[0].toUpperCase() + newDate.slice(1);
+                    newDate = [newDate.slice(0, newDate.search(/\d/)), " ", newDate.slice(newDate.search(
+                        /\d/))].join('');
+                    if (version == "4.6.9960") {
+                        newDate = "October 2017";
+                    }
+                    if (version == "4.6.10075") {
+                        newDate = "November 2017";
+                    }
+                    newDate = newDate.replace("Oct 2017", "October 2017");
+                    newDate = newDate.replace("Dec 2017", "December 2017");
+                    return newDate;
+                },
+                parseUpdateInfo: function (device, affiliate, info) {
+                    var r = {};
+                    try {
+                        r = {
+                            id: device.id,
+                            image: device.image,
+                            model: device.model,
+                            hardware: device.hardware,
+                            affiliate: affiliate,
+                            version: info.data.UpgradeURL.replace('kobo-update-', '').replace('.zip',
+                                '').split('/').pop().replace("AuraONE_", "").replace("kobo-limitededitionupdate-", ""),
+                            date: this.fixDate(info.data.UpgradeURL.split("/")[5], info.data.UpgradeURL.replace('kobo-update-', '').replace(
+                                '.zip',
+                                '').split('/').pop().replace("AuraONE_", "")),
+                            upgradeType: info.data.UpgradeType,
+                            download: info.data.UpgradeURL,
+                            notes: info.data.ReleaseNoteURL,
+                            otherversions: device.otherversions || []
+                        };
+                        r.otherversions.push({
+                            affiliate: affiliate,
+                            version: info.data.UpgradeURL.replace('kobo-update-', '').replace(
+                                '.zip',
+                                '').split('/').pop().replace("AuraONE_", ""),
+                            date: this.fixDate(info.data.UpgradeURL.split("/")[5], info.data.UpgradeURL.replace('kobo-update-', '').replace(
+                                '.zip',
+                                '').split('/').pop().replace("AuraONE_", "")),
+                            upgradeType: info.data.UpgradeType,
+                            download: info.data.UpgradeURL,
+                            notes: info.data.ReleaseNoteURL
+                        });
+                        return Promise.resolve(r);
+                    } catch (e) {
+                        console.warn(e);
+                        return Promise.reject("Error parsing update info");
+                    }
+                },
+                greatestUpdateInfo: function (updateInfos) {
+                    return new Promise(function (resolve, reject) {
+                        var versions = updateInfos.map(function (i) {
+                            return i.version;
+                        });
+                        var greatestVersion = function (versions) {
+                            return new Promise(function (resolve, reject) {
+                                var versionCompare = function (v1, v2, options) {
+                                    var lexicographical = options && options.lexicographical,
+                                        zeroExtend = options && options.zeroExtend,
+                                        v1parts = v1.split('.'),
+                                        v2parts = v2.split('.');
+
+                                    function isValidPart(x) {
+                                        return (lexicographical ? /^\d+[A-Za-z]*$/ :
+                                            /^\d+$/).test(
+                                            x);
+                                    }
+
+                                    if (!v1parts.every(isValidPart) || !v2parts.every(
+                                            isValidPart)) {
+                                        return NaN;
+                                    }
+
+                                    if (zeroExtend) {
+                                        while (v1parts.length < v2parts.length)
+                                            v1parts.push(
+                                                "0");
+                                        while (v2parts.length < v1parts.length)
+                                            v2parts.push(
+                                                "0");
+                                    }
+
+                                    if (!lexicographical) {
+                                        v1parts = v1parts.map(Number);
+                                        v2parts = v2parts.map(Number);
+                                    }
+
+                                    for (var i = 0; i < v1parts.length; ++i) {
+                                        if (v2parts.length == i) {
+                                            return 1;
+                                        }
+
+                                        if (v1parts[i] == v2parts[i]) {
+                                            continue;
+                                        } else if (v1parts[i] > v2parts[i]) {
+                                            return 1;
+                                        } else {
+                                            return -1;
+                                        }
+                                    }
+
+                                    if (v1parts.length != v2parts.length) {
+                                        return -1;
+                                    }
+
+                                    return 0;
+                                }
+
+                                if (versions.length < 1) {
+                                    reject("No versions specified")
+                                    return;
+                                }
+
+                                var currentVersion = versions[0];
+                                for (var i = 0; i < versions.length; i++) {
+                                    currentVersion = versionCompare(currentVersion,
+                                            versions[i], {
+                                                lexicographical: false,
+                                                zeroExtend: false
+                                            }) == 1 ? currentVersion :
+                                        versions[i];
+                                }
+
+                                resolve(currentVersion);
+                            });
+                        };
+                        greatestVersion(versions).then(function (r) {
+                            var info = updateInfos[versions.indexOf(r)];
+                            info.otherversions = JSON.parse(JSON.stringify(updateInfos));
+                            resolve(info);
+                        }).catch(reject);
+                    });
+                },
+                showOtherAffiliates: function (device) {
+                    this.popup = '<b>Versions of other affiliates for ' + device.model + '</b><br><br>' + device.otherversions
+                        .map(function (version) {
+                            return [
+                                version.affiliate + " - " + version.version + " - " + '<a href="' +
+                                version.download +
+                                '" onclick="ga(\'send\', {hitType:\'event\',eventCategory:\'KoboStuff\',eventAction:\'DowloadFirmware\',eventLabel:device.model})">Download</a> - <a href="' + version.notes + '">Release Notes</a>'
+                            ].join("\n");
+                        }).join("<br>\n");
+                    this.ga('send', {
+                        hitType: 'event',
+                        eventCategory: 'KoboStuff',
+                        eventAction: 'ShowOtherAffiliates',
+                        eventLabel: device.model
+                    });
+                },
+                showOtherVersions: function (device) {
+                    this.popup = '<b>Other versions for ' + device.model + '</b><br><br>Note: Downgrading to an older version may cause issues, which can usually be fixed with a factory reset.<br><br>' + this.versions[device.id]
+                        .map(function (version) {
+                            return [
+                                version.version + " - " + version.date + ' - <a href="' +
+                                version.download +
+                                '" onclick="ga(\'send\', {hitType:\'event\',eventCategory:\'KoboStuff\',eventAction:\'DowloadFirmware\',eventLabel:\'' + device.model + ' - ' + version.version + '\'})">Download</a> - ' + version.hardware
+                            ].join("\n");
+                        }).join("<br>\n");
+                    this.ga('send', {
+                        hitType: 'event',
+                        eventCategory: 'KoboStuff',
+                        eventAction: 'ShowOtherVersions',
+                        eventLabel: device.model
+                    });
+                },
+                showBBCode: function () {
+                    var v = "";
+                    Promise.resolve(this.devices).then(this.greatestUpdateInfo).then(function getGreatestVersion(
+                        ui) {
+                        greatestUpdateInfo = ui;
+                        return ui.version;
+                    }).then(function generateBBCode(version) {
+                        v = version;
+                        var upToDateDevices = this.devices.filter(function (device) {
+                            return device.version == version;
+                        });
+                        var notUpToDateDevices = this.devices.filter(function (device) {
+                            return device.version != version;
+                        });
+                        var bbcode = "[SIZE=5]Kobo Firmware " + version +
+                            "[/SIZE]\n\nKobo firmware " + version + " has been released. As of " +
+                            (function formatDate(date) {
+                                var monthNames = ["January", "February", "March", "April",
+                                    "May", "June", "July", "August", "September", "October",
+                                    "November", "December"
+                                ];
+                                var day = date.getDate();
+                                var monthIndex = date.getMonth();
+                                var year = date.getFullYear();
+                                return monthNames[monthIndex] + ' ' + day + ', ' + year;
+                            })(new Date()) + ", it has been released to the devices: " +
+                            upToDateDevices.map(function (device) {
+                                return device.model;
+                            }).join(", ") + ". It has not been released to the: " +
+                            notUpToDateDevices.map(function (device) {
+                                return device.model;
+                            }).join(", ") +
+                            ". The affiliates used to check these firmware versions were: " +
+                            this.affiliates.join(", ") +
+                            ". \n\n\n[SIZE=5]Download Links[/SIZE]\n\n[B]Official Links: [/B]\n[LIST]\n[*]" +
+                            upToDateDevices.map(function (device) {
+                                return "[B]" + device.model + "[/B] (" + device.hardware.replace(
+                                        "kobo", "mark ") + ") - [URL=" + device.download +
+                                    "]Download[/URL]" + " | [URL=" + device.notes +
+                                    "]Release Notes[/URL]"
+                            }).join("\n[*]") +
+                            "\n[/LIST]\n[B]You can also try these generic links at your own risk: [/B]\n[LIST]\n[*]" +
+                            (function () {
+                                var aDownloadUrl = greatestUpdateInfo.download;
+                                var spl = aDownloadUrl.split("/");
+                                return ["3", "4", "5", "6"].map(function (mark) {
+                                    var nurlt = spl;
+                                    nurlt[4] = "kobo" + mark;
+                                    var nurl = nurlt.join("/");
+                                    return "[B]Mark " + mark + "[/B] - [URL=" + nurl +
+                                        "]Download[/URL]";
+                                });
+                            })().join("\n[*]") +
+                            "\n[/LIST]\n\n[SIZE=1]Generated by [URL=https://geek1011.github.io/KoboStuff/kobofirmware.html]kobofirmware[/URL] by [URL=https://github.com/geek1011]Patrick G (geek1011)[/URL]. [URL=https://github.com/geek1011/KoboStuff/blob/gh-pages/kobofirmware.html]Source Code[/URL][/SIZE]";
+                        return bbcode;
+                    }.bind(this)).then(function (bbcode) {
+                        this.popup = (
+                            "<h3>Generated BBCode</h3><textarea readonly onclick=\"this.selectionStart = 0;this.selectionEnd = this.textLength;\" style=\"width: 100%;height: 100px;font-size: 8px\">" +
+                            bbcode +
+                            "</textarea><br><i>Please be a good person and leave the credit link in at the bottom.</i>"
+                        )
+                    }.bind(this));
+                    this.ga('send', {
+                        hitType: 'event',
+                        eventCategory: 'KoboStuff',
+                        eventAction: 'BBCodeShown',
+                        eventLabel: "BBCode Generated | FW Version: " + v + " | Location hash: " +
+                            window.location.hash
+                    });
+                },
+                ga: ga
+            }
+        })
+    </script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-66226417-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-66226417-1');
+    </script>
+
+    <script>
+        window['_fs_debug'] = false;
+        window['_fs_host'] = 'fullstory.com';
+        window['_fs_org'] = '7E0WG';
+        window['_fs_namespace'] = 'FS';
+        (function (m, n, e, t, l, o, g, y) {
+            if (e in m) {
+                if (m.console && m.console.log) {
+                    m.console.log('FullStory namespace conflict. Please set window["_fs_namespace"].');
+                }
+                return;
+            }
+            g = m[e] = function (a, b) {
+                g.q ? g.q.push([a, b]) : g._api(a, b);
+            };
+            g.q = [];
+            o = n.createElement(t);
+            o.async = 1;
+            o.src = 'https://' + _fs_host + '/s/fs.js';
+            y = n.getElementsByTagName(t)[0];
+            y.parentNode.insertBefore(o, y);
+            g.identify = function (i, v) {
+                g(l, {
+                    uid: i
+                });
+                if (v) g(l, v)
+            };
+            g.setUserVars = function (v) {
+                g(l, v)
+            };
+            g.identifyAccount = function (i, v) {
+                o = 'account';
+                v = v || {};
+                v.acctId = i;
+                g(o, v)
+            };
+            g.clearUserCookie = function (c, d, i) {
+                if (!c || document.cookie.match('fs_uid=[`;`]*`[`;`]*`[`;`]*`')) {
+                    d = n.domain;
+                    while (1) {
+                        n.cookie = 'fs_uid=;domain=' + d +
+                            ';path=/;expires=' + new Date(0).toUTCString();
+                        i = d.indexOf('.');
+                        if (i < 0) break;
+                        d = d.slice(i + 1)
+                    }
+                }
+            };
+        })(window, document, window['_fs_namespace'], 'script', 'user');
     </script>
 </body>
 

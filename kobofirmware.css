@@ -1,0 +1,296 @@
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, 'Helvetica Neue', Roboto, Segoe UI, Tahoma, sans-serif;
+    padding: 0;
+    font-size: 18px;
+    overflow-x: hidden;
+}
+
+div.content {
+    margin: 16px 5%;
+}
+
+a {
+    color: #0a60fe;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+div.nav {
+    display: block;
+    border-bottom: 1px solid #d6d6d6;
+    padding: 0 5%;
+    margin-bottom: 0;
+    font-size: .85em;
+}
+
+div.nav a.item,
+div.nav a.item:link,
+div.nav a.item:visited {
+    display: inline-block;
+    padding: 1em .75em;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+}
+
+div.nav a.item:first-child {
+    padding-left: 0;
+}
+
+div.nav a.item:last-child {
+    padding-right: 0;
+}
+
+div.nav a.item:hover {
+    text-decoration: none;
+    border-bottom: 2px solid currentColor;
+}
+
+div.nav a.item.right {
+    float: right;
+}
+
+div.header {
+    font-size: 1.5em;
+    font-weight: 200;
+    margin-top: 1em;
+    font-weight: 400;
+}
+
+div.description,
+div.instructions {
+    font-size: 0.85em;
+    margin: 1em 0;
+    line-height: 1.5;
+}
+
+div.top-ad {
+    float: right;
+    width: 305px;
+    height: 255px;
+    background: #f5f5f5;
+    margin-bottom: .5em;
+    margin-left: 1.5em;
+}
+
+div.bottom-ad {
+    height: 95px;
+    background: #f5f5f5;
+    margin: 2em auto;
+}
+
+div.footer {
+    font-size: 0.85em;
+    margin: 1em 0;
+    line-height: 1.5;
+    text-align: center;
+}
+
+div.filterbar {
+    display: block;
+    clear: both;
+    background: #f5f5f5;
+    border: 1px solid #d6d6d6;
+    margin-top: 1em;
+    margin-bottom: .75em;
+}
+
+div.filterbar input.filter {
+    border: none;
+    margin: 0;
+    padding: 6px 8px;
+    background: #f5f5f5;
+    font-size: .85em;
+    outline: 0;
+    width: 100%;
+}
+
+div.filterbar input.filter:focus {
+    background: #fafafa;
+}
+
+table.firmware {
+    border-collapse: collapse;
+    color: #222222;
+    font-size: 0.8em;
+    width: 100%;
+}
+
+table.firmware th {
+    background-color: #f5f5f5;
+    font-weight: normal;
+    text-align: center;
+}
+
+table.firmware,
+table.firmware th,
+table.firmware td {
+    border: 1px solid #d6d6d6;
+}
+
+table.firmware th,
+table.firmware td {
+    padding: 6px 8px;
+}
+
+table.firmware img.loader {
+    width: 28px;
+}
+
+table.firmware .links .link,
+table.firmware .links .link:link,
+table.firmware .links .link:visited {
+    display: inline-block;
+    font-size: 0.9em;
+    border: 1px solid #537072;
+    color: #537072;
+    margin: 4px 5px;
+    margin-left: 0;
+    border-radius: 3px;
+    padding: 2px 5px;
+    text-decoration: none;
+    outline: 0;
+}
+
+table.firmware .links .link:hover {
+    text-decoration: none;
+    outline: 0;
+    background: #D2E8E9;
+}
+
+table.firmware .links .link:active {
+    background: #2C4A52;
+    border: 1px solid #2C4A52;
+    color: #FFFFFF;
+}
+
+table.firmware tr.highlight {
+    border-left: 3px solid black;
+}
+
+table.firmware th.model {
+    width: 25%;
+}
+
+.modal-wrapper {
+    display: block;
+    z-index: 1000000;
+    background: rgba(0, 0, 0, 0.4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.modal-wrapper .modal {
+    display: block;
+    text-align: left;
+    background: #ffffff;
+    width: 500px;
+    height: 60%;
+    max-height: 60%;
+    max-width: 100%;
+    border-radius: 6px;
+    font-size: 0.85em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 20%;
+    margin: auto;
+    box-shadow: 0 22px 70px 4px rgba(0, 0, 0, 0.26);
+}
+
+.modal-wrapper .modal.thin {
+    height: 200px;
+}
+
+.modal-wrapper .modal .titlebar {
+    display: block;
+    padding: 6px 8px;
+    border-bottom: 1px solid #c2c0c2;
+    background-color: #e8e6e8;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    width: 100%;
+}
+
+.modal-wrapper .modal .titlebar .title {
+    color: #222;
+}
+
+.modal-wrapper .modal .titlebar .close {
+    float: right;
+}
+
+.modal-wrapper .modal .body {
+    display: block;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 6px 8px;
+    height: 100%;
+}
+
+.modal-wrapper .modal {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+}
+
+.modal-wrapper .modal .titlebar {
+    flex: 0 0 auto;
+}
+
+.modal-wrapper .modal .body {
+    flex: 1;
+    line-height: 1.5;
+}
+
+.error {
+    display: block;
+    clear: both;
+    width: 100%;
+    background: #f5f5f5;
+    border: 1px solid #d6d6d6;
+    border-left: 3px solid #ff0000;
+    padding: 6px 8px;
+    font-size: .85em;
+}
+
+.hidden {
+    display: none !important;
+}
+
+@media only screen and (max-width: 728px) {
+    table.firmware th.hardware,
+    table.firmware td.hardware {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    div.top-ad {
+        float: none;
+        margin: 1em auto;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .nav .item.code {
+        display: none !important;
+    }
+}
