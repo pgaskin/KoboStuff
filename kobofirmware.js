@@ -101,7 +101,7 @@ function jsonp(url, timeout) {
 
         var t = setTimeout(function () {
             delete window[callback];
-            script.remove();
+            script.parentNode.removeChild(script);
             reject("Connection timed out");
         }, timeout || 30000);
 
