@@ -85,6 +85,14 @@ function fwExtractDate(url, version) {
 
 // jsonp makes a jsonp request.
 function jsonp(url, timeout) {
+    try {Raven.captureBreadcrumb({
+        message: 'JSONP request to ' + url,
+        category: 'jsonp',
+        data: {
+            url: url,
+            timeout: timeout
+        }
+    });} catch (err) {}
     return new Promise(function (resolve, reject) {
         var callback;
         while (!callback || window[callback] !== undefined) {
