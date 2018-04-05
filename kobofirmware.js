@@ -121,7 +121,7 @@ function jsonp(url, timeout) {
 }
 
 function getUpgradeInfo(id, affiliate) {
-    return jsonp("https://api.kobobooks.com/1.0/UpgradeCheck/Device/" + id + "/" + affiliate + "/0.0/N0", 15000);
+    return jsonp("https://api.kobobooks.com/1.0/UpgradeCheck/Device/" + id + "/" + affiliate + "/0.0/N0", 20000);
 }
 
 function getVersions() {
