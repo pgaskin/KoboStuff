@@ -278,6 +278,7 @@ function getVersions() {
         }).catch(function (err) {
             els.version.innerText = "Error";
             els.version.title = err.toString();
+            try {Raven.captureException(err);} catch (err) {}
             return Promise.reject(new Error("Error loading firmware for " + device.model + ": " + err.toString()));
         });
     })).then(function (results) {
@@ -355,6 +356,7 @@ function getVersions() {
         // No need to display error, as it will show in the table.
         document.querySelector(".bbcode-text").innerHTML = "Error generating bbcode: Could not get firmware for all devices: " + err.toString();
         console.error(err);
+        try {Raven.captureException(err);} catch (err) {}
     });
 }
 
@@ -385,12 +387,14 @@ function init() {
             console.error(err);
             document.getElementById("error").className = "error";
             document.getElementById("error").innerHTML = document.getElementById("error").innerHTML + '<br /><br />' + err.toString();
+            try {Raven.captureException(err);} catch (err) {}
             alert("Error loading firmware: " + err.toString());
         });
     } catch (err) {
         console.error(err);
         document.getElementById("error").className = "error";
         document.getElementById("error").innerHTML = document.getElementById("error").innerHTML + '<br /><br />' + err.toString();
+        try {Raven.captureException(err);} catch (err) {}
     }
 
     if (navigator.userAgent.toLowerCase().indexOf("kobo") > -1) document.querySelector(".top-ad").style.display = "none";
