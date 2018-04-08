@@ -91,6 +91,42 @@ function listify(arr, noandthe) {
     return arr.slice(0, arr.length - 1).join(", ") + ", " + and + arr[arr.length - 1];
 }
 
+// el creates an element.
+// tag is the tag.
+// classes is either a single class as a string or an array of classes.
+// attrs is an object.
+// inner is a string.
+// innerRaw is a bool. If true, innerHTML is set instead of innerText.
+// appendTo is an element to append to or null.
+function el(tag, classes, attrs, inner, innerRaw, appendTo) {
+    var el = document.createElement(tag);
+    if (classes) {
+        if (Array.isArray(classes)) {
+            classes.forEach(function (c) {
+                el.classList.add(c);
+            });
+        } else {
+            el.classList.add(classes.toString());
+        }
+    }
+    if (attrs) {
+        Object.entries(attrs).forEach(function(attr) {
+            el.setAttribute(attr[0], attr[1]);
+        });
+    }
+    if (inner) {
+        if (innerRaw) {
+            el.innerHTML = inner.toString();
+        } else {
+            el.innerText = inner.toString();
+        }
+    }
+    if (appendTo) {
+        appendTo.appendChild(el);
+    }
+    return el;
+}
+
 // jsonp makes a jsonp request.
 function jsonp(url, timeout) {
     try {Raven.captureBreadcrumb({
@@ -120,11 +156,9 @@ function jsonp(url, timeout) {
             resolve(data);
         };
 
-        var script = document.createElement("script");
-        script.src = "https://json2jsonp.com/" + '?url=' + encodeURIComponent(url) +
-            '&callback=' +
-            encodeURIComponent(callback);
-        document.body.appendChild(script);
+        var script = el("script", [], {
+            src: "https://json2jsonp.com/" + "?url=" + encodeURIComponent(url) + "&callback=" + encodeURIComponent(callback)
+        }, "", false, document.body);
     });
 }
 
@@ -141,58 +175,36 @@ function getVersions() {
             hardware: device[2]
         };
     }).map(function (device) {
-        var tr = document.querySelector(".firmware .devices").appendChild(document.createElement("tr"));
-        tr.classList.add("device");
-        tr.setAttribute("data-id", device.id);
-
+        var tr = el("tr", "device", {
+            "data-id": device.id
+        }, "", false, document.querySelector(".firmware .devices"));
         if (navigator.userAgent.indexOf("Kobo Touch " + device.id.slice(-4)) > -1) tr.classList.add("highlight");
+        
+        var model = el("td", "model", {
+            title: "ID: " + device.id
+        }, device.model, false, tr);
+        
+        var hardware = el("td", "hardware", {}, device.hardware, false, tr);
+        var version = el("td", "version", {}, '<img src="loader.gif" alt="Loading..." class="loader" />', true, tr);
+        var date = el("td", "date", {}, "", false, tr);
+        var links = el("td", "links", {}, "", false, tr);
 
-        var model = tr.appendChild(document.createElement("td"));
-        model.classList.add("model");
-        model.innerText = device.model;
-        model.title = "ID: " + device.id;
+        var download = el("a", ["link", "download", "hidden"], {
+            href: "javascript:void(0);"
+        }, "Download", false, links);
 
-        var hardware = tr.appendChild(document.createElement("td"));
-        hardware.classList.add("hardware");
-        hardware.innerText = device.hardware;
+        var notes = el("a", ["link", "notes", "hidden"], {
+            href: "javascript:void(0);",
+            target: "_blank"
+        }, "Notes", false, links);
 
-        var version = tr.appendChild(document.createElement("td"));
-        version.classList.add("version");
-        version.innerHTML = '<img src="loader.gif" alt="Loading..." class="loader" />'
+        var otherAffiliates = el("a", ["link", "other-affiliates", "hidden"], {
+            href: "javascript:void(0);"
+        }, "Other Affiliates", false, links);
 
-        var date = tr.appendChild(document.createElement("td"));
-        date.classList.add("date");
-
-        var links = tr.appendChild(document.createElement("td"));
-        links.classList.add("links");
-
-        var download = links.appendChild(document.createElement("a"));
-        download.classList.add("link");
-        download.classList.add("download");
-        download.classList.add("hidden");
-        download.href = "javascript:void(0);";
-        download.innerText = "Download";
-
-        var notes = links.appendChild(document.createElement("a"));
-        notes.classList.add("link");
-        notes.classList.add("notes");
-        notes.classList.add("hidden");
-        notes.target = "_blank";
-        notes.href = "javascript:void(0);";
-        notes.innerText = "Notes";
-
-        var otherAffiliates = links.appendChild(document.createElement("a"));
-        otherAffiliates.classList.add("link");
-        otherAffiliates.classList.add("other-affiliates");
-        otherAffiliates.classList.add("hidden");
-        otherAffiliates.href = "javascript:void(0);";
-        otherAffiliates.innerText = "Other Affiliates";
-
-        var otherVersions = links.appendChild(document.createElement("a"));
-        otherVersions.classList.add("link");
-        otherVersions.classList.add("other-versions");
-        otherVersions.href = "javascript:void(0);";
-        otherVersions.innerText = "Other Versions";
+        var otherVersions = el("a", ["link", "other-versions"], {
+            href: "javascript:void(0);"
+        }, "Other Versions", false, links);
         otherVersions.onclick = (function (device) {
             document.querySelector(".modal-wrapper.other-versions .title").innerHTML = "Other versions for " + device.model;
             document.querySelector(".modal-wrapper.other-versions .body").innerHTML = (oldversions && oldversions[device.id]) ? oldversions[device.id].map(function (version) {
@@ -414,27 +426,15 @@ function loadPrevVersions() {
         return oldversions[id][0].hardware;
     }).filter(uniq).sort(hwCompare);
     
-    (function() {
-        var h = document.createElement("th");
-        h.classList.add("date");
-        h.innerHTML = "Date";
-        return [h];
-    })().concat((function() {
-        var h = document.createElement("th");
-        h.classList.add("version");
-        h.innerHTML = "Version";
-        return [h];
-    })()).concat(hardwares.map(function (hw) {
-        var h = document.createElement("th");
-        h.classList.add("hardware");
-        h.innerHTML = hw;
-        return h;
-    })).concat((function() {
-        var h = document.createElement("th");
-        h.classList.add("notes");
-        h.innerHTML = "Notes";
-        return [h];
-    })()).forEach(function (h) {
+    [
+        el("th", "date", {}, "Date")
+    ].concat([
+        el("th", "version", {}, "Version")
+    ]).concat(hardwares.map(function (hw) {
+        return el("th", "hardware", {}, hw);
+    })).concat([
+        el("th", "notes", {}, "Notes")
+    ]).forEach(function (h) {
         document.querySelector(".old-firmware thead tr").appendChild(h);
     });
     
@@ -504,35 +504,25 @@ function loadPrevVersions() {
         });
         return version;
     }).map(function (version) {
-        return [].concat((function() {
-            var h = document.createElement("td");
-            h.classList.add("date");
-            h.innerText = version.date || "Unknown";
-            return [h];
-        })()).concat((function() {
-            var h = document.createElement("td");
-            h.classList.add("version");
-            h.innerText = version.version;
-            return [h];
-        })()).concat(hardwares.map(function (hw) {
-            var h = document.createElement("td");
-            h.classList.add("hardware");
+        return [
+            el("td", "date", {}, version.date || unknown)
+        ].concat([
+            el("td", "version", {}, version.version || unknown)
+        ]).concat(hardwares.map(function (hw) {
+            var h = el("td", "hardware");
             if (version.downloads[hw] && version.downloads[hw].indexOf(hw) > -1) {
-                var a = h.appendChild(document.createElement("a"));
-                a.href = version.downloads[hw];
-                a.innerText = "Download";
+                el("a", [], {
+                    href: version.downloads[hw]
+                }, "Download", false, h);
             } else {
                 h.innerText = "-";
             }
             return h;
-        })).concat((function() {
-            var h = document.createElement("td");
-            h.classList.add("notes");
-            if (version.no.length > 0) h.innerText = version.yes.length > version.no.length ? "Not for " + listify(version.no, true) + ". " : "Only for " + listify(version.yes, true) + ". ";
-            return [h];
-        })());
+        })).concat([
+            el("td", "notes", {}, (version.no.length > 0) && (version.yes.length > version.no.length ? "Not for " + listify(version.no, true) + ". " : "Only for " + listify(version.yes, true) + ". "))
+        ]);
     }).map(function (cols) {
-        var row = document.createElement("tr");
+        var row = el("tr");
         cols.forEach(function (col) {
             row.appendChild(col);
         });
