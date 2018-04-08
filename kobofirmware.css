@@ -123,14 +123,16 @@ div.filterbar input.filter:focus {
     background: #fafafa;
 }
 
-table.firmware {
+table.firmware,
+table.old-firmware {
     border-collapse: collapse;
     color: #222222;
     font-size: 0.8em;
     width: 100%;
 }
 
-table.firmware th {
+table.firmware th,
+table.old-firmware th {
     background-color: #f5f5f5;
     font-weight: normal;
     text-align: center;
@@ -138,12 +140,17 @@ table.firmware th {
 
 table.firmware,
 table.firmware th,
-table.firmware td {
+table.firmware td,
+table.old-firmware,
+table.old-firmware th,
+table.old-firmware td{
     border: 1px solid #d6d6d6;
 }
 
 table.firmware th,
-table.firmware td {
+table.firmware td,
+table.old-firmware th,
+table.old-firmware td {
     padding: 6px 8px;
 }
 
@@ -184,6 +191,27 @@ table.firmware tr.highlight {
 
 table.firmware th.model {
     width: 25%;
+}
+
+table.old-firmware th.date {
+    width: 100px;
+}
+
+table.old-firmware th.version {
+    width: 100px;
+}
+
+table.old-firmware td {
+    text-align: center;
+}
+
+table.old-firmware td.notes {
+    text-align: left;
+}
+
+.scrollbox {
+    overflow-x: auto;
+    max-width: 100%;
 }
 
 .modal-wrapper {

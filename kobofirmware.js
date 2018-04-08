@@ -83,6 +83,14 @@ function fwExtractDate(url, version) {
     return [month, year].join(" ").trim();
 }
 
+// listify makes an array into an English list.
+function listify(arr, noandthe) {
+    var and = noandthe ? " and " : " and the ";
+    if (arr.length == 1) return arr[0];
+    if (arr.length == 2) return arr.join(and);
+    return arr.slice(0, arr.length - 1).join(", ") + ", " + and + arr[arr.length - 1];
+}
+
 // jsonp makes a jsonp request.
 function jsonp(url, timeout) {
     try {Raven.captureBreadcrumb({
@@ -311,20 +319,20 @@ function getVersions() {
                 var year = date.getFullYear();
                 return monthNames[monthIndex] + ' ' + day + ', ' + year;
             })(new Date()),
-            ', it has been released to the devices: ',
-            results.filter(function (result) {
+            ', it has been released to the ',
+            listify(results.filter(function (result) {
                 return result.latest.version == latestVersion;
             }).map(function (result) {
                 return result.model;
-            }).join(', '),
-            '. It has not been released to the: ',
-            results.filter(function (result) {
+            })),
+            '. It has not been released to the ',
+            listify(results.filter(function (result) {
                 return result.latest.version != latestVersion;
             }).map(function (result) {
                 return result.model;
-            }).join(', '),
+            })),
             '. The affiliates used to check these firmware versions were: ',
-            affiliates.join(', '),
+            listify(affiliates),
             '. \n\n\n',
             '[SIZE=5]Download Links[/SIZE]\n\n',
             '[B]Official Links: [/B]\n',
@@ -386,6 +394,156 @@ function updateFilter() {
     });
 }
 
+// uniq can be used with Array.filter to filter unique values.
+function uniq(value, index, self) {
+    return self.indexOf(value) === index;
+}
+
+// objFrom creates an object from an array of key-value pairs.
+function objFrom(arr) {
+    return arr.reduce(function(prev,curr){prev[curr[0]]=curr[1];return prev;},{});
+}
+
+// hwCompare compares hardware revisions.
+function hwCompare(a, b) {
+    return a > b;
+}
+
+function loadPrevVersions() {
+    var hardwares = Object.keys(oldversions).map(function (id) {
+        return oldversions[id][0].hardware;
+    }).filter(uniq).sort(hwCompare);
+    
+    (function() {
+        var h = document.createElement("th");
+        h.classList.add("date");
+        h.innerHTML = "Date";
+        return [h];
+    })().concat((function() {
+        var h = document.createElement("th");
+        h.classList.add("version");
+        h.innerHTML = "Version";
+        return [h];
+    })()).concat(hardwares.map(function (hw) {
+        var h = document.createElement("th");
+        h.classList.add("hardware");
+        h.innerHTML = hw;
+        return h;
+    })).concat((function() {
+        var h = document.createElement("th");
+        h.classList.add("notes");
+        h.innerHTML = "Notes";
+        return [h];
+    })()).forEach(function (h) {
+        document.querySelector(".old-firmware thead tr").appendChild(h);
+    });
+    
+    var versions = [].concat.apply([], Object.keys(oldversions).map(function (id) {
+        return oldversions[id].map(function (version) {
+            return version.version;
+        });
+    })).filter(uniq).sort(fwVersionCompare);
+    
+    versions.map(function (version) {
+        return {
+            version: version
+        };
+    }).map(function (version) {
+        version.matches = [].concat.apply([], [].concat.apply([], Object.keys(oldversions).map(function (id) {
+            return oldversions[id];
+        }))).filter(function (v) {
+            return v.version == version.version;
+        });
+        return version;
+    }).map(function (version) {
+        version.date = version.matches.map(function (v) {
+            return v.date;
+        })[0];
+        return version;
+    }).map(function (version) {
+        version.downloads = objFrom(version.matches.map(function (v) {
+            return [v.hardware, v.download];
+        }).filter(function (v, i, s) {
+            return s.map(function (v) {
+                return v[0];
+            }).indexOf(v[0]) === i;
+        }));
+        return version;
+    }).map(function (version) {
+        version.hardwares = Object.keys(version.downloads).filter(uniq);
+        return version;
+    }).map(function (version) {
+        version.available = Object.keys(oldversions).map(function (id) {
+            return oldversions[id];
+        }).map(function (vs) {
+            return [
+                vs[0].model,
+                vs.map(function (v) {
+                    return v.version;
+                }).indexOf(version.version) > -1,
+                vs[0].hardware
+            ];
+        });
+        return version;
+    }).map(function (version) {
+        version.yes = version.available.filter(function (v) {
+            return version.hardwares.indexOf(v[2]) > -1;
+        }).filter(function (v) {
+            return v[1];
+        }).map(function (v) {
+            return v[0].replace("Kobo ", "");
+        });
+        return version;
+    }).map(function (version) {
+        version.no = version.available.filter(function (v) {
+            return version.hardwares.indexOf(v[2]) > -1;
+        }).filter(function (v) {
+            return !v[1];
+        }).map(function (v) {
+            return v[0].replace("Kobo ", "");
+        });
+        return version;
+    }).map(function (version) {
+        return [].concat((function() {
+            var h = document.createElement("td");
+            h.classList.add("date");
+            h.innerText = version.date || "Unknown";
+            return [h];
+        })()).concat((function() {
+            var h = document.createElement("td");
+            h.classList.add("version");
+            h.innerText = version.version;
+            return [h];
+        })()).concat(hardwares.map(function (hw) {
+            var h = document.createElement("td");
+            h.classList.add("hardware");
+            if (version.downloads[hw] && version.downloads[hw].indexOf(hw) > -1) {
+                var a = h.appendChild(document.createElement("a"));
+                a.href = version.downloads[hw];
+                a.innerText = "Download";
+            } else {
+                h.innerText = "-";
+            }
+            return h;
+        })).concat((function() {
+            var h = document.createElement("td");
+            h.classList.add("notes");
+            if (version.no.length > 0) h.innerText = version.yes.length > version.no.length ? "Not for " + listify(version.no, true) + ". " : "Only for " + listify(version.yes, true) + ". ";
+            return [h];
+        })());
+    }).map(function (cols) {
+        var row = document.createElement("tr");
+        cols.forEach(function (col) {
+            row.appendChild(col);
+        });
+        return row;
+    }).forEach(function (row) {
+        document.querySelector(".old-firmware tbody").appendChild(row);
+    });
+    
+    console.log(hardwares, versions);
+}
+
 function init() {
     document.getElementById("error").className = "error hidden";
     try {
@@ -398,6 +556,15 @@ function init() {
             try {Raven.captureException(err);} catch (err) {}
             alert("Error loading firmware: " + err.toString());
         });
+        try {
+            if (oldversions) loadPrevVersions();
+        } catch (err) {
+            console.error("loadPrevVersions: ", err);
+            document.getElementById("error").className = "error";
+            document.getElementById("error").innerHTML = document.getElementById("error").innerHTML + '<br /><br />' + err.toString();
+            try {Raven.captureException(err);} catch (err) {}
+            alert("Error loading previous versions: " + err.toString());
+        }
     } catch (err) {
         console.error(err);
         document.getElementById("error").className = "error";

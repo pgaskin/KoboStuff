@@ -52,8 +52,7 @@
 
         <div class="error" id="error">
             An unexpected error has occured. Please reload the page or try a different browser. If the problem still persists,
-            <a
-                href="https://github.com/geek1011/KoboStuff/issues/new" target="_blank">Report an issue</a>.
+            <a href="https://github.com/geek1011/KoboStuff/issues/new" target="_blank">Report an issue</a>.
         </div>
         <script>
             document.getElementById("error").className = "error hidden";
@@ -82,6 +81,22 @@
             Missing firmware versions or devices? Have a feature request?
             <a href="https://github.com/geek1011/KoboStuff/issues/new"
                 target="_blank">Report an issue</a>.
+        </div>
+        
+        <hr />
+        
+        <div class="description">
+            <b>All old versions by hardware:</b><br>
+            You can find a list of all old versions listed by the hardware version in the table below. <a href="javascript:void(0);" onclick="document.querySelector('.scrollbox.oldfw').classList.remove('hidden');event.target.parentNode.removeChild(event.target);">Click here to show the table.</a>
+        </div>
+        
+        <div class="scrollbox oldfw hidden">
+            <table class="old-firmware">
+                <thead>
+                    <tr></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
 
         <div class="bottom-ad">
@@ -147,8 +162,6 @@
     </div>
 
     <!-- Requirements: IE10+ (degraded on 9+, broken on 8-), Chrome, Safari, Firefox, Kobo Browser, Screen 365px wide -->
-
-    <!-- TODO: Add version table? -->
 
     <script src="libs/es5-shim.min.js"></script>
     <script src="libs/classlist.auto.js"></script>
