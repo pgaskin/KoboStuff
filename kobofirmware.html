@@ -86,6 +86,22 @@
         <hr />
         
         <div class="description">
+            <b>Version availability by device:</b><br>
+            You can find a table showing the version availability by device in the table below. <a href="javascript:void(0);" onclick="document.querySelector('.scrollbox.verdev').classList.remove('hidden');event.target.parentNode.removeChild(event.target);">Click here to show the table.</a>
+        </div>
+        
+        <div class="scrollbox verdev hidden">
+            <table class="version-device">
+                <thead>
+                    <tr></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        
+        <hr />
+        
+        <div class="description">
             <b>All old versions by hardware:</b><br>
             You can find a list of all old versions listed by the hardware version in the table below. <a href="javascript:void(0);" onclick="document.querySelector('.scrollbox.oldfw').classList.remove('hidden');event.target.parentNode.removeChild(event.target);">Click here to show the table.</a>
         </div>
@@ -98,6 +114,8 @@
                 <tbody></tbody>
             </table>
         </div>
+        
+        <hr />
 
         <div class="bottom-ad">
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>

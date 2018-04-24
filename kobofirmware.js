@@ -110,7 +110,7 @@ function el(tag, classes, attrs, inner, innerRaw, appendTo) {
         }
     }
     if (attrs) {
-        Object.entries(attrs).forEach(function(attr) {
+        Object.entries(attrs).forEach(function (attr) {
             el.setAttribute(attr[0], attr[1]);
         });
     }
@@ -129,14 +129,16 @@ function el(tag, classes, attrs, inner, innerRaw, appendTo) {
 
 // jsonp makes a jsonp request.
 function jsonp(url, timeout) {
-    try {Raven.captureBreadcrumb({
-        message: 'JSONP request to ' + url,
-        category: 'jsonp',
-        data: {
-            url: url,
-            timeout: timeout
-        }
-    });} catch (err) {}
+    try {
+        Raven.captureBreadcrumb({
+            message: 'JSONP request to ' + url,
+            category: 'jsonp',
+            data: {
+                url: url,
+                timeout: timeout
+            }
+        });
+    } catch (err) {}
     return new Promise(function (resolve, reject) {
         var callback;
         while (!callback || window[callback] !== undefined) {
@@ -179,11 +181,11 @@ function getVersions() {
             "data-id": device.id
         }, "", false, document.querySelector(".firmware .devices"));
         if (navigator.userAgent.indexOf("Kobo Touch " + device.id.slice(-4)) > -1) tr.classList.add("highlight");
-        
+
         var model = el("td", "model", {
             title: "ID: " + device.id
         }, device.model, false, tr);
-        
+
         var hardware = el("td", "hardware", {}, device.hardware, false, tr);
         var version = el("td", "version", {}, '<img src="loader.gif" alt="Loading..." class="loader" />', true, tr);
         var date = el("td", "date", {}, "", false, tr);
@@ -306,7 +308,9 @@ function getVersions() {
         }).catch(function (err) {
             els.version.innerText = "Error";
             els.version.title = err.toString();
-            try {Raven.captureException(err);} catch (err) {}
+            try {
+                Raven.captureException(err);
+            } catch (err) {}
             return Promise.reject(new Error("Error loading firmware for " + device.model + ": " + err.toString()));
         });
     })).then(function (results) {
@@ -384,7 +388,9 @@ function getVersions() {
         // No need to display error, as it will show in the table.
         document.querySelector(".bbcode-text").innerHTML = "Error generating bbcode: Could not get firmware for all devices: " + err.toString();
         console.error(err);
-        try {Raven.captureException(err);} catch (err) {}
+        try {
+            Raven.captureException(err);
+        } catch (err) {}
     });
 }
 
@@ -413,7 +419,10 @@ function uniq(value, index, self) {
 
 // objFrom creates an object from an array of key-value pairs.
 function objFrom(arr) {
-    return arr.reduce(function(prev,curr){prev[curr[0]]=curr[1];return prev;},{});
+    return arr.reduce(function (prev, curr) {
+        prev[curr[0]] = curr[1];
+        return prev;
+    }, {});
 }
 
 // hwCompare compares hardware revisions.
@@ -425,7 +434,7 @@ function loadPrevVersions() {
     var hardwares = Object.keys(oldversions).map(function (id) {
         return oldversions[id][0].hardware;
     }).filter(uniq).sort(hwCompare);
-    
+
     [
         el("th", "date", {}, "Date")
     ].concat([
@@ -437,13 +446,13 @@ function loadPrevVersions() {
     ]).forEach(function (h) {
         document.querySelector(".old-firmware thead tr").appendChild(h);
     });
-    
+
     var versions = [].concat.apply([], Object.keys(oldversions).map(function (id) {
         return oldversions[id].map(function (version) {
             return version.version;
         });
     })).filter(uniq).sort(fwVersionCompare);
-    
+
     versions.map(function (version) {
         return {
             version: version
@@ -530,8 +539,73 @@ function loadPrevVersions() {
     }).forEach(function (row) {
         document.querySelector(".old-firmware tbody").appendChild(row);
     });
-    
+
     console.log(hardwares, versions);
+}
+
+// alpha compares text.
+function alpha(a, b) {
+    return a > b;
+}
+
+function loadVersionDeviceTable() {
+    var verdevs = [].concat.apply([], Object.values(oldversions)).map(function (d) {
+        return d.version;
+    }).filter(uniq).sort(fwVersionCompare).map(function (v) {
+        return [v, Object.values(oldversions).map(function (ds) {
+            return [ds[0].model, ds.some(function (d) {
+                return d.version == v;
+            })];
+        }).reduce(function (acc, i) {
+            acc[i[0]] = i[1];
+            return acc
+        }, {})];
+    });
+
+    var devs = Object.keys(verdevs[0][1]).sort(alpha);
+
+    var devvers = devs.map(function (d) {
+        return [d, verdevs.map(function (vd) {
+            return [vd[0], Object.entries(vd[1]).some(function (dc) {
+                return dc[0] == d && dc[1];
+            })];
+        }).reduce(function (acc, i) {
+            acc[i[0]] = i[1];
+            return acc
+        }, {})];
+    });
+
+    var vers = Object.keys(devvers[0][1]).sort(fwVersionCompare);
+
+    [
+        el("th", "device", {}, "Device")
+    ].concat(vers.map(function (ver) {
+        return el("th", "version", {}, ver)
+    })).concat([
+        el("th", "device", {}, "Device")
+    ]).forEach(function (h) {
+        document.querySelector(".version-device thead tr").appendChild(h);
+    });
+
+    devvers.map(function (devver) {
+        var tr = el("tr");
+        var f = false;
+        [
+            el("td", "device", {}, devver[0])
+        ].concat(vers.map(function (ver) {
+            var y = devver[1][ver];
+            if (y) f = true;
+            if (!f) return el("td", ["version", "none"], {}, "-");
+            return el("td", ["version", y ? "yes" : "no"], {}, y ? "✓" : "✗");
+        })).concat([
+            el("td", "device", {}, devver[0])
+        ]).forEach(function (col) {
+            tr.appendChild(col);
+        });
+        return tr;
+    }).forEach(function (row) {
+        document.querySelector(".version-device tbody").appendChild(row);
+    });
 }
 
 function init() {
@@ -543,7 +617,9 @@ function init() {
             console.error(err);
             document.getElementById("error").className = "error";
             document.getElementById("error").innerHTML = document.getElementById("error").innerHTML + '<br /><br />' + err.toString();
-            try {Raven.captureException(err);} catch (err) {}
+            try {
+                Raven.captureException(err);
+            } catch (err) {}
             alert("Error loading firmware: " + err.toString());
         });
         try {
@@ -552,14 +628,29 @@ function init() {
             console.error("loadPrevVersions: ", err);
             document.getElementById("error").className = "error";
             document.getElementById("error").innerHTML = document.getElementById("error").innerHTML + '<br /><br />' + err.toString();
-            try {Raven.captureException(err);} catch (err) {}
+            try {
+                Raven.captureException(err);
+            } catch (err) {}
             alert("Error loading previous versions: " + err.toString());
+        }
+        try {
+            if (oldversions) loadVersionDeviceTable();
+        } catch (err) {
+            console.error("loadVersionDeviceTable: ", err);
+            document.getElementById("error").className = "error";
+            document.getElementById("error").innerHTML = document.getElementById("error").innerHTML + '<br /><br />' + err.toString();
+            try {
+                Raven.captureException(err);
+            } catch (err) {}
+            alert("Error loading version availability by device table: " + err.toString());
         }
     } catch (err) {
         console.error(err);
         document.getElementById("error").className = "error";
         document.getElementById("error").innerHTML = document.getElementById("error").innerHTML + '<br /><br />' + err.toString();
-        try {Raven.captureException(err);} catch (err) {}
+        try {
+            Raven.captureException(err);
+        } catch (err) {}
     }
 
     if (navigator.userAgent.toLowerCase().indexOf("kobo") > -1) document.querySelector(".top-ad").style.display = "none";

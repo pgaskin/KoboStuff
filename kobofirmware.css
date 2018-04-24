@@ -123,38 +123,31 @@ div.filterbar input.filter:focus {
     background: #fafafa;
 }
 
-table.firmware,
-table.old-firmware {
+table {
     border-collapse: collapse;
     color: #222222;
     font-size: 0.8em;
     width: 100%;
 }
 
-table.firmware th,
-table.old-firmware th {
+table th {
     background-color: #f5f5f5;
     font-weight: normal;
     text-align: center;
 }
 
-table.firmware,
-table.firmware th,
-table.firmware td,
-table.old-firmware,
-table.old-firmware th,
-table.old-firmware td{
+table,
+table th,
+table td {
     border: 1px solid #d6d6d6;
 }
 
-table.firmware th,
-table.firmware td,
-table.old-firmware th,
-table.old-firmware td {
+table th,
+table td {
     padding: 6px 8px;
 }
 
-table.firmware img.loader {
+table img.loader {
     width: 28px;
 }
 
@@ -207,6 +200,26 @@ table.old-firmware td {
 
 table.old-firmware td.notes {
     text-align: left;
+}
+
+table.version-device td.version,
+table.version-device td.device {
+    text-align: center;
+}
+
+table.version-device th.device,
+table.version-device td.device {
+    min-width: 230px;
+    width: 230px;
+    background-color: #f5f5f5;
+}
+
+table.version-device td.yes {
+    background: #39b54a;
+}
+
+table.version-device td.no {
+    background: #CD5C5C;
 }
 
 .scrollbox {
@@ -299,6 +312,13 @@ table.old-firmware td.notes {
     border-left: 3px solid #ff0000;
     padding: 6px 8px;
     font-size: .85em;
+}
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #cccccc;
 }
 
 .hidden {
