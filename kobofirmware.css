@@ -203,22 +203,28 @@ table.old-firmware td.notes {
 }
 
 table.version-device td.version,
-table.version-device td.device {
+table.affiliate-version td.version,
+table.version-device td.device,
+table.affiliate-version td.device {
     text-align: center;
 }
 
 table.version-device th.device,
-table.version-device td.device {
+table.affiliate-version th.device,
+table.version-device td.device,
+table.affiliate-version td.device {
     min-width: 230px;
     width: 230px;
     background-color: #f5f5f5;
 }
 
-table.version-device td.yes {
+table.version-device td.yes,
+table.affiliate-version td.latest {
     background: #39b54a;
 }
 
-table.version-device td.no {
+table.version-device td.no,
+table.affiliate-version td.old {
     background: #CD5C5C;
 }
 

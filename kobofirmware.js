@@ -383,6 +383,50 @@ function getVersions() {
             '[URL=https://github.com/geek1011/KoboStuff/blob/gh-pages/kobofirmware.html]Source Code[/URL]',
             '[/SIZE]'
         ].join("");
+
+        var affvers = results.map(function (d) {
+            return [d.model, d.affiliates.map(function (a) {
+                return [a.affiliate, a.version];
+            }).reduce(function (acc, i) {
+                acc[i[0]] = i[1];
+                return acc;
+            }, {})];
+        }).reduce(function (acc, i) {
+            acc[i[0]] = i[1];
+            return acc;
+        }, {});
+        var devs = Object.keys(affvers).sort(alpha);
+
+        [
+            el("th", "device", {}, "Device")
+        ].concat(affiliates.map(function (a) {
+            return el("th", "affiliate", {}, a)
+        })).forEach(function (h) {
+            document.querySelector(".affiliate-version thead tr").appendChild(h);
+        });
+
+        Object.entries(affvers).map(function (affver) {
+            var tr = el("tr");
+            var f = false;
+            [
+                el("td", "device", {}, affver[0])
+            ].concat(affiliates.map(function (a) {
+                var v = affver[1][a];
+                var l = (results.filter(function (r) {
+                    return r.model == affver[0];
+                }).map(function (r) {
+                    return r.latest.version;
+                })[0] || "") == v;
+                return el("td", ["affiliate", l ? "latest" : "old"], {}, v)
+            })).forEach(function (col) {
+                tr.appendChild(col);
+            });
+            return tr;
+        }).forEach(function (row) {
+            document.querySelector(".affiliate-version tbody").appendChild(row);
+        });
+
+        document.querySelector(".affver-container").classList.remove("hidden");
     }).catch(function (err) {
         // If any one failed, returns the first one which did
         // No need to display error, as it will show in the table.
