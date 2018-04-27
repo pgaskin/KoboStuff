@@ -19,10 +19,10 @@ var devices = [
     ["00000000-0000-0000-0000-000000000360", "Kobo Aura", "kobo5"],
     ["00000000-0000-0000-0000-000000000350", "Kobo Aura HD", "kobo4"],
     ["00000000-0000-0000-0000-000000000370", "Kobo Aura H2O", "kobo5"],
-    ["00000000-0000-0000-0000-000000000374", "Kobo Aura H2O Edition 2", "kobo6"],
+    ["00000000-0000-0000-0000-000000000374", "Kobo Aura H2O Edition 2 v1", "kobo6"],
     ["00000000-0000-0000-0000-000000000373", "Kobo Aura ONE", "kobo6"],
     ["00000000-0000-0000-0000-000000000381", "Kobo Aura ONE Limited Edition", "kobo6"],
-    ["00000000-0000-0000-0000-000000000375", "Kobo Aura Edition 2", "kobo6"]
+    ["00000000-0000-0000-0000-000000000375", "Kobo Aura Edition 2 v1", "kobo6"]
 ];
 
 // fwVersionCompare compares 2 kobo firmware versions and
