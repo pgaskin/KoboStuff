@@ -20,9 +20,11 @@ var devices = [
     ["00000000-0000-0000-0000-000000000350", "Kobo Aura HD", "kobo4"],
     ["00000000-0000-0000-0000-000000000370", "Kobo Aura H2O", "kobo5"],
     ["00000000-0000-0000-0000-000000000374", "Kobo Aura H2O Edition 2 v1", "kobo6"],
+    ["00000000-0000-0000-0000-000000000378", "Kobo Aura H2O Edition 2 v2", "kobo7"],
     ["00000000-0000-0000-0000-000000000373", "Kobo Aura ONE", "kobo6"],
     ["00000000-0000-0000-0000-000000000381", "Kobo Aura ONE Limited Edition", "kobo6"],
-    ["00000000-0000-0000-0000-000000000375", "Kobo Aura Edition 2 v1", "kobo6"]
+    ["00000000-0000-0000-0000-000000000375", "Kobo Aura Edition 2 v1", "kobo6"],
+    ["00000000-0000-0000-0000-000000000379", "Kobo Aura Edition 2 v2", "kobo7"]
 ];
 
 // fwVersionCompare compares 2 kobo firmware versions and
@@ -44,6 +46,8 @@ function fwVersionCompare(a, b) {
 
 // fwExtractVersion extracts the version from a firmware download URL.
 function fwExtractVersion(url) {
+    if (url == null) return "0.0.0";
+    if (url.endsWith("download.kobobooks.com/firmwares/kobo7/April2018/kobo-update-4.8.zip")) return "4.8.10956"; // Make sure this still applies (because of the v2 devices) after each release
     var tmp = url.match(/update-([0-9.]+)\.zip/);
     if (tmp == null || tmp.length != 2) throw new Error("Could not extract version from " + url);
     return tmp[1];
@@ -51,6 +55,8 @@ function fwExtractVersion(url) {
 
 // fwExtractDate extracts the release date from a firmware download URL.
 function fwExtractDate(url, version) {
+    if (url == null || version == "0.0.0") return "None";
+
     var overrides = {
         "3.4.1": "May 2014",
         "4.6.9960": "October 2017",
@@ -366,7 +372,7 @@ function getVersions() {
             '\n[/LIST]\n',
             '[B]You can also try the generic links at your own risk: [/B]\n',
             '[LIST]\n',
-            '[*]' + ["3", "4", "5", "6"].map(function (n) {
+            '[*]' + ["3", "4", "5", "6", "7"].map(function (n) {
                 return [
                     '[B]Mark ' + n.toString() + '[/B] - ',
                     '[URL=',

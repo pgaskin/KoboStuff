@@ -1899,54 +1899,62 @@ var oldversions = {
         "download": "http://download.kobobooks.com/firmwares/kobo5/dahlialaunch/kobo-update-3.7.0.zip"
     }],
     "00000000-0000-0000-0000-000000000374": [{
-        "model": "Kobo Aura H2O Edition 2",
+        "model": "Kobo Aura H2O Edition 2 v1",
         "id": "00000000-0000-0000-0000-000000000374",
         "hardware": "kobo6",
         "date": "April 2018",
         "version": "4.8.10956",
         "download": "http://download.kobobooks.com/firmwares/kobo6/April2018/kobo-update-4.8.10956.zip"
     }, {
-        "model": "Kobo Aura H2O Edition 2",
+        "model": "Kobo Aura H2O Edition 2 v1",
         "id": "00000000-0000-0000-0000-000000000374",
         "hardware": "kobo6",
         "date": "December 2017",
         "version": "4.7.10413",
         "download": "http://download.kobobooks.com/firmwares/kobo6/Dec2017/kobo-update-4.7.10413.zip"
     }, {
-        "model": "Kobo Aura H2O Edition 2",
+        "model": "Kobo Aura H2O Edition 2 v1",
         "id": "00000000-0000-0000-0000-000000000374",
         "hardware": "kobo6",
         "date": "November 2017",
         "version": "4.7.10075",
         "download": "http://download.kobobooks.com/firmwares/kobo6/rakuten-4.6/kobo-update-4.6.10075.zip"
     }, {
-        "model": "Kobo Aura H2O Edition 2",
+        "model": "Kobo Aura H2O Edition 2 v1",
         "id": "00000000-0000-0000-0000-000000000374",
         "hardware": "kobo6",
         "date": "October 2017",
         "version": "4.6.9960",
         "download": "http://download.kobobooks.com/firmwares/kobo6/July2017/kobo-update-4.6.9960.zip"
     }, {
-        "model": "Kobo Aura H2O Edition 2",
+        "model": "Kobo Aura H2O Edition 2 v1",
         "id": "00000000-0000-0000-0000-000000000374",
         "hardware": "kobo6",
         "date": "July 2017",
         "version": "4.5.9587",
         "download": "http://download.kobobooks.com/firmwares/kobo6/July2017/kobo-update-4.5.9587.zip"
     }, {
-        "model": "Kobo Aura H2O Edition 2",
+        "model": "Kobo Aura H2O Edition 2 v1",
         "id": "00000000-0000-0000-0000-000000000374",
         "hardware": "kobo6",
         "date": "May 2017",
         "version": "4.3.9349",
         "download": "http://download.kobobooks.com/firmwares/kobo6/May2017/AuraONE_kobo-update-4.4.9349.zip"
     }, {
-        "model": "Kobo Aura H2O Edition 2",
+        "model": "Kobo Aura H2O Edition 2 v1",
         "id": "00000000-0000-0000-0000-000000000374",
         "hardware": "kobo6",
         "date": "May 2017",
         "version": "4.4.9298",
         "download": "http://download.kobobooks.com/firmwares/kobo6/May2017/kobo-update-4.4.9298.zip"
+    }],
+    "00000000-0000-0000-0000-000000000378": [{
+        "model": "Kobo Aura H2O Edition 2 v2",
+        "id": "00000000-0000-0000-0000-000000000378",
+        "hardware": "kobo7",
+        "date": "April 2018",
+        "version": "4.8.10956",
+        "download": "http://download.kobobooks.com/firmwares/kobo7/April2018/kobo-update-4.8.zip"
     }],
     "00000000-0000-0000-0000-000000000373": [{
         "model": "Kobo Aura ONE",
@@ -2098,137 +2106,145 @@ var oldversions = {
         "download": "http://download.kobobooks.com/firmwares/kobo6/Dec2017/kobo-limitededitionupdate-4.7.10364.zip"
     }],
     "00000000-0000-0000-0000-000000000375": [{
-        "model": "Kobo Aura Edition 2",
+        "model": "Kobo Aura Edition 2 v1",
         "id": "00000000-0000-0000-0000-000000000375",
         "hardware": "kobo6",
         "date": "April 2018",
         "version": "4.8.10956",
         "download": "http://download.kobobooks.com/firmwares/kobo6/April2018/kobo-update-4.8.10956.zip"
     }, {
-        "model": "Kobo Aura Edition 2",
+        "model": "Kobo Aura Edition 2 v1",
         "id": "00000000-0000-0000-0000-000000000375",
         "hardware": "kobo6",
         "date": "December 2017",
         "version": "4.7.10413",
         "download": "http://download.kobobooks.com/firmwares/kobo6/Dec2017/kobo-update-4.7.10413.zip"
     }, {
-        "model": "Kobo Aura Edition 2",
+        "model": "Kobo Aura Edition 2 v1",
         "id": "00000000-0000-0000-0000-000000000375",
         "hardware": "kobo6",
         "date": "November 2017",
         "version": "4.7.10075",
         "download": "http://download.kobobooks.com/firmwares/kobo6/rakuten-4.6/kobo-update-4.6.10075.zip"
     }, {
-        "model": "Kobo Aura Edition 2",
+        "model": "Kobo Aura Edition 2 v1",
         "id": "00000000-0000-0000-0000-000000000375",
         "hardware": "kobo6",
         "date": "October 2017",
         "version": "4.6.9995",
         "download": "http://download.kobobooks.com/firmwares/kobo6/Oct2017/kobo-update-4.6.9995.zip"
     }, {
-        "model": "Kobo Aura Edition 2",
+        "model": "Kobo Aura Edition 2 v1",
         "id": "00000000-0000-0000-0000-000000000375",
         "hardware": "kobo6",
         "date": "October 2017",
         "version": "4.6.9960",
         "download": "http://download.kobobooks.com/firmwares/kobo6/July2017/kobo-update-4.6.9960.zip"
     }, {
-        "model": "Kobo Aura Edition 2",
+        "model": "Kobo Aura Edition 2 v1",
         "id": "00000000-0000-0000-0000-000000000375",
         "hardware": "kobo6",
         "date": "July 2017",
         "version": "4.5.9587",
         "download": "http://download.kobobooks.com/firmwares/kobo6/July2017/kobo-update-4.5.9587.zip"
     }, {
-        "model": "Kobo Aura Edition 2",
+        "model": "Kobo Aura Edition 2 v1",
         "id": "00000000-0000-0000-0000-000000000375",
         "hardware": "kobo6",
         "date": "May 2017",
         "version": "4.3.9349",
         "download": "http://download.kobobooks.com/firmwares/kobo6/May2017/AuraONE_kobo-update-4.4.9349.zip"
     }, {
-        "model": "Kobo Aura Edition 2",
+        "model": "Kobo Aura Edition 2 v1",
         "id": "00000000-0000-0000-0000-000000000375",
         "hardware": "kobo6",
         "date": "May 2017",
         "version": "4.4.9298",
         "download": "http://download.kobobooks.com/firmwares/kobo6/May2017/kobo-update-4.4.9298.zip"
     }, {
-        "model": "Kobo Aura Edition 2",
+        "model": "Kobo Aura Edition 2 v1",
         "id": "00000000-0000-0000-0000-000000000375",
         "hardware": "kobo6",
         "date": "April 2017",
         "version": "4.3.9084",
         "download": "http://download.kobobooks.com/firmwares/kobo6/rakuten-439084/kobo-update-4.3.9084.zip"
     }, {
-        "model": "Kobo Aura Edition 2",
+        "model": "Kobo Aura Edition 2 v1",
         "id": "00000000-0000-0000-0000-000000000375",
         "hardware": "kobo6",
         "date": "March 2017",
         "version": "4.3.8966",
         "download": "http://download.kobobooks.com/firmwares/kobo6/Mar2017/kobo-update-4.3.8966.zip"
     }, {
-        "model": "Kobo Aura Edition 2",
+        "model": "Kobo Aura Edition 2 v1",
         "id": "00000000-0000-0000-0000-000000000375",
         "hardware": "kobo6",
         "date": "March 2017",
         "version": "4.3.8945",
         "download": "http://download.kobobooks.com/firmwares/kobo6/Mar2017/kobo-update-4.3.8945.zip"
     }, {
-        "model": "Kobo Aura Edition 2",
+        "model": "Kobo Aura Edition 2 v1",
         "id": "00000000-0000-0000-0000-000000000375",
         "hardware": "kobo6",
         "date": "March 2017",
         "version": "4.3.8929",
         "download": "http://download.kobobooks.com/firmwares/kobo6/Mar2017/kobo-update-4.3.8929.zip"
     }, {
-        "model": "Kobo Aura Edition 2",
+        "model": "Kobo Aura Edition 2 v1",
         "id": "00000000-0000-0000-0000-000000000375",
         "hardware": "kobo6",
         "date": "March 2017",
         "version": "4.3.8871",
         "download": "http://download.kobobooks.com/firmwares/kobo6/Feb2017/kobo-update-4.3.8871.zip"
     }, {
-        "model": "Kobo Aura Edition 2",
+        "model": "Kobo Aura Edition 2 v1",
         "id": "00000000-0000-0000-0000-000000000375",
         "hardware": "kobo6",
         "date": "February 2017",
         "version": "4.3.8842",
         "download": "http://download.kobobooks.com/firmwares/kobo6/Feb2017/kobo-update-4.3.8842.zip"
     }, {
-        "model": "Kobo Aura Edition 2",
+        "model": "Kobo Aura Edition 2 v1",
         "id": "00000000-0000-0000-0000-000000000375",
         "hardware": "kobo6",
         "date": "February 2017",
         "version": "4.2.8432",
         "download": "http://download.kobobooks.com/firmwares/kobo6/Jan2017/kobo-update-4.2.8432.zip"
     }, {
-        "model": "Kobo Aura Edition 2",
+        "model": "Kobo Aura Edition 2 v1",
         "id": "00000000-0000-0000-0000-000000000375",
         "hardware": "kobo6",
         "date": "January 2017",
         "version": "4.2.8283",
         "download": "http://download.kobobooks.com/firmwares/kobo6/Jan2017/kobo-update-4.2.8283.zip"
     }, {
-        "model": "Kobo Aura Edition 2",
+        "model": "Kobo Aura Edition 2 v1",
         "id": "00000000-0000-0000-0000-000000000375",
         "hardware": "kobo6",
         "date": "December 2016",
         "version": "4.2.8110",
         "download": "http://download.kobobooks.com/firmwares/kobo6/December2016/kobo-update-4.2.8110.zip"
     }, {
-        "model": "Kobo Aura Edition 2",
+        "model": "Kobo Aura Edition 2 v1",
         "id": "00000000-0000-0000-0000-000000000375",
         "hardware": "kobo6",
         "date": "November 2016",
         "version": "4.1.7729",
         "download": "http://download.kobobooks.com/firmwares/kobo6/October2016/kobo-update-4.1.7729.zip"
     }, {
-        "model": "Kobo Aura Edition 2",
+        "model": "Kobo Aura Edition 2 v1",
         "id": "00000000-0000-0000-0000-000000000375",
         "hardware": "kobo6",
         "date": "September 2016",
         "version": "4.0.7523",
         "download": "http://download.kobobooks.com/firmwares/kobo6/september2016/kobo-update-4.0.7523.zip"
+    }],
+    "00000000-0000-0000-0000-000000000379": [{
+        "model": "Kobo Aura Edition 2 v2",
+        "id": "00000000-0000-0000-0000-000000000379",
+        "hardware": "kobo7",
+        "date": "April 2018",
+        "version": "4.8.10956",
+        "download": "http://download.kobobooks.com/firmwares/kobo7/April2018/kobo-update-4.8.zip"
     }]
 };
