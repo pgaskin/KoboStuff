@@ -423,6 +423,7 @@ function getVersions() {
                 }).map(function (r) {
                     return r.latest.version;
                 })[0] || "") == v;
+                if (v == "0.0.0") l = false;
                 return el("td", ["affiliate", l ? "latest" : "old"], {}, v)
             })).forEach(function (col) {
                 tr.appendChild(col);
