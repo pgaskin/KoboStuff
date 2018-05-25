@@ -237,6 +237,47 @@ table.affiliate-version td.none {
     max-width: 100%;
 }
 
+.vers-results {
+    display: block;
+    font-size: 0.85em;
+    margin: 1em 0;
+    line-height: 1.5;
+}
+
+.vers-results .result {
+    display: block;
+    border-bottom: 1px solid #d6d6d6;
+    padding: 6px 8px;
+}
+
+.vers-results .result:hover {
+    background: #f5f5f5;
+}
+
+.vers-results .result .left {
+    display: block;
+}
+
+.vers-results .result .left .device {
+    display: block;
+    font-weight: bold;
+}
+
+.vers-results .result .left .version {
+    display: block;
+}
+
+.vers-results .result .right {
+    display: block;
+    float: right;
+    padding-top: .4em;
+}
+
+.vers-results .result .right .download {
+    display: inline-block;
+    vertical-align: middle;
+}
+
 .modal-wrapper {
     display: block;
     z-index: 1000000;

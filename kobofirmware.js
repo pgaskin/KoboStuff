@@ -448,7 +448,7 @@ function getVersions() {
 }
 
 function updateFilter() {
-    var q = document.querySelector(".filter").value.toLowerCase().trim();
+    var q = document.querySelector(".filter.devs").value.toLowerCase().trim();
     [].slice.call((document.querySelectorAll(".firmware .devices .device"))).forEach(function (device) {
         device.classList.add("hidden");
         ([
@@ -657,7 +657,8 @@ function loadVersionDeviceTable() {
 }
 
 function doSearch(q) {
-    q = q.trim().toLowerCase().replace(/ +/g, " ").replace(/[^0-9A-Za-z._-]/, "");
+    q = q.trim().toLowerCase().replace(/ +/g, " ").replace(/[^0-9A-Za-z._-]/, "").replace(/ ka1 /g, "kobo aura one").replace(/ ka1le /g, "kobo aura one limited edition").replace(/ ka(ed)?2/g, "kobo aura edition 2").replace(/2v1 /g, "2 v1").replace(/2v2 /g, "2 v2").replace(/touch 2 /g, "touch 2.0 ").replace(/ +/g, " ").trim();
+    if (q.length < 1) return [];
     var qspl = q.split(" ");
     return [].concat.apply([], Object.values(oldversions).map(function (d) {
         return d.versions.map(function (v) {
@@ -698,10 +699,12 @@ function doSearch(q) {
             model,
             model,
             model,
+            model,
+            model,
             date,
             version.split(".").join(" ")
         ].join(" ").split(" "));
-        if (q == id || q == id.slice(-3) || q == model || q == model.replace("kobo ", "") || q == hardware || q == version || q == download || q == date) score += 5;
+        if (q == id || q == id.slice(-3) || q == model || q == model.replace("kobo ", "") || q == hardware || q == version || q == download || q == date) score += 6;
         kws.forEach(function (kw) {
             qspl.forEach(function (qsp) {
                 if (qsp == kw) return score += 1;
@@ -711,7 +714,7 @@ function doSearch(q) {
         });
         qspl.forEach(function (qsp) {
            var hwnorm = qsp.replace("mark", "kobo");
-           if (["kobo3", "kobo4", "kobo5", "kobo6", "kobo7"].indexOf(hwnorm) > -1 && i.hardware != hwnorm) score -= 10;
+           if (["kobo3", "kobo4", "kobo5", "kobo6", "kobo7"].indexOf(hwnorm) > -1 && i.hardware != hwnorm) score -= 20;
            if (/^20[12][0-9]$/.test(qsp) && i.date.split(" ").reverse()[0] != qsp) score -= 10;
         });
         return [score, i];
@@ -720,15 +723,46 @@ function doSearch(q) {
     }).sort(function (ra, rb) {
         var sa = ra[0], sb = rb[0];
         var ia = ra[1], ib = rb[1];
+        if (qspl.length < 4 && (qspl.indexOf("newest") > -1 || qspl.indexOf("latest") > -1)) return fwVersionCompare(ib.version, ia.version) != 0 ? fwVersionCompare(ib.version, ia.version) : sa < sb;
         return sa != sb ? sa < sb : fwVersionCompare(ib.version, ia.version);
     }).slice(0, 50);
+}
+
+function updateSearch() {
+    var q = document.querySelector(".filter.vers").value;
+    var o = document.querySelector(".vers-results");
+    o.innerHTML = "";
+    if (q.length < 1) return;
+    try {
+        var results = doSearch(q);
+        if (results.length < 1) return o.innerHTML = "No results found for your search. Try revising your search terms or look in the above table for the version you are trying to find.";
+        var frag = document.createDocumentFragment();
+        results.forEach(function (r) {
+            var result = r[1];
+            var rel = el("div", "result", {"data-score": r[0]}, "", false, frag);
+
+            var r = el("div", "right", {}, "", false, rel);
+            el("a", ["download", "button"], {href: result.download}, "Download", false, r);
+
+            var l = el("div", "left", {}, "", false, rel);
+            el("div", "device", {}, result.model + " - " + result.hardware, false, l);
+            el("div", "version", {}, result.version + " - " + result.date, false, l);
+        });
+        o.appendChild(frag);
+    } catch (err) {
+        console.error("search error", q, err.toString());
+        o.innerHTML = "Error: " + err.toString();
+        throw new Error("Error searching for '" + q + "': " + err.toString());
+    }
 }
 
 function init() {
     document.getElementById("error").className = "error hidden";
     try {
-        document.querySelector(".filter").addEventListener("input", updateFilter);
-        document.querySelector(".filter").addEventListener("keyup", updateFilter);
+        document.querySelector(".filter.devs").addEventListener("input", updateFilter);
+        document.querySelector(".filter.devs").addEventListener("keyup", updateFilter);
+        document.querySelector(".filter.vers").addEventListener("input", updateSearch);
+        document.querySelector(".filter.vers").addEventListener("keyup", updateSearch);
         getVersions().catch(function (err) {
             console.error(err);
             document.getElementById("error").className = "error";
@@ -772,7 +806,7 @@ function init() {
     if (navigator.userAgent.toLowerCase().indexOf("kobo") > -1) document.querySelector(".top-ad").style.display = "none";
     
     ["touch april 2018", "3.19", "kobo4 2015", "mini", "350", "kobo7", "mini \"newest firmware\"", "touch 2015", "37", "december"].forEach(function (q) {
-        console.log("search test:", q, doSearch(q))
+        console.log("search test:", q, doSearch(q));
     });
 }
 
