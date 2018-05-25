@@ -699,8 +699,6 @@ function doSearch(q) {
             model,
             model,
             model,
-            model,
-            model,
             date,
             version.split(".").join(" ")
         ].join(" ").split(" "));
@@ -739,13 +737,14 @@ function updateSearch() {
         var frag = document.createDocumentFragment();
         results.forEach(function (r) {
             var result = r[1];
-            var rel = el("div", "result", {"data-score": r[0]}, "", false, frag);
+            var sc = r[0];
+            var rel = el("div", "result", {"data-score": sc}, "", false, frag);
 
             var r = el("div", "right", {}, "", false, rel);
             el("a", ["download", "button"], {href: result.download}, "Download", false, r);
 
             var l = el("div", "left", {}, "", false, rel);
-            el("div", "device", {}, result.model + " - " + result.hardware, false, l);
+            el("div", "device", {}, (q.indexOf("@") > -1 ? (sc || "").toString() + ": ": "") + result.model + " - " + result.hardware, false, l);
             el("div", "version", {}, result.version + " - " + result.date, false, l);
         });
         o.appendChild(frag);
