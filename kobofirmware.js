@@ -721,8 +721,8 @@ function doSearch(q) {
     }).sort(function (ra, rb) {
         var sa = ra[0], sb = rb[0];
         var ia = ra[1], ib = rb[1];
-        if (qspl.length < 4 && (qspl.indexOf("newest") > -1 || qspl.indexOf("latest") > -1)) return fwVersionCompare(ib.version, ia.version) != 0 ? fwVersionCompare(ib.version, ia.version) : sa < sb;
-        return sa != sb ? sa < sb : fwVersionCompare(ib.version, ia.version);
+        if (qspl.length < 4 && (qspl.indexOf("newest") > -1 || qspl.indexOf("latest") > -1)) return fwVersionCompare(ib.version, ia.version) != 0 ? fwVersionCompare(ib.version, ia.version) : sb - sa;
+        return sa != sb ? sb - sa : fwVersionCompare(ib.version, ia.version);
     }).slice(0, 50);
 }
 
