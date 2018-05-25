@@ -217,12 +217,12 @@ function getVersions() {
         }, "Other Versions", false, links);
         otherVersions.onclick = (function (device) {
             document.querySelector(".modal-wrapper.other-versions .title").innerHTML = "Other versions for " + device.model;
-            document.querySelector(".modal-wrapper.other-versions .body").innerHTML = (oldversions && oldversions[device.id]) ? oldversions[device.id].map(function (version) {
+            document.querySelector(".modal-wrapper.other-versions .body").innerHTML = (oldversions && oldversions[device.id]) ? oldversions[device.id].versions.map(function (version) {
                 return [
                     version.version,
                     version.date,
                     '<a href="' + version.download + '">Download</a>',
-                    version.hardware
+                    oldversions[device.id].hardware
                 ].join(" - ");
             }).join("<br />") : "Unknown";
             document.querySelector(".modal-wrapper.other-versions").classList.remove("hidden");
@@ -426,7 +426,7 @@ function getVersions() {
                     return r.latest.version;
                 })[0] || "") == v;
                 if (v == "0.0.0") l = false;
-                return el("td", ["affiliate", l ? "latest" : "old"], {}, v)
+                return el("td", ["affiliate", l ? "latest" : (v == "0.0.0" ? "none" : "old")], {}, v)
             })).forEach(function (col) {
                 tr.appendChild(col);
             });
@@ -484,8 +484,8 @@ function hwCompare(a, b) {
 }
 
 function loadPrevVersions() {
-    var hardwares = Object.keys(oldversions).map(function (id) {
-        return oldversions[id][0].hardware;
+    var hardwares = Object.values(oldversions).map(function (d) {
+        return d.hardware;
     }).filter(uniq).sort(hwCompare);
 
     [
@@ -500,88 +500,81 @@ function loadPrevVersions() {
         document.querySelector(".old-firmware thead tr").appendChild(h);
     });
 
-    var versions = [].concat.apply([], Object.keys(oldversions).map(function (id) {
-        return oldversions[id].map(function (version) {
+    var versions = [].concat.apply([], Object.values(oldversions).map(function (d) {
+        return d.versions.map(function (version) {
             return version.version;
         });
     })).filter(uniq).sort(fwVersionCompare);
 
     versions.map(function (version) {
         return {
-            version: version
+            version,
+            matches: Object.values(oldversions).map(function (d) {
+                return {
+                    id: d.id,
+                    model: d.model,
+                    hardware: d.hardware,
+                    match: d.versions.filter(function (v) {
+                        return v.version == version;
+                    })[0]
+                };
+            })
         };
     }).map(function (version) {
-        version.matches = [].concat.apply([], [].concat.apply([], Object.keys(oldversions).map(function (id) {
-            return oldversions[id];
-        }))).filter(function (v) {
-            return v.version == version.version;
+        version.yes = version.matches.filter(function (d) {
+            return d.match != null;
         });
-        return version;
-    }).map(function (version) {
-        version.date = version.matches.map(function (v) {
-            return v.date;
-        })[0];
-        return version;
-    }).map(function (version) {
-        version.downloads = objFrom(version.matches.map(function (v) {
-            return [v.hardware, v.download];
-        }).filter(function (v, i, s) {
-            return s.map(function (v) {
-                return v[0];
-            }).indexOf(v[0]) === i;
-        }));
-        return version;
-    }).map(function (version) {
-        version.hardwares = Object.keys(version.downloads).filter(uniq);
-        return version;
-    }).map(function (version) {
-        version.available = Object.keys(oldversions).map(function (id) {
-            return oldversions[id];
-        }).map(function (vs) {
-            return [
-                vs[0].model,
-                vs.map(function (v) {
-                    return v.version;
-                }).indexOf(version.version) > -1,
-                vs[0].hardware
-            ];
+        version.no = version.matches.filter(function (d) {
+            return d.match == null;
         });
+        version.date = version.yes[0].match.date;
+        version.downloads = version.yes.reduce(function (acc, d) {
+            if (!acc[d.hardware]) acc[d.hardware] = d.match.download;
+            if (acc[d.hardware] != d.match.download) console.warn("Differing hw download links", version, acc, d);
+            return acc;
+        }, {});
         return version;
     }).map(function (version) {
-        version.yes = version.available.filter(function (v) {
-            return version.hardwares.indexOf(v[2]) > -1;
-        }).filter(function (v) {
-            return v[1];
-        }).map(function (v) {
-            return v[0].replace("Kobo ", "");
+        version.yes = version.yes.filter(function (d) {
+            return Object.keys(version.downloads).indexOf(d.hardware) > -1;
+        }).map(function (d) {
+            return d.model.replace("Kobo ", "");
         });
-        return version;
-    }).map(function (version) {
-        version.no = version.available.filter(function (v) {
-            return version.hardwares.indexOf(v[2]) > -1;
-        }).filter(function (v) {
-            return !v[1];
-        }).map(function (v) {
-            return v[0].replace("Kobo ", "");
+        version.no = version.no.filter(function (d) {
+            return Object.keys(version.downloads).indexOf(d.hardware) > -1;
+        }).map(function (d) {
+            return d.model.replace("Kobo ", "");
         });
+        ["Aura H2O Edition 2", "Aura Edition 2"].forEach(function (base) {
+            var v1 = base + " v1";
+            var v1i = version.no.indexOf(v1);
+            var v2 = base + " v1";
+            var v2i = version.no.indexOf(v2);
+            if (v1i > -1 && v2i > -1) {
+                version.no = version.no.filter(function (d) {
+                    return d !== v1 && d !== v2;
+                }).concat([base]);
+            }
+        });
+        version.notes = "";
+        if (version.no.length < 1) return version;
+        if (version.yes.length > version.no.length) {
+            version.notes = "Not for " + listify(version.no, true) + ".";
+        } else {
+            version.notes = "Only for " + listify(version.yes, true) + ".";
+        }
         return version;
     }).map(function (version) {
         return [
-            el("td", "date", {}, version.date || unknown)
-        ].concat([
-            el("td", "version", {}, version.version || unknown)
-        ]).concat(hardwares.map(function (hw) {
+            el("td", "date", {}, version.date || "Unknown"),
+            el("td", "version", {}, version.version || "Unknown")
+        ].concat(hardwares.map(function (hardware) {
             var h = el("td", "hardware");
-            if (version.downloads[hw] && version.downloads[hw].indexOf(hw) > -1) {
-                el("a", [], {
-                    href: version.downloads[hw]
-                }, "Download", false, h);
-            } else {
-                h.innerText = "-";
-            }
+            if (!version.downloads[hardware]) h.innerText = "-";
+            if (version.downloads[hardware]) el("a", [], {href: version.downloads[hardware]}, "Download", false, h);
             return h;
         })).concat([
-            el("td", "notes", {}, (version.no.length > 0) && (version.yes.length > version.no.length ? "Not for " + listify(version.no, true) + ". " : "Only for " + listify(version.yes, true) + ". "))
+            el("td", "notes", {}, (version.notes))
         ]);
     }).map(function (cols) {
         var row = el("tr");
@@ -602,11 +595,13 @@ function alpha(a, b) {
 }
 
 function loadVersionDeviceTable() {
-    var verdevs = [].concat.apply([], Object.values(oldversions)).map(function (d) {
+    var verdevs = [].concat.apply([], Object.values(oldversions).map(function (d) {
+        return d.versions;
+    })).map(function (d) {
         return d.version;
     }).filter(uniq).sort(fwVersionCompare).map(function (v) {
         return [v, Object.values(oldversions).map(function (ds) {
-            return [ds[0].model, ds.some(function (d) {
+            return [ds.model, ds.versions.some(function (d) {
                 return d.version == v;
             })];
         }).reduce(function (acc, i) {

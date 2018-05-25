@@ -228,6 +228,10 @@ table.affiliate-version td.old {
     background: #CD5C5C;
 }
 
+table.affiliate-version td.none {
+    background: #999;
+}
+
 .scrollbox {
     overflow-x: auto;
     max-width: 100%;
