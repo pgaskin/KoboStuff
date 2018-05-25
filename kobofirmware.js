@@ -171,7 +171,9 @@ function jsonp(url, timeout) {
 }
 
 function getUpgradeInfo(id, affiliate) {
-    return jsonp("https://api.kobobooks.com/1.0/UpgradeCheck/Device/" + id + "/" + affiliate + "/0.0/N0", 30000);
+    var baseVer = "0.0";
+    if (id == "00000000-0000-0000-0000-000000000381") baseVer = "4.7.10364";
+    return jsonp("https://api.kobobooks.com/1.0/UpgradeCheck/Device/" + id + "/" + affiliate + "/" + baseVer + "/N0", 30000);
 }
 
 function getVersions() {
