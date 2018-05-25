@@ -656,6 +656,74 @@ function loadVersionDeviceTable() {
     });
 }
 
+function doSearch(q) {
+    q = q.trim().toLowerCase().replace(/ +/g, " ").replace(/[^0-9A-Za-z._-]/, "");
+    var qspl = q.split(" ");
+    return [].concat.apply([], Object.values(oldversions).map(function (d) {
+        return d.versions.map(function (v) {
+            return {
+                id: d.id,
+                model: d.model,
+                hardware: d.hardware,
+                version: v.version,
+                download: v.download,
+                date: v.date
+            };
+        });
+    })).map(function (i) {
+        var score = 0;
+        var id = i.id.toLowerCase(), model = i.model.toLowerCase(), hardware = i.hardware.toLowerCase();
+        var version = i.version.toLowerCase(), download = i.download.toLowerCase(), date = i.date.toLowerCase();
+        var kws = [
+            id,
+            id.slice(-3),
+            id.slice(-3),
+            id.slice(-3),
+            model,
+            date,
+            version.split(".").slice(0, 2).join("."),
+            download,
+            download.split("/").slice(-2)[0],
+            hardware,
+            hardware,
+            hardware,
+            hardware.replace("kobo", "mark"),
+            hardware.replace("kobo", "mark ")
+        ].concat([
+            model,
+            model,
+            model,
+            model,
+            model,
+            model,
+            model,
+            model,
+            date,
+            version.split(".").join(" ")
+        ].join(" ").split(" "));
+        if (q == id || q == id.slice(-3) || q == model || q == model.replace("kobo ", "") || q == hardware || q == version || q == download || q == date) score += 5;
+        kws.forEach(function (kw) {
+            qspl.forEach(function (qsp) {
+                if (qsp == kw) return score += 1;
+                if (qsp.endsWith(kw) || qsp.startsWith(kw) || kw.startsWith(qsp) || kw.endsWith(qsp)) return score += 0.5;
+            });
+            if (kw.indexOf(" ") > -1 && q.indexOf(kw) > -1) score += kw.split(" ").length;
+        });
+        qspl.forEach(function (qsp) {
+           var hwnorm = qsp.replace("mark", "kobo");
+           if (["kobo3", "kobo4", "kobo5", "kobo6", "kobo7"].indexOf(hwnorm) > -1 && i.hardware != hwnorm) score -= 10;
+           if (/^20[12][0-9]$/.test(qsp) && i.date.split(" ").reverse()[0] != qsp) score -= 10;
+        });
+        return [score, i];
+    }).filter(function (r) {
+        return qspl.length > 2 ? r[0] >= 2 : r[0] >= 0.5;
+    }).sort(function (ra, rb) {
+        var sa = ra[0], sb = rb[0];
+        var ia = ra[1], ib = rb[1];
+        return sa != sb ? sa < sb : fwVersionCompare(ib.version, ia.version);
+    }).slice(0, 50);
+}
+
 function init() {
     document.getElementById("error").className = "error hidden";
     try {
@@ -702,6 +770,10 @@ function init() {
     }
 
     if (navigator.userAgent.toLowerCase().indexOf("kobo") > -1) document.querySelector(".top-ad").style.display = "none";
+    
+    ["touch april 2018", "3.19", "kobo4 2015", "mini", "350", "kobo7", "mini \"newest firmware\"", "touch 2015", "37", "december"].forEach(function (q) {
+        console.log("search test:", q, doSearch(q))
+    });
 }
 
 init();
