@@ -1452,5 +1452,19 @@ var oldversions = {
             "date": "April 2018",
             "download": "http://download.kobobooks.com/firmwares/kobo7/April2018/kobo-update-4.8.zip"
         }]
+    },
+    "00000000-0000-0000-0000-000000000376": {
+        "id": "00000000-0000-0000-0000-000000000376",
+        "model": "Kobo Clara HD",
+        "hardware": "kobo7",
+        "versions": [{
+            "version": "4.9.11311",
+            "date": "June 2018",
+            "download": "http://download.kobobooks.com/firmwares/kobo7/May2018/kobo-update-4.9.11311.zip"
+        }, {
+            "version": "4.8.11090",
+            "date": "May 2018",
+            "download": "http://download.kobobooks.com/firmwares/kobo7/May2018/kobo-update-4.8.zip"
+        }]
     }
 };
