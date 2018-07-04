@@ -24,7 +24,8 @@ var devices = [
     ["00000000-0000-0000-0000-000000000373", "Kobo Aura ONE", "kobo6"],
     ["00000000-0000-0000-0000-000000000381", "Kobo Aura ONE Limited Edition", "kobo6"],
     ["00000000-0000-0000-0000-000000000375", "Kobo Aura Edition 2 v1", "kobo6"],
-    ["00000000-0000-0000-0000-000000000379", "Kobo Aura Edition 2 v2", "kobo7"]
+    ["00000000-0000-0000-0000-000000000379", "Kobo Aura Edition 2 v2", "kobo7"],
+    ["00000000-0000-0000-0000-000000000376", "Kobo Clara HD", "kobo7"]
 ];
 
 // fwVersionCompare compares 2 kobo firmware versions and
@@ -48,6 +49,9 @@ function fwVersionCompare(a, b) {
 function fwExtractVersion(url) {
     if (url == null) return "0.0.0";
     if (url.endsWith("download.kobobooks.com/firmwares/kobo7/April2018/kobo-update-4.8.zip")) return "4.8.10956"; // Make sure this still applies (because of the v2 devices) after each release
+    if (url.endsWith("download.kobobooks.com/firmwares/kobo7/May2018/kobo-update-4.8.zip")) return "4.8.11090";
+    if (url.endsWith("download.kobobooks.com/firmwares/kobo4/May2018/kobo-update-4.9.11311.zip")) return "4.9.11314";
+    if (url.endsWith("download.kobobooks.com/firmwares/kobo5/May2018/kobo-update-4.9.11311.zip")) return "4.9.11314";
     var tmp = url.match(/update-([0-9.]+)\.zip/);
     if (tmp == null || tmp.length != 2) throw new Error("Could not extract version from " + url);
     return tmp[1];
@@ -60,7 +64,9 @@ function fwExtractDate(url, version) {
     var overrides = {
         "3.4.1": "May 2014",
         "4.6.9960": "October 2017",
-        "4.6.10075": "November 2017"
+        "4.6.10075": "November 2017",
+        "4.9.11311": "June 2018",
+        "4.9.11314": "June 2018"
     };
     if (overrides[version]) return overrides[version];
 
