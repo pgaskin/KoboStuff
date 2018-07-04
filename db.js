@@ -1232,6 +1232,10 @@ var oldversions = {
         "model": "Kobo Aura H2O Edition 2 v2",
         "hardware": "kobo7",
         "versions": [{
+            "version": "4.9.11311",
+            "date": "June 2018",
+            "download": "http://download.kobobooks.com/firmwares/kobo7/May2018/kobo-update-4.9.11311.zip"
+        }, {
             "version": "4.8.11073",
             "date": "May 2018",
             "download": "http://download.kobobooks.com/firmwares/kobo7/May2018/kobo-update-4.8.11073.zip"
@@ -1336,6 +1340,10 @@ var oldversions = {
         "model": "Kobo Aura ONE Limited Edition",
         "hardware": "kobo6",
         "versions": [{
+            "version": "4.9.11311",
+            "date": "June 2018",
+            "download": "http://download.kobobooks.com/firmwares/kobo6/May2018/kobo-update-4.9.11311.zip"
+        }, {
             "version": "4.8.11073",
             "date": "May 2018",
             "download": "http://download.kobobooks.com/firmwares/kobo6/May2018/kobo-update-4.8.11073.zip"
@@ -1444,6 +1452,10 @@ var oldversions = {
         "model": "Kobo Aura Edition 2 v2",
         "hardware": "kobo7",
         "versions": [{
+            "version": "4.9.11311",
+            "date": "June 2018",
+            "download": "http://download.kobobooks.com/firmwares/kobo7/May2018/kobo-update-4.9.11311.zip"
+        }, {
             "version": "4.8.11073",
             "date": "May 2018",
             "download": "http://download.kobobooks.com/firmwares/kobo7/May2018/kobo-update-4.8.11073.zip"
