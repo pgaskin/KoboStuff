@@ -1512,13 +1512,17 @@ var oldversions = {
         "model": "Kobo Forma",
         "hardware": "kobo7",
         "versions": [{
-            "version": "4.11.11911",
-            "date": "October 2018",
-            "download": "http://download.kobobooks.com/firmwares/kobo7/Oct2018/kobo-update-4.11.11911.zip"
+            "version": "4.11.11980",
+            "date": "November 2018",
+            "download": "http://download.kobobooks.com/firmwares/kobo7/Nov2018/kobo-update-4.11.11980.zip"
         }, {
             "version": "4.11.11976",
             "date": "November 2018",
             "download": "http://download.kobobooks.com/firmwares/kobo7/Nov2018/kobo-update-4.11.11976.zip"
+        }, {
+            "version": "4.11.11911",
+            "date": "October 2018",
+            "download": "http://download.kobobooks.com/firmwares/kobo7/Oct2018/kobo-update-4.11.11911.zip"
         }]
     }
 };
