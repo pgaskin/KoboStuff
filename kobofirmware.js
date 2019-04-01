@@ -142,47 +142,10 @@ function el(tag, classes, attrs, inner, innerRaw, appendTo) {
     return el;
 }
 
-// jsonp makes a jsonp request.
-function jsonp(url, timeout) {
-    try {
-        Raven.captureBreadcrumb({
-            message: 'JSONP request to ' + url,
-            category: 'jsonp',
-            data: {
-                url: url,
-                timeout: timeout
-            }
-        });
-    } catch (err) {}
-    return new Promise(function (resolve, reject) {
-        var callback;
-        while (!callback || window[callback] !== undefined) {
-            callback = "JSONP_" + (Math.random() + 1).toString(36).slice(2);
-        }
-
-        var t = setTimeout(function () {
-            delete window[callback];
-            script.parentNode.removeChild(script);
-            reject("Connection timed out");
-        }, timeout || 30000);
-
-        window[callback] = function (data) {
-            clearTimeout(t);
-            delete window[callback];
-            script.parentNode.removeChild(script);
-            resolve(data);
-        };
-
-        var script = el("script", [], {
-            src: "https://json2jsonp.com/" + "?url=" + encodeURIComponent(url) + "&callback=" + encodeURIComponent(callback)
-        }, "", false, document.body);
-    });
-}
-
 function getUpgradeInfo(id, affiliate) {
     var baseVer = "0.0";
     if (id == "00000000-0000-0000-0000-000000000381") baseVer = "4.7.10364";
-    return jsonp("https://api.kobobooks.com/1.0/UpgradeCheck/Device/" + id + "/" + affiliate + "/" + baseVer + "/N0", 30000);
+    return fetch("https://cors.geek1011.net/api.kobobooks.com/1.0/UpgradeCheck/Device/" + id + "/" + affiliate + "/" + baseVer + "/N0").then(function(resp){return resp.json();});
 }
 
 function getVersions() {
