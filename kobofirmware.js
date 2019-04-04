@@ -145,7 +145,7 @@ function el(tag, classes, attrs, inner, innerRaw, appendTo) {
 function getUpgradeInfo(id, affiliate) {
     var baseVer = "0.0";
     if (id == "00000000-0000-0000-0000-000000000381") baseVer = "4.7.10364";
-    return fetch("https://cors.geek1011.net/api.kobobooks.com/1.0/UpgradeCheck/Device/" + id + "/" + affiliate + "/" + baseVer + "/N0").then(function(resp){return resp.json();});
+    return fetch("https://kfwproxy.geek1011.net/api.kobobooks.com/1.0/UpgradeCheck/Device/" + id + "/" + affiliate + "/" + baseVer + "/N0").then(function(resp){return resp.json();});
 }
 
 function getVersions() {
