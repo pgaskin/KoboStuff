@@ -32,6 +32,10 @@ var devices = [
 // fwVersionCompare compares 2 kobo firmware versions and
 // returns 1 if a > b, 0 if a == b, -1 if a < b.
 function fwVersionCompare(a, b) {
+    // HACK for April 2019 -s version suffix.
+    if (a.endsWith("-s") && b == a.substring(0, a.length - 2)) return 1;
+    if (b.endsWith("-s") && a == b.substring(0, b.length - 2)) return -1;
+
     var as = a.split(".").map(Number);
     var bs = b.split(".").map(Number);
 
@@ -55,9 +59,7 @@ function fwExtractVersion(url) {
     if (url.endsWith("download.kobobooks.com/firmwares/kobo5/May2018/kobo-update-4.9.11311.zip")) return "4.9.11314";
     if (url.endsWith("download.kobobooks.com/firmwares/kobo6/Aug2018/kobo-update-4.10.zip")) return "4.10.11591";
     if (url.endsWith("download.kobobooks.com/firmwares/kobo7/Aug2018/kobo-update-4.10.zip")) return "4.10.11591";
-    if (url.endsWith("Apr2019/kobo-update-4.13.12638-s.zip")) return "4.13.12638";
-    if (url.endsWith("january2016/kobo-update-3.19.5761-s.zip")) return "3.19.5761";
-    var tmp = url.match(/update-([0-9.]+)\.zip/);
+    var tmp = url.match(/update-([0-9.]+(?:-s)?)\.zip/);
     if (tmp == null || tmp.length != 2) throw new Error("Could not extract version from " + url);
     return tmp[1];
 }
@@ -147,7 +149,7 @@ function el(tag, classes, attrs, inner, innerRaw, appendTo) {
 function getUpgradeInfo(id, affiliate) {
     var baseVer = "0.0";
     if (id == "00000000-0000-0000-0000-000000000381") baseVer = "4.7.10364";
-    return fetch("https://kfwproxy.geek1011.net/api.kobobooks.com/1.0/UpgradeCheck/Device/" + id + "/" + affiliate + "/" + baseVer + "/N0").then(function(resp){return resp.json();});
+    return fetch("https://kfwproxy.geek1011.net/api.kobobooks.com/1.0/UpgradeCheck/Device/" + id + "/" + affiliate + "/" + baseVer + "/N0").then(function (resp) { return resp.json(); });
 }
 
 function getVersions() {
@@ -292,7 +294,7 @@ function getVersions() {
             els.version.title = err.toString();
             try {
                 Raven.captureException(err);
-            } catch (err) {}
+            } catch (err) { }
             return Promise.reject(new Error("Error loading firmware for " + device.model + ": " + err.toString()));
         });
     })).then(function (results) {
@@ -417,7 +419,7 @@ function getVersions() {
         console.error(err);
         try {
             Raven.captureException(err);
-        } catch (err) {}
+        } catch (err) { }
     });
 }
 
@@ -545,7 +547,7 @@ function loadPrevVersions() {
         ].concat(hardwares.map(function (hardware) {
             var h = el("td", "hardware");
             if (!version.downloads[hardware]) h.innerText = "-";
-            if (version.downloads[hardware]) el("a", [], {href: version.downloads[hardware]}, "Download", false, h);
+            if (version.downloads[hardware]) el("a", [], { href: version.downloads[hardware] }, "Download", false, h);
             return h;
         })).concat([
             el("td", "notes", {}, (version.notes))
@@ -685,9 +687,9 @@ function doSearch(q) {
             if (kw.indexOf(" ") > -1 && q.indexOf(kw) > -1) score += kw.split(" ").length;
         });
         qspl.forEach(function (qsp) {
-           var hwnorm = qsp.replace("mark", "kobo");
-           if (["kobo3", "kobo4", "kobo5", "kobo6", "kobo7"].indexOf(hwnorm) > -1 && i.hardware != hwnorm) score -= 20;
-           if (/^20[12][0-9]$/.test(qsp) && i.date.split(" ").reverse()[0] != qsp) score -= 10;
+            var hwnorm = qsp.replace("mark", "kobo");
+            if (["kobo3", "kobo4", "kobo5", "kobo6", "kobo7"].indexOf(hwnorm) > -1 && i.hardware != hwnorm) score -= 20;
+            if (/^20[12][0-9]$/.test(qsp) && i.date.split(" ").reverse()[0] != qsp) score -= 10;
         });
         return [score, i];
     }).filter(function (r) {
@@ -712,13 +714,13 @@ function updateSearch() {
         results.forEach(function (r) {
             var result = r[1];
             var sc = r[0];
-            var rel = el("div", "result", {"data-score": sc}, "", false, frag);
+            var rel = el("div", "result", { "data-score": sc }, "", false, frag);
 
             var r = el("div", "right", {}, "", false, rel);
-            el("a", ["download", "button"], {href: result.download}, "Download", false, r);
+            el("a", ["download", "button"], { href: result.download }, "Download", false, r);
 
             var l = el("div", "left", {}, "", false, rel);
-            el("div", "device", {}, (q.indexOf("@") > -1 ? (sc || "").toString() + ": ": "") + result.model + " - " + result.hardware, false, l);
+            el("div", "device", {}, (q.indexOf("@") > -1 ? (sc || "").toString() + ": " : "") + result.model + " - " + result.hardware, false, l);
             el("div", "version", {}, result.version + " - " + result.date, false, l);
         });
         o.appendChild(frag);
@@ -742,7 +744,7 @@ function init() {
             document.getElementById("error").innerHTML = document.getElementById("error").innerHTML + '<br /><br />' + err.toString();
             try {
                 Raven.captureException(err);
-            } catch (err) {}
+            } catch (err) { }
             alert("Error loading firmware: " + err.toString());
         });
         try {
@@ -753,7 +755,7 @@ function init() {
             document.getElementById("error").innerHTML = document.getElementById("error").innerHTML + '<br /><br />' + err.toString();
             try {
                 Raven.captureException(err);
-            } catch (err) {}
+            } catch (err) { }
             alert("Error loading previous versions: " + err.toString());
         }
         try {
@@ -764,7 +766,7 @@ function init() {
             document.getElementById("error").innerHTML = document.getElementById("error").innerHTML + '<br /><br />' + err.toString();
             try {
                 Raven.captureException(err);
-            } catch (err) {}
+            } catch (err) { }
             alert("Error loading version availability by device table: " + err.toString());
         }
     } catch (err) {
@@ -773,11 +775,11 @@ function init() {
         document.getElementById("error").innerHTML = document.getElementById("error").innerHTML + '<br /><br />' + err.toString();
         try {
             Raven.captureException(err);
-        } catch (err) {}
+        } catch (err) { }
     }
 
     if (navigator.userAgent.toLowerCase().indexOf("kobo") > -1) document.querySelector(".top-ad").style.display = "none";
-    
+
     ["touch april 2018", "3.19", "kobo4 2015", "mini", "350", "kobo7", "mini \"newest firmware\"", "touch 2015", "37", "december"].forEach(function (q) {
         console.log("search test:", q, doSearch(q));
     });
