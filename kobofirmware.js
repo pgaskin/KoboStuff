@@ -55,6 +55,8 @@ function fwExtractVersion(url) {
     if (url.endsWith("download.kobobooks.com/firmwares/kobo5/May2018/kobo-update-4.9.11311.zip")) return "4.9.11314";
     if (url.endsWith("download.kobobooks.com/firmwares/kobo6/Aug2018/kobo-update-4.10.zip")) return "4.10.11591";
     if (url.endsWith("download.kobobooks.com/firmwares/kobo7/Aug2018/kobo-update-4.10.zip")) return "4.10.11591";
+    if (url.endsWith("Apr2019/kobo-update-4.13.12638-s.zip")) return "4.13.12638";
+    if (url.endsWith("january2016/kobo-update-3.19.5761-s.zip")) return "3.19.5761";
     var tmp = url.match(/update-([0-9.]+)\.zip/);
     if (tmp == null || tmp.length != 2) throw new Error("Could not extract version from " + url);
     return tmp[1];
