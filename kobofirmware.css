@@ -30,10 +30,13 @@ a:hover {
 
 div.nav {
     display: block;
-    border-bottom: 1px solid #d6d6d6;
     padding: 0 5%;
     margin-bottom: 0;
     font-size: .85em;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    background: #fff;
 }
 
 div.nav a.item,
