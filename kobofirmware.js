@@ -269,7 +269,7 @@ function getVersions() {
             els.notes.onclick = (function (device, event) {
                 event.preventDefault();
                 document.querySelector(".modal-wrapper.notes .title").innerHTML = "Release notes for " + device.latest.version;
-                window.open(device.latest.notes.replace("http:", "https:"), "notes");
+                window.open(device.latest.notes.replace("http:", "https:").replace("api.kobobooks.com", "kfwproxy.geek1011.net/api.kobobooks.com"), "notes");
                 document.querySelector(".modal-wrapper.notes").classList.remove("hidden");
             }).bind(null, device);
 
