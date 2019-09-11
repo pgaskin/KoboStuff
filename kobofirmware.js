@@ -26,7 +26,8 @@ var devices = [
     ["00000000-0000-0000-0000-000000000375", "Kobo Aura Edition 2 v1", "kobo6"],
     ["00000000-0000-0000-0000-000000000379", "Kobo Aura Edition 2 v2", "kobo7"],
     ["00000000-0000-0000-0000-000000000376", "Kobo Clara HD", "kobo7"],
-    ["00000000-0000-0000-0000-000000000380", "Kobo Forma", "kobo7"]
+    ["00000000-0000-0000-0000-000000000380", "Kobo Forma", "kobo7"],
+    ["00000000-0000-0000-0000-000000000384", "Kobo Libra H2O", "kobo7"]
 ];
 
 // fwVersionCompare compares 2 kobo firmware versions and
