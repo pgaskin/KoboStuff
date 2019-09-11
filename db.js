@@ -1856,5 +1856,15 @@ var oldversions = {
             "date": "October 2018",
             "download": "http://download.kobobooks.com/firmwares/kobo7/Oct2018/kobo-update-4.11.11911.zip"
         }]
+    },
+    "00000000-0000-0000-0000-000000000384": {
+        "id": "00000000-0000-0000-0000-000000000384",
+        "model": "Kobo Libra H2O",
+        "hardware": "kobo7",
+        "versions": [{
+            "version": "4.16.13337",
+            "date": "August 2019",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo7/Aug2019/kobo-update-4.16.13337.zip"
+        }]
     }
 };
