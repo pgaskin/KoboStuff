@@ -87,6 +87,7 @@ function fwExtractDate(url, version) {
         "Jul": "July",
         "Aug": "August",
         "Sep": "September",
+        "Sept": "September",
         "Oct": "October",
         "Nov": "November",
         "Dec": "December",
