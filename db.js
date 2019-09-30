@@ -4,6 +4,10 @@ var oldversions = {
         "model": "Kobo Touch A/B",
         "hardware": "kobo3",
         "versions": [{
+            "version": "4.18.13737",
+            "date": "September 2019",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo3/Sept2019/kobo-update-4.18.13737.zip"
+        }, {
             "version": "4.17.13694",
             "date": "September 2019",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo3/Sept2019/kobo-update-4.17.13694.zip"
@@ -190,6 +194,10 @@ var oldversions = {
         "model": "Kobo Touch C",
         "hardware": "kobo4",
         "versions": [{
+            "version": "4.18.13737",
+            "date": "September 2019",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo4/Sept2019/kobo-update-4.18.13737.zip"
+        }, {
             "version": "4.17.13694",
             "date": "September 2019",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo4/Sept2019/kobo-update-4.17.13694.zip"
@@ -486,6 +494,10 @@ var oldversions = {
         "model": "Kobo Glo",
         "hardware": "kobo4",
         "versions": [{
+            "version": "4.18.13737",
+            "date": "September 2019",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo4/Sept2019/kobo-update-4.18.13737.zip"
+        }, {
             "version": "4.17.13694",
             "date": "September 2019",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo4/Sept2019/kobo-update-4.17.13694.zip"
@@ -684,6 +696,10 @@ var oldversions = {
         "model": "Kobo Glo HD",
         "hardware": "kobo6",
         "versions": [{
+            "version": "4.18.13737",
+            "date": "September 2019",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo6/Sept2019/kobo-update-4.18.13737.zip"
+        }, {
             "version": "4.17.13694",
             "date": "September 2019",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo6/Sept2019/kobo-update-4.17.13694.zip"
@@ -810,6 +826,10 @@ var oldversions = {
         "model": "Kobo Touch 2.0",
         "hardware": "kobo6",
         "versions": [{
+            "version": "4.18.13737",
+            "date": "September 2019",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo6/Sept2019/kobo-update-4.18.13737.zip"
+        }, {
             "version": "4.17.13694",
             "date": "September 2019",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo6/Sept2019/kobo-update-4.17.13694.zip"
@@ -916,6 +936,10 @@ var oldversions = {
         "model": "Kobo Aura",
         "hardware": "kobo5",
         "versions": [{
+            "version": "4.18.13737",
+            "date": "September 2019",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo5/Sept2019/kobo-update-4.18.13737.zip"
+        }, {
             "version": "4.17.13694",
             "date": "September 2019",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo5/Sept2019/kobo-update-4.17.13694.zip"
@@ -1078,6 +1102,10 @@ var oldversions = {
         "model": "Kobo Aura HD",
         "hardware": "kobo4",
         "versions": [{
+            "version": "4.18.13737",
+            "date": "September 2019",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo4/Sept2019/kobo-update-4.18.13737.zip"
+        }, {
             "version": "4.17.13694",
             "date": "September 2019",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo4/Sept2019/kobo-update-4.17.13694.zip"
@@ -1276,6 +1304,10 @@ var oldversions = {
         "model": "Kobo Aura H2O",
         "hardware": "kobo5",
         "versions": [{
+            "version": "4.18.13737",
+            "date": "September 2019",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo5/Sept2019/kobo-update-4.18.13737.zip"
+        }, {
             "version": "4.17.13694",
             "date": "September 2019",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo5/Sept2019/kobo-update-4.17.13694.zip"
@@ -1418,6 +1450,10 @@ var oldversions = {
         "model": "Kobo Aura H2O Edition 2 v1",
         "hardware": "kobo6",
         "versions": [{
+            "version": "4.18.13737",
+            "date": "September 2019",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo6/Sept2019/kobo-update-4.18.13737.zip"
+        }, {
             "version": "4.17.13694",
             "date": "September 2019",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo6/Sept2019/kobo-update-4.17.13694.zip"
@@ -1492,6 +1528,10 @@ var oldversions = {
         "model": "Kobo Aura H2O Edition 2 v2",
         "hardware": "kobo7",
         "versions": [{
+            "version": "4.18.13737",
+            "date": "September 2019",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo7/Sept2019/kobo-update-4.18.13737.zip"
+        }, {
             "version": "4.17.13694",
             "date": "September 2019",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo7/Sept2019/kobo-update-4.17.13694.zip"
@@ -1542,6 +1582,10 @@ var oldversions = {
         "model": "Kobo Aura ONE",
         "hardware": "kobo6",
         "versions": [{
+            "version": "4.18.13737",
+            "date": "September 2019",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo6/Sept2019/kobo-update-4.18.13737.zip"
+        }, {
             "version": "4.17.13694",
             "date": "September 2019",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo6/Sept2019/kobo-update-4.17.13694.zip"
@@ -1664,6 +1708,10 @@ var oldversions = {
         "model": "Kobo Aura ONE Limited Edition",
         "hardware": "kobo6",
         "versions": [{
+            "version": "4.18.13737",
+            "date": "September 2019",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo6/Sept2019/kobo-update-4.18.13737.zip"
+        }, {
             "version": "4.17.13694",
             "date": "September 2019",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo6/Sept2019/kobo-update-4.17.13694.zip"
@@ -1718,6 +1766,10 @@ var oldversions = {
         "model": "Kobo Aura Edition 2 v1",
         "hardware": "kobo6",
         "versions": [{
+            "version": "4.18.13737",
+            "date": "September 2019",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo6/Sept2019/kobo-update-4.18.13737.zip"
+        }, {
             "version": "4.17.13694",
             "date": "September 2019",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo6/Sept2019/kobo-update-4.17.13694.zip"
@@ -1840,6 +1892,10 @@ var oldversions = {
         "model": "Kobo Aura Edition 2 v2",
         "hardware": "kobo7",
         "versions": [{
+            "version": "4.18.13737",
+            "date": "September 2019",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo7/Sept2019/kobo-update-4.18.13737.zip"
+        }, {
             "version": "4.17.13694",
             "date": "September 2019",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo7/Sept2019/kobo-update-4.17.13694.zip"
@@ -1890,6 +1946,10 @@ var oldversions = {
         "model": "Kobo Clara HD",
         "hardware": "kobo7",
         "versions": [{
+            "version": "4.18.13737",
+            "date": "September 2019",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo7/Sept2019/kobo-update-4.18.13737.zip"
+        }, {
             "version": "4.17.13694",
             "date": "September 2019",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo7/Sept2019/kobo-update-4.17.13694.zip"
@@ -1936,6 +1996,10 @@ var oldversions = {
         "model": "Kobo Forma",
         "hardware": "kobo7",
         "versions": [{
+            "version": "4.18.13737",
+            "date": "September 2019",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo7/Sept2019/kobo-update-4.18.13737.zip"
+        }, {
             "version": "4.17.13694",
             "date": "September 2019",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo7/Sept2019/kobo-update-4.17.13694.zip"
@@ -1990,6 +2054,10 @@ var oldversions = {
         "model": "Kobo Libra H2O",
         "hardware": "kobo7",
         "versions": [{
+            "version": "4.18.13737",
+            "date": "September 2019",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo7/Sept2019/kobo-update-4.18.13737.zip"
+        }, {
             "version": "4.17.13694",
             "date": "September 2019",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo7/Sept2019/kobo-update-4.17.13694.zip"
