@@ -4,6 +4,10 @@ var oldversions = {
         "model": "Kobo Touch A/B",
         "hardware": "kobo3",
         "versions": [{
+            "version": "4.20.14617",
+            "date": "March 2020",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo3/Mar2020/kobo-update-4.20.14617.zip"
+        }, {
             "version": "4.20.14601",
             "date": "February 2020",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo3/Feb2020/kobo-update-4.20.14601.zip"
@@ -202,6 +206,10 @@ var oldversions = {
         "model": "Kobo Touch C",
         "hardware": "kobo4",
         "versions": [{
+            "version": "4.20.14617",
+            "date": "March 2020",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo4/Mar2020/kobo-update-4.20.14617.zip"
+        }, {
             "version": "4.20.14601",
             "date": "February 2020",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo4/Feb2020/kobo-update-4.20.14601.zip"
@@ -510,6 +518,10 @@ var oldversions = {
         "model": "Kobo Glo",
         "hardware": "kobo4",
         "versions": [{
+            "version": "4.20.14617",
+            "date": "March 2020",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo4/Mar2020/kobo-update-4.20.14617.zip"
+        }, {
             "version": "4.20.14601",
             "date": "February 2020",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo4/Feb2020/kobo-update-4.20.14601.zip"
@@ -720,6 +732,10 @@ var oldversions = {
         "model": "Kobo Glo HD",
         "hardware": "kobo6",
         "versions": [{
+            "version": "4.20.14617",
+            "date": "March 2020",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo6/Mar2020/kobo-update-4.20.14617.zip"
+        }, {
             "version": "4.20.14601",
             "date": "February 2020",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo6/Feb2020/kobo-update-4.20.14601.zip"
@@ -858,6 +874,10 @@ var oldversions = {
         "model": "Kobo Touch 2.0",
         "hardware": "kobo6",
         "versions": [{
+            "version": "4.20.14617",
+            "date": "March 2020",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo6/Mar2020/kobo-update-4.20.14617.zip"
+        }, {
             "version": "4.20.14601",
             "date": "February 2020",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo6/Feb2020/kobo-update-4.20.14601.zip"
@@ -976,6 +996,10 @@ var oldversions = {
         "model": "Kobo Aura",
         "hardware": "kobo5",
         "versions": [{
+            "version": "4.20.14617",
+            "date": "March 2020",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo5/Mar2020/kobo-update-4.20.14617.zip"
+        }, {
             "version": "4.20.14601",
             "date": "February 2020",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo5/Feb2020/kobo-update-4.20.14601.zip"
@@ -1150,6 +1174,10 @@ var oldversions = {
         "model": "Kobo Aura HD",
         "hardware": "kobo4",
         "versions": [{
+            "version": "4.20.14617",
+            "date": "March 2020",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo4/Mar2020/kobo-update-4.20.14617.zip"
+        }, {
             "version": "4.20.14601",
             "date": "February 2020",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo4/Feb2020/kobo-update-4.20.14601.zip"
@@ -1360,6 +1388,10 @@ var oldversions = {
         "model": "Kobo Aura H2O",
         "hardware": "kobo5",
         "versions": [{
+            "version": "4.20.14617",
+            "date": "March 2020",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo5/Mar2020/kobo-update-4.20.14617.zip"
+        }, {
             "version": "4.20.14601",
             "date": "February 2020",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo5/Feb2020/kobo-update-4.20.14601.zip"
@@ -1514,6 +1546,10 @@ var oldversions = {
         "model": "Kobo Aura H2O Edition 2 v1",
         "hardware": "kobo6",
         "versions": [{
+            "version": "4.20.14617",
+            "date": "March 2020",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo6/Mar2020/kobo-update-4.20.14617.zip"
+        }, {
             "version": "4.20.14601",
             "date": "February 2020",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo6/Feb2020/kobo-update-4.20.14601.zip"
@@ -1600,6 +1636,10 @@ var oldversions = {
         "model": "Kobo Aura H2O Edition 2 v2",
         "hardware": "kobo7",
         "versions": [{
+            "version": "4.20.14617",
+            "date": "March 2020",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo7/Mar2020/kobo-update-4.20.14617.zip"
+        }, {
             "version": "4.20.14601",
             "date": "February 2020",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo7/Feb2020/kobo-update-4.20.14601.zip"
@@ -1662,6 +1702,10 @@ var oldversions = {
         "model": "Kobo Aura ONE",
         "hardware": "kobo6",
         "versions": [{
+            "version": "4.20.14617",
+            "date": "March 2020",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo6/Mar2020/kobo-update-4.20.14617.zip"
+        }, {
             "version": "4.20.14601",
             "date": "February 2020",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo6/Feb2020/kobo-update-4.20.14601.zip"
@@ -1796,6 +1840,10 @@ var oldversions = {
         "model": "Kobo Aura ONE Limited Edition",
         "hardware": "kobo6",
         "versions": [{
+            "version": "4.20.14617",
+            "date": "March 2020",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo6/Mar2020/kobo-update-4.20.14617.zip"
+        }, {
             "version": "4.20.14601",
             "date": "February 2020",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo6/Feb2020/kobo-update-4.20.14601.zip"
@@ -1862,6 +1910,10 @@ var oldversions = {
         "model": "Kobo Aura Edition 2 v1",
         "hardware": "kobo6",
         "versions": [{
+            "version": "4.20.14617",
+            "date": "March 2020",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo6/Mar2020/kobo-update-4.20.14617.zip"
+        }, {
             "version": "4.20.14601",
             "date": "February 2020",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo6/Feb2020/kobo-update-4.20.14601.zip"
@@ -1996,6 +2048,10 @@ var oldversions = {
         "model": "Kobo Aura Edition 2 v2",
         "hardware": "kobo7",
         "versions": [{
+            "version": "4.20.14617",
+            "date": "March 2020",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo7/Mar2020/kobo-update-4.20.14617.zip"
+        }, {
             "version": "4.20.14601",
             "date": "February 2020",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo7/Feb2020/kobo-update-4.20.14601.zip"
@@ -2058,6 +2114,10 @@ var oldversions = {
         "model": "Kobo Clara HD",
         "hardware": "kobo7",
         "versions": [{
+            "version": "4.20.14617",
+            "date": "March 2020",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo7/Mar2020/kobo-update-4.20.14617.zip"
+        }, {
             "version": "4.20.14601",
             "date": "February 2020",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo7/Feb2020/kobo-update-4.20.14601.zip"
@@ -2116,6 +2176,10 @@ var oldversions = {
         "model": "Kobo Forma",
         "hardware": "kobo7",
         "versions": [{
+            "version": "4.20.14617",
+            "date": "March 2020",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo7/Mar2020/kobo-update-4.20.14617.zip"
+        }, {
             "version": "4.20.14601",
             "date": "February 2020",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo7/Feb2020/kobo-update-4.20.14601.zip"
@@ -2182,6 +2246,10 @@ var oldversions = {
         "model": "Kobo Libra H2O",
         "hardware": "kobo7",
         "versions": [{
+            "version": "4.20.14617",
+            "date": "March 2020",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo7/Mar2020/kobo-update-4.20.14617.zip"
+        }, {
             "version": "4.20.14601",
             "date": "February 2020",
             "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo7/Feb2020/kobo-update-4.20.14601.zip"
