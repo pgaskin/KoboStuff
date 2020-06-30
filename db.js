@@ -2277,6 +2277,12 @@ var oldversions = {
             "download": "http://download.kobobooks.com/firmwares/kobo7/April2018/kobo-update-4.8.zip"
         }]
     },
+    "00000000-0000-0000-0000-000000000382": {
+        "id": "00000000-0000-0000-0000-000000000382",
+        "model": "Kobo Nia",
+        "hardware": "kobo7",
+        "versions": []
+    },
     "00000000-0000-0000-0000-000000000376": {
         "id": "00000000-0000-0000-0000-000000000376",
         "model": "Kobo Clara HD",

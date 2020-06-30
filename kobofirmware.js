@@ -25,6 +25,7 @@ var devices = [
     ["00000000-0000-0000-0000-000000000381", "Kobo Aura ONE Limited Edition", "kobo6"],
     ["00000000-0000-0000-0000-000000000375", "Kobo Aura Edition 2 v1", "kobo6"],
     ["00000000-0000-0000-0000-000000000379", "Kobo Aura Edition 2 v2", "kobo7"],
+    ["00000000-0000-0000-0000-000000000382", "Kobo Nia", "kobo7"],
     ["00000000-0000-0000-0000-000000000376", "Kobo Clara HD", "kobo7"],
     ["00000000-0000-0000-0000-000000000380", "Kobo Forma", "kobo7"],
     ["00000000-0000-0000-0000-000000000384", "Kobo Libra H2O", "kobo7"]
@@ -263,22 +264,26 @@ function getVersions() {
 
             els.date.innerText = device.latest.date;
 
-            els.download.href = device.latest.download;
-            els.download.classList.remove("hidden");
+            if (device.latest.download) {
+                els.download.href = device.latest.download;
+                els.download.classList.remove("hidden");
 
-            els.notes.href = device.latest.notes;
-            els.notes.classList.remove("hidden");
-            els.notes.onclick = (function (device, event) {
-                event.preventDefault();
-                document.querySelector(".modal-wrapper.notes .title").innerHTML = "Release notes for " + device.latest.version;
-                window.open(device.latest.notes.replace("http:", "https:").replace("api.kobobooks.com", "kfwproxy.geek1011.net/api.kobobooks.com"), "notes");
-                document.querySelector(".modal-wrapper.notes").classList.remove("hidden");
-            }).bind(null, device);
+                els.notes.href = device.latest.notes;
+                els.notes.classList.remove("hidden");
+                els.notes.onclick = (function (device, event) {
+                    event.preventDefault();
+                    document.querySelector(".modal-wrapper.notes .title").innerHTML = "Release notes for " + device.latest.version;
+                    window.open(device.latest.notes.replace("http:", "https:").replace("api.kobobooks.com", "kfwproxy.geek1011.net/api.kobobooks.com"), "notes");
+                    document.querySelector(".modal-wrapper.notes").classList.remove("hidden");
+                }).bind(null, device);
+            }
 
             els.otherAffiliates.classList.remove("hidden");
             els.otherAffiliates.onclick = (function (device) {
                 document.querySelector(".modal-wrapper.other-affiliates .title").innerHTML = "Versions of other affiliates for " + device.model;
-                document.querySelector(".modal-wrapper.other-affiliates .body").innerHTML = device.affiliates.map(function (affiliate) {
+                document.querySelector(".modal-wrapper.other-affiliates .body").innerHTML = device.affiliates.filter(function (affiliate) {
+                    return affiliate.download;
+                }).map(function (affiliate) {
                     return [
                         affiliate.affiliate,
                         affiliate.version,
