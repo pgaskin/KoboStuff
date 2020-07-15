@@ -2281,7 +2281,11 @@ var oldversions = {
         "id": "00000000-0000-0000-0000-000000000382",
         "model": "Kobo Nia",
         "hardware": "kobo7",
-        "versions": []
+        "versions": [{
+            "version": "4.22.15268",
+            "date": "July 2020",
+            "download": "https://kbdownload1-a.akamaihd.net/firmwares/kobo7/Jul2020/kobo-update-4.22.15268.zip"
+        }]
     },
     "00000000-0000-0000-0000-000000000376": {
         "id": "00000000-0000-0000-0000-000000000376",
