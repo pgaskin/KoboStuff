@@ -156,7 +156,7 @@ function getUpgradeInfo(id, affiliate) {
 }
 
 function getVersions() {
-    document.querySelector(".firmware .devices").innerHTML = "";
+    document.querySelector(".kfw.kfw-latest tbody").innerHTML = "";
     return Promise.all(devices.map(function (device) {
         return {
             id: device[0],
@@ -166,34 +166,43 @@ function getVersions() {
     }).map(function (device) {
         var tr = el("tr", "device", {
             "data-id": device.id
-        }, "", false, document.querySelector(".firmware .devices"));
+        }, "", false, document.querySelector(".kfw.kfw-latest tbody"));
         if (navigator.userAgent.indexOf("Kobo Touch " + device.id.slice(-4)) > -1) tr.classList.add("highlight");
 
         var model = el("td", "model", {
             title: "ID: " + device.id
         }, device.model, false, tr);
 
-        var hardware = el("td", "hardware", {}, device.hardware, false, tr);
-        var version = el("td", "version", {}, '<img src="loader.gif" alt="Loading..." class="loader" />', true, tr);
-        var date = el("td", "date", {}, "", false, tr);
-        var links = el("td", "links", {}, "", false, tr);
+        var hardware = el("td", "kfw-latest__hardware", {}, device.hardware, false, tr);
+        var version = el("td", "kfw-latest__version", {}, 'Loading...', true, tr);
+        var date = el("td", "kfw-latest__date", {}, "", false, tr);
+        var links = el("td", "kfw-latest__links", {}, "", false, tr);
 
-        var download = el("a", ["link", "download", "hidden"], {
+        var links1 = el("span", [], {
+            style: "display: inline-block; vertical-align: top;"
+        }, "", false, links);
+
+        var download = el("a", ["kfw-latest__links__download", "hidden"], {
             href: "javascript:void(0);"
-        }, "Download", false, links);
+        }, "Download", false, links1);
 
-        var notes = el("a", ["link", "notes", "hidden"], {
+        var notes = el("a", ["kfw-latest__links__notes", "hidden"], {
             href: "javascript:void(0);",
             target: "_blank"
-        }, "Notes", false, links);
+        }, "Notes", false, links1);
 
-        var otherAffiliates = el("a", ["link", "other-affiliates", "hidden"], {
-            href: "javascript:void(0);"
-        }, "Other Affiliates", false, links);
+        var links2 = el("span", [], {
+            style: "display: inline-block; vertical-align: top;"
+        }, "", false, links);
 
-        var otherVersions = el("a", ["link", "other-versions"], {
+        var otherAffiliates = el("a", ["kfw-latest__links__other-affiliates", "hidden"], {
             href: "javascript:void(0);"
-        }, "Other Versions", false, links);
+        }, "Other Affiliates", false, links2);
+
+        var otherVersions = el("a", ["kfw-latest__links__other-versions"], {
+            href: "javascript:void(0);"
+        }, "Other Versions", false, links2);
+
         otherVersions.onclick = (function (device) {
             document.querySelector(".modal-wrapper.other-versions .title").innerHTML = "Other versions for " + device.model;
             document.querySelector(".modal-wrapper.other-versions .body").innerHTML = (oldversions && oldversions[device.id]) ? oldversions[device.id].versions.map(function (version) {
@@ -293,8 +302,6 @@ function getVersions() {
                 document.querySelector(".modal-wrapper.other-affiliates").classList.remove("hidden");
             }).bind(null, device);
 
-            updateFilter();
-
             return Promise.resolve(device);
         }).catch(function (err) {
             els.version.innerText = "Error";
@@ -389,11 +396,11 @@ function getVersions() {
         var devs = Object.keys(affvers).sort(alpha);
 
         [
-            el("th", "device", {}, "Device")
+            el("th", "kfw-affiliates__device", {}, "Device")
         ].concat(affiliates.map(function (a) {
-            return el("th", "affiliate", {}, a)
+            return el("th", "kfw-affiliates__affiliate", {}, a)
         })).forEach(function (h) {
-            document.querySelector(".affiliate-version thead tr").appendChild(h);
+            document.querySelector(".kfw.kfw-affiliates thead tr").appendChild(h);
         });
 
         Object.entries(affvers).map(function (affver) {
@@ -409,16 +416,14 @@ function getVersions() {
                     return r.latest.version;
                 })[0] || "") == v;
                 if (v == "0.0.0") l = false;
-                return el("td", ["affiliate", l ? "latest" : (v == "0.0.0" ? "none" : "old")], {}, v)
+                return el("td", ["kfw-affiliates__affiliate", l ? "kfw-affiliates__affiliate--latest" : (v == "0.0.0" ? "kfw-affiliates__affiliate--none" : "kfw-affiliates__affiliate--outdated")], {}, v)
             })).forEach(function (col) {
                 tr.appendChild(col);
             });
             return tr;
         }).forEach(function (row) {
-            document.querySelector(".affiliate-version tbody").appendChild(row);
+            document.querySelector(".kfw.kfw-affiliates tbody").appendChild(row);
         });
-
-        document.querySelector(".affver-container").classList.remove("hidden");
     }).catch(function (err) {
         // If any one failed, returns the first one which did
         // No need to display error, as it will show in the table.
@@ -427,24 +432,6 @@ function getVersions() {
         try {
             Raven.captureException(err);
         } catch (err) { }
-    });
-}
-
-function updateFilter() {
-    var q = document.querySelector(".filter.devs").value.toLowerCase().trim();
-    [].slice.call((document.querySelectorAll(".firmware .devices .device"))).forEach(function (device) {
-        device.classList.add("hidden");
-        ([
-            device.getAttribute("data-id"),
-            device.querySelector(".model").innerText,
-            device.querySelector(".hardware").innerText,
-            device.querySelector(".version").innerText,
-            device.querySelector(".date").innerText
-        ].some(function (value) {
-            if (q == "") return true;
-            if ((value || "").trim() == "") return false;
-            return q.indexOf((value || "").toLowerCase().trim()) > -1 || (value || "").toLowerCase().trim().indexOf(q) > -1;
-        })) && device.classList.remove("hidden");
     });
 }
 
@@ -472,15 +459,15 @@ function loadPrevVersions() {
     }).filter(uniq).sort(hwCompare);
 
     [
-        el("th", "date", {}, "Date")
+        el("th", "kfw-versions__date", {}, "Date")
     ].concat([
-        el("th", "version", {}, "Version")
+        el("th", "kfw-versions__version", {}, "Version")
     ]).concat(hardwares.map(function (hw) {
         return el("th", "hardware", {}, hw);
     })).concat([
-        el("th", "notes", {}, "Notes")
+        el("th", "kfw-versions__notes", {}, "Notes")
     ]).forEach(function (h) {
-        document.querySelector(".old-firmware thead tr").appendChild(h);
+        document.querySelector(".kfw.kfw-versions thead tr").appendChild(h);
     });
 
     var versions = [].concat.apply([], Object.values(oldversions).map(function (d) {
@@ -549,15 +536,15 @@ function loadPrevVersions() {
         return version;
     }).map(function (version) {
         return [
-            el("td", "date", {}, version.date || "Unknown"),
-            el("td", "version", {}, version.version || "Unknown")
+            el("td", "kfw-versions__date", {}, version.date || "Unknown"),
+            el("td", "kfw-versions__version", {}, version.version || "Unknown")
         ].concat(hardwares.map(function (hardware) {
-            var h = el("td", "hardware");
+            var h = el("td", "kfw-versions__hardware");
             if (!version.downloads[hardware]) h.innerText = "-";
             if (version.downloads[hardware]) el("a", [], { href: version.downloads[hardware] }, "Download", false, h);
             return h;
         })).concat([
-            el("td", "notes", {}, (version.notes))
+            el("td", "kfw-versions__notes", {}, (version.notes))
         ]);
     }).map(function (cols) {
         var row = el("tr");
@@ -566,7 +553,7 @@ function loadPrevVersions() {
         });
         return row;
     }).forEach(function (row) {
-        document.querySelector(".old-firmware tbody").appendChild(row);
+        document.querySelector(".kfw.kfw-versions tbody").appendChild(row);
     });
 
     console.log(hardwares, versions);
@@ -609,142 +596,39 @@ function loadVersionDeviceTable() {
     var vers = Object.keys(devvers[0][1]).sort(fwVersionCompare);
 
     [
-        el("th", "device", {}, "Device")
+        el("th", "kfw-matrix__device", {}, "Device")
     ].concat(vers.map(function (ver) {
-        return el("th", "version", {}, ver)
+        return el("th", "kfw-matrix__version", {}, ver)
     })).concat([
-        el("th", "device", {}, "Device")
+        el("th", "kfw-matrix__device", {}, "Device")
     ]).forEach(function (h) {
-        document.querySelector(".version-device thead tr").appendChild(h);
+        document.querySelector(".kfw.kfw-matrix thead tr").appendChild(h);
     });
 
     devvers.map(function (devver) {
         var tr = el("tr");
         var f = false;
         [
-            el("td", "device", {}, devver[0])
+            el("td", "kfw-matrix__device", {}, devver[0])
         ].concat(vers.map(function (ver) {
             var y = devver[1][ver];
             if (y) f = true;
-            if (!f) return el("td", ["version", "none"], {}, "-");
-            return el("td", ["version", y ? "yes" : "no"], {}, y ? "✓" : "✗");
+            if (!f) return el("td", ["kfw-matrix__version", "kfw-matrix__version--none"], {}, "-");
+            return el("td", ["kfw-matrix__version", y ? "kfw-matrix__version--yes" : "kfw-matrix__version--no"], {}, y ? "✓" : "✗");
         })).concat([
-            el("td", "device", {}, devver[0])
+            el("td", "kfw-matrix__device", {}, devver[0])
         ]).forEach(function (col) {
             tr.appendChild(col);
         });
         return tr;
     }).forEach(function (row) {
-        document.querySelector(".version-device tbody").appendChild(row);
+        document.querySelector(".kfw.kfw-matrix tbody").appendChild(row);
     });
-}
-
-function doSearch(q) {
-    q = q.trim().toLowerCase().replace(/ +/g, " ").replace(/[^0-9A-Za-z._-]/, "").replace(/ ka1 /g, "kobo aura one").replace(/ ka1le /g, "kobo aura one limited edition").replace(/ ka(ed)?2/g, "kobo aura edition 2").replace(/2v1 /g, "2 v1").replace(/2v2 /g, "2 v2").replace(/touch 2 /g, "touch 2.0 ").replace(/ +/g, " ").trim();
-    if (q.length < 1) return [];
-    var qspl = q.split(" ");
-    return [].concat.apply([], Object.values(oldversions).map(function (d) {
-        return d.versions.map(function (v) {
-            return {
-                id: d.id,
-                model: d.model,
-                hardware: d.hardware,
-                version: v.version,
-                download: v.download,
-                date: v.date
-            };
-        });
-    })).map(function (i) {
-        var score = 0;
-        var id = i.id.toLowerCase(), model = i.model.toLowerCase(), hardware = i.hardware.toLowerCase();
-        var version = i.version.toLowerCase(), download = i.download.toLowerCase(), date = i.date.toLowerCase();
-        var kws = [
-            id,
-            id.slice(-3),
-            id.slice(-3),
-            id.slice(-3),
-            model,
-            date,
-            version.split(".").slice(0, 2).join("."),
-            download,
-            download.split("/").slice(-2)[0],
-            hardware,
-            hardware,
-            hardware,
-            hardware.replace("kobo", "mark"),
-            hardware.replace("kobo", "mark ")
-        ].concat([
-            model,
-            model,
-            model,
-            model,
-            model,
-            model,
-            model,
-            model,
-            date,
-            version.split(".").join(" ")
-        ].join(" ").split(" "));
-        if (q == id || q == id.slice(-3) || q == model || q == model.replace("kobo ", "") || q == hardware || q == version || q == download || q == date) score += 6;
-        kws.forEach(function (kw) {
-            qspl.forEach(function (qsp) {
-                if (qsp == kw) return score += 1;
-                if (qsp.endsWith(kw) || qsp.startsWith(kw) || kw.startsWith(qsp) || kw.endsWith(qsp)) return score += 0.5;
-            });
-            if (kw.indexOf(" ") > -1 && q.indexOf(kw) > -1) score += kw.split(" ").length;
-        });
-        qspl.forEach(function (qsp) {
-            var hwnorm = qsp.replace("mark", "kobo");
-            if (["kobo3", "kobo4", "kobo5", "kobo6", "kobo7"].indexOf(hwnorm) > -1 && i.hardware != hwnorm) score -= 20;
-            if (/^20[12][0-9]$/.test(qsp) && i.date.split(" ").reverse()[0] != qsp) score -= 10;
-        });
-        return [score, i];
-    }).filter(function (r) {
-        return qspl.length > 2 ? r[0] >= 2 : r[0] >= 0.5;
-    }).sort(function (ra, rb) {
-        var sa = ra[0], sb = rb[0];
-        var ia = ra[1], ib = rb[1];
-        if (qspl.length < 4 && (qspl.indexOf("newest") > -1 || qspl.indexOf("latest") > -1)) return fwVersionCompare(ib.version, ia.version) != 0 ? fwVersionCompare(ib.version, ia.version) : sb - sa;
-        return sa != sb ? sb - sa : fwVersionCompare(ib.version, ia.version);
-    }).slice(0, 50);
-}
-
-function updateSearch() {
-    var q = document.querySelector(".filter.vers").value;
-    var o = document.querySelector(".vers-results");
-    o.innerHTML = "";
-    if (q.length < 1) return;
-    try {
-        var results = doSearch(q);
-        if (results.length < 1) return o.innerHTML = "No results found for your search. Try revising your search terms or look in the above table for the version you are trying to find.";
-        var frag = document.createDocumentFragment();
-        results.forEach(function (r) {
-            var result = r[1];
-            var sc = r[0];
-            var rel = el("div", "result", { "data-score": sc }, "", false, frag);
-
-            var r = el("div", "right", {}, "", false, rel);
-            el("a", ["download", "button"], { href: result.download }, "Download", false, r);
-
-            var l = el("div", "left", {}, "", false, rel);
-            el("div", "device", {}, (q.indexOf("@") > -1 ? (sc || "").toString() + ": " : "") + result.model + " - " + result.hardware, false, l);
-            el("div", "version", {}, result.version + " - " + result.date, false, l);
-        });
-        o.appendChild(frag);
-    } catch (err) {
-        console.error("search error", q, err.toString());
-        o.innerHTML = "Error: " + err.toString();
-        throw new Error("Error searching for '" + q + "': " + err.toString());
-    }
 }
 
 function init() {
     document.getElementById("error").className = "error hidden";
     try {
-        document.querySelector(".filter.devs").addEventListener("input", updateFilter);
-        document.querySelector(".filter.devs").addEventListener("keyup", updateFilter);
-        document.querySelector(".filter.vers").addEventListener("input", updateSearch);
-        document.querySelector(".filter.vers").addEventListener("keyup", updateSearch);
         getVersions().catch(function (err) {
             console.error(err);
             document.getElementById("error").className = "error";
@@ -786,10 +670,6 @@ function init() {
     }
 
     if (navigator.userAgent.toLowerCase().indexOf("kobo") > -1) document.querySelector(".top-ad").style.display = "none";
-
-    ["touch april 2018", "3.19", "kobo4 2015", "mini", "350", "kobo7", "mini \"newest firmware\"", "touch 2015", "37", "december"].forEach(function (q) {
-        console.log("search test:", q, doSearch(q));
-    });
 }
 
 init();

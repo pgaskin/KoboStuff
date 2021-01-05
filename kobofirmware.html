@@ -6,178 +6,139 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="author" content="Patrick Gaskin">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="description" content="Kobo Firmware Downloads contains automatically updated official download links and release notes for kobo firmware. It also contains past firmware releases and a list of firmware versions available to each affiliate.">
+    <meta name="description" content="Get the latest automatically-updated links to firmware releases and release notes for Kobo devices, or download older firmware versions. To install an update, extract the zip file into the .kobo folder on your device.">
     <title>Kobo Firmware Downloads</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&display=swap" rel="stylesheet"> 
     <link rel="stylesheet" href="kobofirmware.css">
 </head>
 
 <body>
-    <div class="nav">
-        <a style="display: none" href="https://pgaskin.net/KoboStuff" title="Random stuff about the kobo eReaders" class="item">KoboStuff</a>
-        <a href="https://pgaskin.net/kepubify" title="ePub to Kepub conversion tool" class="item">kepubify</a>
-        <a href="https://pgaskin.net/kobopatch-patches" title="improved kobo firmware patching system" class="item">kobopatch</a>
-        <a href="https://pgaskin.net/dictutil" title="tools, documentation, and libraries related to Kobo dictionaries" class="item">dictutil</a>
-        <a href="https://pgaskin.net/NickelMenu" title="integrated launcher for Kobo eReaders" class="item">NickelMenu</a>
-        <span style="margin-left: 1.5em;"></span>
-        <a href="https://pgaskin.net/ePubViewer" title="web-based ebook server" class="item">ePubViewer</a>
-        <a href="https://github.com/pgaskin/KoboStuff" class="item right code">Code</a>
-    </div>
+    <a name="top"></a>
+    <a href="#top" id="jump-to-top" onclick="jump(null); event.preventDefault();">^</a>
 
-    <div class="content">
-        <div class="top-ad">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-            <!-- New new kobofirmware top ad -->
-            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3988246140848367" data-ad-slot="5317043857" data-ad-format="auto"></ins>
-            <script>
-                (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
-
-        <div class="header">Kobo Firmware Downloads</div>
-
-        <div class="description">
-            Kobo Firmware Links gets the latest official firmware download links from the Kobo API. It checks all affiliates to give
-            you the latest version.
-        </div>
-        <div class="description">
-            You can also view previous versions and the versions available to other affiliates.
-        </div>
-        <div class="instructions">
-            After you download the firmware for your device, extract the zip file into the
-            <tt>.kobo</tt> folder on your Kobo eReader.
-        </div>
-        <div class="description">
-            <b>Note for Aura H2O Edition 2 and Aura Edition 2:</b> Kobo has <a href="https://www.mobileread.com/forums/showpost.php?p=3678644&postcount=223">actually released two versions</a> of these devices. If the 7th digit of your serial number is a 2 you have the second version, otherwise you have the first version.
-        </div>
-        <div class="description">
-            <b>Note about the Mini update:</b> You may have received an email from Kobo about the required update. This update is 3.19.5761, which was originally only released to the rakutenbooks affiliate (until now). If you already have this version, no further updates are currently required.
-        </div>
-        <div class="description">
-            <b>Note about the April 2019 -s version:</b> This version was released about a month after the original. There do not seem to be any changes other than the version. See <a href="https://www.mobileread.com/forums/showthread.php?p=3840493">here</a> for more details.
-        </div>
-        <div class="description">
-            <b>Firmware release notifications:</b> You can receive instant notifications for new firmware releases by joining the Telegram channel <a href="https://t.me/KoboFirmware">@KoboFirmware</a>.
-        </div>
-
-        <div class="error" id="error">
-            An unexpected error has occured. Please reload the page or try a different browser. If the problem still persists,
-            <a href="https://github.com/pgaskin/KoboStuff/issues/new" target="_blank">Report an issue</a>.
-        </div>
-        <script>
-            document.getElementById("error").className = "error hidden";
-        </script>
-
-        <div class="filterbar">
-            <input type="text" class="filter devs" placeholder="Filter devices..." autocomplete="off">
-        </div>
-
-        <table class="firmware">
-            <thead>
-                <tr>
-                    <th class="model">Model</th>
-                    <th class="hardware">Hardware</th>
-                    <th class="version">Version</th>
-                    <th class="date">Release Date</th>
-                    <th class="links">Links</th>
-                </tr>
-            </thead>
-            <tbody class="devices"></tbody>
-        </table>
-
-        <br />
-
-        <div class="description">
-            Missing firmware versions or devices? Have a feature request?
-            <a href="https://github.com/pgaskin/KoboStuff/issues/new" target="_blank">Report an issue</a>.
-        </div>
-
-        <hr />
-
-        <div class="description">
-            <b>Version availability by device:</b><br>
-            You can find a table showing the version availability by device in the table below. <a href="javascript:void(0);" onclick="document.querySelector('.scrollbox.verdev').classList.remove('hidden');event.target.parentNode.removeChild(event.target);">Click here to show the table.</a>
-        </div>
-
-        <div class="scrollbox verdev hidden">
-            <table class="version-device">
-                <thead>
-                    <tr></tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
-
-        <hr />
-        <div class="affver-container hidden">
-            <div class="description">
-                <b>Version availability by affiliate:</b><br>
-                You can find a table showing the version availability by affiliate in the table below. <a href="javascript:void(0);" onclick="document.querySelector('.scrollbox.affver').classList.remove('hidden');event.target.parentNode.removeChild(event.target);">Click here to show the table.</a>
+    <header id="main-header">
+        <nav id="main-nav">
+            <div>
+                <a>KoboStuff</a>
             </div>
+            <div>
+                <a style="display: none" href="https://pgaskin.net/KoboStuff" title="Random stuff about the kobo eReaders" class="item">KoboStuff</a>
+                <a href="https://pgaskin.net/kepubify" title="ePub to Kepub conversion tool" class="item">kepubify</a>
+                <a href="https://pgaskin.net/kobopatch-patches" title="improved kobo firmware patching system" class="item">kobopatch</a>
+                <a href="https://pgaskin.net/dictutil" title="tools, documentation, and libraries related to Kobo dictionaries" class="item">dictutil</a>
+                <a href="https://pgaskin.net/NickelMenu" title="integrated launcher for Kobo eReaders" class="item">NickelMenu</a>
+                <a href="https://pgaskin.net/ePubViewer" title="web-based ebook server" class="item">ePubViewer</a>
+            </div>
+        </nav>
+        <section id="main-header-1">
+            <div>
+                <h1>Kobo Firmware Downloads</h1>
+                <p>
+                    Kobo Firmware Downloads gets the latest official firmware download links from the Kobo API. It also provides links to older firmware versions and shows the latest version available to each affiliate.
+                </p>
+                <p>
+                    After you download the firmware for your device, extract the zip file into the
+                    <tt>.kobo</tt> folder on your Kobo eReader.
+                </p>
+                <p>
+                    <b>Note for Aura H2O Edition 2 and Aura Edition 2:</b> Kobo has <a href="https://www.mobileread.com/forums/showpost.php?p=3678644&postcount=223">actually released two versions</a> of these devices. If the 7th digit of your serial number is a 2 you have the second version, otherwise you have the first version.
+                </p>
+                <p>
+                    <b>Firmware release notifications:</b> You can receive instant notifications for new firmware releases by joining the Telegram channel <a href="https://t.me/KoboFirmware">@KoboFirmware</a>.
+                </p>
+            </div>
+            <aside class="ad">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- New new kobofirmware top ad -->
+                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3988246140848367" data-ad-slot="5317043857" data-ad-format="rectangle, horizontal"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </aside>
+        </section>
+    </header>
 
-            <div class="scrollbox affver hidden">
-                <table class="affiliate-version">
+    <nav id="jump">
+        <a href="#section-latest" onclick="jump('section-latest'); event.preventDefault();">Latest Versions</a>
+        <a href="#section-matrix" onclick="jump('section-matrix'); event.preventDefault();">Version Matrix</a>
+        <a href="#section-affiliates" onclick="jump('section-affiliates'); event.preventDefault();">Affiliates</a>
+        <a href="#section-versions" onclick="document.querySelector('#section-versions button').click(); jump('section-versions'); event.preventDefault();">Versions</a>
+    </nav>
+
+    <main id="main-content">
+
+        <section id="section-latest">
+            <h2>Latest Versions</h2>
+            <p>The latest versions for each device.</p>
+            <div class="kfw kfw-latest" style="min-height: 790px; /* TODO: calculate this dynamically */">
+                <table>
                     <thead>
-                        <tr></tr>
+                        <tr>
+                            <th class="kfw-latest__model">Model</th>
+                            <th class="kfw-latest__hardware">Hardware</th>
+                            <th class="kfw-latest__version">Version</th>
+                            <th class="kfw-latest__date">Release Date</th>
+                            <th class="kfw-latest__links">Links</th>
+                        </tr>
                     </thead>
                     <tbody></tbody>
                 </table>
             </div>
+            <p>
+                Missing firmware versions or devices? Have a feature request?
+                <a href="https://github.com/pgaskin/KoboStuff/issues/new" target="_blank">Report an issue</a>.    
+            </p>
+        </section>
 
-            <hr />
-        </div>
-
-        <div class="description">
-            <b>All old versions by hardware:</b><br>
-            You can find a list of all old versions listed by the hardware version in the table below. <a href="javascript:void(0);" onclick="document.querySelector('.scrollbox.oldfw').classList.remove('hidden');event.target.parentNode.removeChild(event.target);">Click here to show the table.</a>
-        </div>
-
-        <div class="scrollbox oldfw hidden">
-            <table class="old-firmware">
-                <thead>
-                    <tr></tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
-
-        <hr />
-
-        <div style="display:none">
-            <div class="description">
-                <b>Version search <sup>BETA</sup> :</b><br>
-                You can search old firmware versions below. This feature is still in beta, so it may not return the most accurate results.
-            </div>
-
-            <div class="filterbar">
-                <input type="text" class="filter vers" placeholder="Search old versions..." autocomplete="off">
-            </div>
-
-            <div class="vers-results"></div>
-
-            <hr />
-        </div>
-
-        <div class="bottom-ad">
+        <aside class="ad">
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
             <!-- New new kobofirmware bottom ad -->
             <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3988246140848367" data-ad-slot="5289123690" data-ad-format="auto"></ins>
             <script>
                 (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
-        </div>
-    </div>
+        </aside>
 
-    <div class="footer">
-        <a href="kobofirmwareold.html" rel="nofollow">Old version</a>
-        <br /><br />
-        <a href="javascript:document.querySelector('.modal-wrapper.bbcode').classList.remove('hidden');" style="font-size: .7em">Generate BBCode for forums</a>
-        <br /><br />
-        Copyright 2016-2020 <a href="https://pgaskin.net">Patrick Gaskin</a>.
-    </div>
+        <section id="section-matrix">
+            <h2>Version Matrix</h2>
+            <p>Version availability by device.</p>
+            <div class="kfw kfw-matrix" style="min-height: 515px; /* TODO: calculate this dynamically */">
+                <table>
+                    <thead><tr></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="section-affiliates">
+            <h2>Affiliates</h2>
+            <p>The latest versions for individual affiliates.</p>
+            <div class="kfw kfw-affiliates" style="min-height: 515px; /* TODO: calculate this dynamically */">
+                <table>
+                    <thead><tr></tr></thead>
+                    <tbody></tbody>
+                </table>
+        </section>
+
+        <section id="section-versions">
+            <h2>Versions</h2>
+            <p>All previous versions by hardware revision.</p>
+            <p><button onclick="document.querySelector('.kfw.kfw-versions').style.display='block'; this.style.display='none';">Show</button></p>
+            <div class="kfw kfw-versions" style="display: none;">
+                <table>
+                    <thead><tr></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer id="main-footer">
+        <p>
+            Copyright 2016-2021 <a href="https://pgaskin.net">Patrick Gaskin</a>.
+        </p>
+    </footer>
 
     <div class="modal-wrapper hidden bbcode" onclick="if (event.target == this) this.classList.add('hidden');">
         <div class="modal">
@@ -223,7 +184,23 @@
         </div>
     </div>
 
-    <!-- Requirements: IE10+ (degraded on 9+, broken on 8-), Chrome, Safari, Firefox, Kobo Browser, Screen 365px wide -->
+    <aside id="error" class="hidden">
+        An unexpected error has occured. Please reload the page or try a different browser. If the problem still persists,
+        <a href="https://github.com/pgaskin/KoboStuff/issues/new" target="_blank">Report an issue</a>.
+    </aside>
+
+    <script>
+        function jump(ref) {
+            if (history.replaceState) {
+                history.replaceState("", document.title, window.location.pathname+window.location.search);
+            }
+            if (ref) {
+                window.scrollBy(0, document.getElementById(ref).getBoundingClientRect().top - document.getElementById("jump").getBoundingClientRect().height);
+            } else {
+                window.scrollTo(0, 0);
+            }
+        }
+    </script>
 
     <script src="libs/es5-shim.min.js"></script>
     <script src="libs/classlist.auto.js"></script>
