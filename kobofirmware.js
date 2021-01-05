@@ -478,7 +478,7 @@ function loadPrevVersions() {
 
     versions.map(function (version) {
         return {
-            version,
+            version: version,
             matches: Object.values(oldversions).map(function (d) {
                 return {
                     id: d.id,
