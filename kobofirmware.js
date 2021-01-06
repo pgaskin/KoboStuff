@@ -601,7 +601,7 @@ function loadVersionDeviceTable() {
         return el("th", "kfw-matrix__version", {}, ver)
     })).concat([
         el("th", "kfw-matrix__device", {}, "Device")
-    ]).forEach(function (h) {
+    ]).reverse().forEach(function (h) {
         document.querySelector(".kfw.kfw-matrix thead tr").appendChild(h);
     });
 
@@ -617,7 +617,7 @@ function loadVersionDeviceTable() {
             return el("td", ["kfw-matrix__version", y ? "kfw-matrix__version--yes" : "kfw-matrix__version--no"], {}, y ? "✓" : "✗");
         })).concat([
             el("td", "kfw-matrix__device", {}, devver[0])
-        ]).forEach(function (col) {
+        ]).reverse().forEach(function (col) {
             tr.appendChild(col);
         });
         return tr;
