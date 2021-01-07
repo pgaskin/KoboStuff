@@ -117,16 +117,17 @@ class KFWProxy {
     }
 
     static transformNotes(html) {
+        const css = `p{margin:0}`
         try {
             const doc = new DOMParser().parseFromString(html, "text/html")
-            doc.head.appendChild(doc.createElement("style")).innerText = "p{margin:0}"
+            doc.head.appendChild(doc.createElement("style")).innerText = css
             return doc.documentElement.innerHTML
         } catch (ex) {
             // this happens on the Kobo Web Browser for some reason
             console.warn(`tranform notes failed ${ex}, falling back to innerHTML method`)
             const doc = document.createElement("div")
             doc.innerHTML = html
-            return `<html><head><title></title><style>p{margin:0}</style></head><body>${doc.innerHTML}</body></html>`
+            return `<html><head><title></title><style>${css}</style></head><body>${doc.innerHTML}</body></html>`
         }
     }
 
@@ -420,10 +421,10 @@ class KoboFirmware {
             const linksw1 = KoboFirmware.#el(trm[device.id].linksw, "span", null, [], {style: "display: inline-block; vertical-align: top;"}) // to control wrapping
             const linksw2 = KoboFirmware.#el(trm[device.id].linksw, "span", null, [], {style: "display: inline-block; vertical-align: top;"}) // to control wrapping
             trm[device.id].links = {
-                download:   KoboFirmware.#el(linksw1, "a", "Download",         ["kfw-latest__links__download"],   {rel: "noopener", style: "display: none;"}),
-                notes:      KoboFirmware.#el(linksw1, "a", "Notes",            ["kfw-latest__links__notes"],      {rel: "noopener", style: "display: none;", target: "_blank"}),
-                affiliates: KoboFirmware.#el(linksw2, "a", "Other Affiliates", ["kfw-latest__links__affiliates"], {rel: "noopener", href: "javascript:void(0);", style: "display: none;"}),
-                versions:   KoboFirmware.#el(linksw2, "a", "Other Versions",   ["kfw-latest__links__versions"],   {rel: "noopener", href: "javascript:void(0);"}),
+                download:   KoboFirmware.#el(linksw1, "a",      "Download",         ["kfw-latest__links__download"],   {style: "display: none;", rel: "noopener"}),
+                notes:      KoboFirmware.#el(linksw1, "a",      "Notes",            ["kfw-latest__links__notes"],      {style: "display: none;", rel: "noopener", target: "_blank"}),
+                affiliates: KoboFirmware.#el(linksw2, "button", "Other Affiliates", ["kfw-latest__links__affiliates"], {style: "display: none;"}),
+                versions:   KoboFirmware.#el(linksw2, "button", "Other Versions",   ["kfw-latest__links__versions"],   {}),
             }
             trm[device.id].links.versions.addEventListener("click", ev => {
                 KoboFirmware.#modal(`Other versions for ${device.name}`, async () => {
@@ -659,12 +660,12 @@ class KoboFirmware {
     }
 
     static #modal(title, fn, classes = []) {
-        const modal = KoboFirmware.#el(null,  "aside", null,      ["modal-wrapper"])
-        const inner = KoboFirmware.#el(modal, "div",   null,      ["modal", ...classes])
-        const bar   = KoboFirmware.#el(inner, "div",   null,      ["titlebar"])
-        const close = KoboFirmware.#el(bar,   "a",     "Close",   ["close"], {href: "javascript:void(0);"})
-        const text  = KoboFirmware.#el(bar,   "div",   title,     ["title"])
-        const body  = KoboFirmware.#el(inner, "div",   "Loading", ["body"])
+        const modal = KoboFirmware.#el(null,  "aside",  null,      ["modal-wrapper"])
+        const inner = KoboFirmware.#el(modal, "div",    null,      ["modal", ...classes])
+        const bar   = KoboFirmware.#el(inner, "div",    null,      ["titlebar"])
+        const close = KoboFirmware.#el(bar,   "button", "Close",   ["close"])
+        const text  = KoboFirmware.#el(bar,   "div",    title,     ["title"])
+        const body  = KoboFirmware.#el(inner, "div",    "Loading", ["body"])
         
         const cfn = ev => {
             if (ev) {
@@ -692,6 +693,7 @@ class KoboFirmware {
                     res.style.border = "none"
                     res.style.width = "100%"
                     res.style.height = "100%"
+                    res.style.padding = 0
                     inner.removeChild(body)
                     inner.appendChild(res)
                 } else {
