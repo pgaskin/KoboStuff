@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="author" content="Patrick Gaskin">
     <meta name="description" content="Get the latest automatically-updated links to firmware releases and release notes for Kobo devices, or download older firmware versions. To install an update, extract the zip file into the .kobo folder on your device.">
     <title>Kobo Firmware Downloads</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://kfwproxy.geek1011.net">
     <link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&display=swap" rel="stylesheet"> 
-    <link rel="stylesheet" href="kobofirmware.css">
+    <link rel="stylesheet" href="kfw.css">
 </head>
 
 <body>
@@ -34,17 +34,28 @@
             <div>
                 <h1>Kobo Firmware Downloads</h1>
                 <p>
-                    Kobo Firmware Downloads gets the latest official firmware download links from the Kobo API. It also provides links to older firmware versions and shows the latest version available to each affiliate.
+                    Kobo Firmware Downloads gets the latest official firmware
+                    download links from the Kobo API. It also provides links to
+                    older firmware versions and shows the latest version
+                    available to each affiliate.
                 </p>
                 <p>
-                    After you download the firmware for your device, extract the zip file into the
-                    <tt>.kobo</tt> folder on your Kobo eReader.
+                    After you download the firmware for your device, extract the
+                    zip file into the <tt>.kobo</tt> folder on your Kobo
+                    eReader.
                 </p>
                 <p>
-                    <b>Note for Aura H2O Edition 2 and Aura Edition 2:</b> Kobo has <a href="https://www.mobileread.com/forums/showpost.php?p=3678644&postcount=223">actually released two versions</a> of these devices. If the 7th digit of your serial number is a 2 you have the second version, otherwise you have the first version.
+                    <b>Note for Aura H2O Edition 2 and Aura Edition 2:</b> Kobo
+                    has <a href="https://www.mobileread.com/forums/showpost.php?p=3678644&postcount=223">
+                    actually released two versions</a> of these devices. If the
+                    7th digit of your serial number is a 2 you have the second
+                    version, otherwise you have the first version.
                 </p>
                 <p>
-                    <b>Firmware release notifications:</b> You can receive instant notifications for new firmware releases by joining the Telegram channel <a href="https://t.me/KoboFirmware">@KoboFirmware</a>.
+                    <b>Firmware release notifications:</b> You can receive
+                    instant notifications for new firmware releases by joining
+                    the Telegram channel <a href="https://t.me/KoboFirmware">
+                    @KoboFirmware</a>.
                 </p>
             </div>
             <aside class="ad">
@@ -70,17 +81,9 @@
         <section id="section-latest">
             <h2>Latest Versions</h2>
             <p>The latest versions for each device.</p>
-            <div class="kfw kfw-latest" style="min-height: 830px; /* TODO: calculate this dynamically */">
+            <div class="kfw" id="kfw-latest" style="min-height: 830px; /* TODO: calculate this dynamically */">
                 <table>
-                    <thead>
-                        <tr>
-                            <th class="kfw-latest__model">Model</th>
-                            <th class="kfw-latest__hardware">Hardware</th>
-                            <th class="kfw-latest__version">Version</th>
-                            <th class="kfw-latest__date">Release Date</th>
-                            <th class="kfw-latest__links">Links</th>
-                        </tr>
-                    </thead>
+                    <thead><tr></tr></thead>
                     <tbody></tbody>
                 </table>
             </div>
@@ -102,7 +105,7 @@
         <section id="section-matrix">
             <h2>Version Matrix</h2>
             <p>Version availability by device.</p>
-            <div class="kfw kfw-matrix" style="min-height: 495px; /* TODO: calculate this dynamically */">
+            <div class="kfw" id="kfw-matrix" style="min-height: 495px; /* TODO: calculate this dynamically */">
                 <table>
                     <thead><tr></tr></thead>
                     <tbody></tbody>
@@ -113,18 +116,19 @@
         <section id="section-affiliates">
             <h2>Affiliates</h2>
             <p>The latest versions for individual affiliates.</p>
-            <div class="kfw kfw-affiliates" style="min-height: 495px; /* TODO: calculate this dynamically */">
+            <div class="kfw" id="kfw-affiliates" style="min-height: 495px; /* TODO: calculate this dynamically */">
                 <table>
                     <thead><tr></tr></thead>
                     <tbody></tbody>
                 </table>
+            </div>
         </section>
 
         <section id="section-versions">
             <h2>Versions</h2>
             <p>All previous versions by hardware revision.</p>
-            <p><button onclick="document.querySelector('.kfw.kfw-versions').style.display='block'; this.style.display='none';">Show</button></p>
-            <div class="kfw kfw-versions" style="display: none;">
+            <p><button onclick="document.getElementById('kfw-versions').style.removeProperty('display'); this.style.display='none';">Show</button></p>
+            <div class="kfw" id="kfw-versions" style="display: none;">
                 <table>
                     <thead><tr></tr></thead>
                     <tbody></tbody>
@@ -139,53 +143,9 @@
         </p>
     </footer>
 
-    <div class="modal-wrapper hidden bbcode" onclick="if (event.target == this) this.classList.add('hidden');">
-        <div class="modal">
-            <div class="titlebar">
-                <a href="javascript:document.querySelector('.modal-wrapper.bbcode').classList.add('hidden');" class="close">Close</a>
-                <div class="title">Generated BBCode</div>
-            </div>
-            <div class="body">
-                <textarea class="bbcode-text" style="width: 100%; height: 400px; max-height: 85%;"></textarea>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal-wrapper hidden notes" onclick="if (event.target == this) this.classList.add('hidden');">
-        <div class="modal">
-            <div class="titlebar">
-                <a href="javascript:document.querySelector('.modal-wrapper.notes').classList.add('hidden');" class="close">Close</a>
-                <div class="title">Release Notes</div>
-            </div>
-            <iframe class="body" name="notes" style="border: none; padding: 0;"></iframe>
-        </div>
-    </div>
-
-    <div class="modal-wrapper hidden other-versions" onclick="if (event.target == this) this.classList.add('hidden');">
-        <div class="modal">
-            <div class="titlebar">
-                <a href="javascript:document.querySelector('.modal-wrapper.other-versions').classList.add('hidden');" class="close">Close</a>
-                <div class="title">Other versions for
-                    <span class="model"></span>
-                </div>
-            </div>
-            <div class="body"></div>
-        </div>
-    </div>
-
-    <div class="modal-wrapper hidden other-affiliates" onclick="if (event.target == this) this.classList.add('hidden');">
-        <div class="modal thin">
-            <div class="titlebar">
-                <a href="javascript:document.querySelector('.modal-wrapper.other-affiliates').classList.add('hidden');" class="close">Close</a>
-                <div class="title"></div>
-            </div>
-            <div class="body"></div>
-        </div>
-    </div>
-
     <aside id="error" class="hidden">
         An unexpected error has occured. Please reload the page or try a different browser. If the problem still persists,
-        <a href="https://github.com/pgaskin/KoboStuff/issues/new" target="_blank">Report an issue</a>.
+        <a href="https://github.com/pgaskin/KoboStuff/issues/new" target="_blank">report an issue</a>.
     </aside>
 
     <script>
@@ -201,36 +161,28 @@
         }
     </script>
 
-    <script src="libs/es5-shim.min.js"></script>
-    <script src="libs/classlist.auto.js"></script>
-    <script src="libs/es6-promise.auto.min.js"></script>
-    <script src="libs/object-polyfill.js"></script>
-    <script src="libs/fetch.umd.js"></script>
-    <script src="db.js"></script>
     <script>
         document.getElementById("error").className = "error";
     </script>
-    <script src="kobofirmware.js"></script>
-
+    <script src="kfw.js"></script>
+    <script async src="kfw.db.js"></script>
     <script src="https://cdn.ravenjs.com/3.24.0/raven.min.js" crossorigin="anonymous"></script>
     <script>
-        Raven.config('https://696a706ba440443eb3e19094ebd72f74@sentry.io/1104793', {
-            autoBreadcrumbs: {
-                console: true,
-                dom: true,
-                xhr: true
-            }
-        }).install();
+        if ("Raven" in window) {
+            Raven.config('https://696a706ba440443eb3e19094ebd72f74@sentry.io/1104793', {
+                autoBreadcrumbs: {
+                    console: true,
+                    dom: true,
+                    xhr: true
+                }
+            }).install();
+        }
     </script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-66226417-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
+        function gtag() {dataLayer.push(arguments);}
         gtag('js', new Date());
-
         gtag('config', 'UA-66226417-1');
     </script>
 </body>

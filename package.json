@@ -1,0 +1,57 @@
+{
+    "name": "kobostuff",
+    "devDependencies": {
+        "@babel/cli": "^7.12.10",
+        "@babel/core": "^7.12.10",
+        "@babel/plugin-proposal-class-properties": "^7.12.1",
+        "@babel/preset-env": "^7.12.11",
+        "babelify": "^10.0.0",
+        "browserify": "^17.0.0",
+        "core-js": "^2.6.12",
+        "terser": "^5.5.1"
+    },
+    "scripts": {
+        "browserify": "browserify -d kfw.js -t babelify | terser -o kfw.dist.js --source-map=content=inline,url=kfw.dist.js.map"
+    },
+    "babel": {
+        "sourceMaps": "inline",
+        "presets": [
+            [
+                "@babel/preset-env",
+                {
+                    "useBuiltIns": "usage",
+                    "corejs": 2,
+                    "exclude": [
+                        "es6.regexp.match",
+                        "es6.regexp.replace",
+                        "es6.regexp.split"
+                    ]
+                }
+            ]
+        ],
+        "plugins": [
+            [
+                "@babel/plugin-proposal-private-methods",
+                {
+                    "loose": true
+                }
+            ],
+            [
+                "@babel/plugin-proposal-class-properties",
+                {
+                    "loose": true
+                }
+            ]
+        ]
+    },
+    "browserslist": [
+        "ie 11",
+        "edge >= 17",
+        "firefox >= 24",
+        "chrome >= 30",
+        "safari >= 7",
+        "opera >= 17",
+        "ios >= 7.1",
+        "android >= 4.4.4"
+    ]
+}
