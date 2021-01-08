@@ -58,7 +58,8 @@ nav#main-nav > div {
     flex: 0 0 auto;
     text-align: center;
 }
-nav#main-nav > div > a {
+nav#main-nav > div > a,
+nav#main-nav > div > span {
     display: inline-block;
     vertical-align: bottom;
     margin: .75rem;
