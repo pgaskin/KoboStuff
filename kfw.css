@@ -295,10 +295,10 @@ a:link:hover {
     text-align: center;
 }
 .kfw#kfw-matrix table td.kfw-matrix__version.kfw-matrix__version--yes {
-    background: #bbe6bb;
+    background: rgba(185, 233, 185, 0.4);
 }
 .kfw#kfw-matrix table td.kfw-matrix__version.kfw-matrix__version--no {
-    background: #e6bbbb;
+    background: rgba(230, 187, 187, 0.4);
 }
 
 .kfw#kfw-affiliates {
@@ -328,11 +328,17 @@ a:link:hover {
 .kfw#kfw-affiliates td.kfw-affiliates__affiliate {
     text-align: center;
 }
+.kfw#kfw-affiliates table tr td.kfw-affiliates__device {
+    background: #f4f4f4;
+}
+.kfw#kfw-affiliates table tr:nth-child(odd) td.kfw-affiliates__device {
+    background: #e9e9e9;
+}
 .kfw#kfw-affiliates table td.kfw-affiliates__affiliate.kfw-affiliates__affiliate--latest {
-    background: #bbe6bb;
+    background: rgba(185, 233, 185, 0.4);
 }
 .kfw#kfw-affiliates table td.kfw-affiliates__affiliate.kfw-affiliates__affiliate--outdated {
-    background: #e6bbbb;
+    background: rgba(230, 187, 187, 0.4);
 }
 
 .kfw#kfw-versions {
@@ -496,8 +502,8 @@ a:link:hover {
         border-bottom-color: #fff;
     }
     nav#jump {
-        background: #000;
-        border-bottom: 1px solid #333;
+        background: #2a2a2a;
+        border-bottom: 1px solid #444;
     }
     main#main-content {
         background: #0c0600;
@@ -525,13 +531,13 @@ a:link:hover {
         background: #222;
     }
     .kfw table tr {
-        background: #141414;
+        background: #0a0a0a;
     }
     .kfw table th {
-        background: #2c2c2c;
+        background: #212121;
     }
     .kfw table tbody tr:nth-child(odd) {
-        background: #212121;
+        background: #171717;
     }
     .kfw#kfw-latest table td.kfw-latest__links a,
     .kfw#kfw-latest table td.kfw-latest__links button {
@@ -577,19 +583,25 @@ a:link:hover {
         text-align: center;
     }
     .kfw#kfw-matrix table td.kfw-matrix__version.kfw-matrix__version--yes {
-        background: #2b3b2b;
+        background: rgba(42, 71, 42, 0.4);
     }
     .kfw#kfw-matrix table td.kfw-matrix__version.kfw-matrix__version--no {
-        background: #312222;
+        background: rgba(49, 34, 34, 0.4);
     }
     .kfw#kfw-affiliates table th,
     .kfw#kfw-affiliates table td {
         border-color: #444;
     }
+    .kfw#kfw-affiliates table tr td.kfw-affiliates__device {
+        background: #0c0c0c;
+    }
+    .kfw#kfw-affiliates table tr:nth-child(odd) td.kfw-affiliates__device {
+        background: #131313;
+    }
     .kfw#kfw-affiliates table td.kfw-affiliates__affiliate.kfw-affiliates__affiliate--latest {
-        background: #2b3b2b;
+        background: rgba(42, 71, 42, 0.4);
     }
     .kfw#kfw-affiliates table td.kfw-affiliates__affiliate.kfw-affiliates__affiliate--outdated {
-        background: #312222;
+        background: rgba(49, 34, 34, 0.4);
     }
 }
