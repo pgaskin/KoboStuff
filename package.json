@@ -10,6 +10,9 @@
         "core-js": "^2.6.12",
         "terser": "^5.5.1"
     },
+    "dependencies": {
+        "@sentry/browser": "^5.29.2"
+    },
     "scripts": {
         "browserify": "browserify -d kfw.js -t babelify | terser -o kfw.dist.js --source-map=content=inline,url=kfw.dist.js.map"
     },

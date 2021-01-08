@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/browser"
 
 class KFWProxy {
     constructor(base = "https://kfwproxy.geek1011.net") {
@@ -188,6 +189,7 @@ class KFWProxy {
         }
         const xhr = new XMLHttpRequest()
         xhr.addEventListener("load", ev => {
+            const requestID = xhr.getResponseHeader("X-KFWProxy-Request-Id")
             try {
                 if (xhr.status != 200)
                     throw `${xhr.status} ${xhr.statusText}`
@@ -197,14 +199,13 @@ class KFWProxy {
                 if (rsp.length != req.length)
                     throw `found ${rsp.length} responses, but expected ${req.length}`
                 for (let i = 0; i < req.length; i++)
-                    this.#doResponse(req[i], rsp[i].body, rsp[i].status, "", xhr.getResponseHeader("X-KFWProxy-Request-Id"))
+                    this.#doResponse(req[i], rsp[i].body, rsp[i].status, "", requestID)
             } catch (ex) {
                 for (const r of req)
                     r.reject(new Error(`Batch request including "${r.url}" failed: ${ex}`))
-                if ("Raven" in window)
-                    Raven.captureException(new Error(`Batch request failed: ${ex}`), {
-                        extra: {requestID: xhr.getResponseHeader("X-KFWProxy-Request-Id")},
-                    })
+                Sentry.captureException(new Error(`Batch request failed: ${ex}`), {
+                    extra: {requestID},
+                })
                 return
             }
         })
@@ -218,10 +219,9 @@ class KFWProxy {
     #doResponse(req, body, status, statusText = "", requestID = null) {
         if (status != 200) {
             req.reject(new Error(`Request to "${req.url}" failed: ${status} ${statusText}`))
-            if ("Raven" in window)
-                Raven.captureException(new Error(`Request to "${req.url}" failed: ${status} ${statusText}`), {
-                    extra: {requestID},
-                })
+            Sentry.captureException(new Error(`Request to "${req.url}" failed: ${status} ${statusText}`), {
+                extra: {requestID},
+            })
             return
         }
         let obj = body
@@ -260,8 +260,7 @@ const KoboFirmwareOldVersionsData = window.KoboFirmwareOldVersionsData = (() => 
         }
         reject(new Error("Failed to load old versions data: Timed out"))
         console.error("old versions load failed")
-        if ("Raven" in window)
-            Raven.captureException(new Error("Failed to load old versions data: Timed out"))
+        Sentry.captureException(new Error("Failed to load old versions data: Timed out"))
     }, 10000)
     promise.resolve = data => {
         window.clearTimeout(timeout)
@@ -543,7 +542,8 @@ class KoboFirmware {
                 trm[device.id].links.affiliates.style.removeProperty("display")
             } catch (ex) {
                 trm[device.id].version.innerText = "Error"
-                trm[device.id].version.setAttribute("title", `Error: ${ex}`) 
+                trm[device.id].version.setAttribute("title", `Error: ${ex}`)
+                Sentry.captureException(new Error(`Table row load failed for "${device.name}" in latest versions table: ${ex}`))
             }
         })(device)))
     }
@@ -739,8 +739,7 @@ class KoboFirmware {
             } catch (ex) {
                 body.innerHTML = `Error: Load failed: ${ex}`
                 console.error("modal load failed", ex)
-                if ("Raven" in window)
-                    Raven.captureException(ex)
+                Sentry.captureException(new Error(`Modal load failed for "${title}": ${ex}`))
             }
         })()}
 
@@ -755,15 +754,25 @@ class KoboFirmware {
             el.setAttribute(a, attrs[a])
         if (inner)
             el[raw ? "innerHTML" : "innerText"] = inner.toString()
-        if (parent)
+         if (parent)
             parent.appendChild(el)
         return el
     }
 }
 
+Sentry.init({
+    dsn: "https://696a706ba440443eb3e19094ebd72f74@o143001.ingest.sentry.io/1104793",
+    maxBreadcrumbs: 100,
+    attachStacktrace: true,
+})
+
 const app = window.app = new KoboFirmware()
 app.renderLatest(document.getElementById("kfw-latest"))
+    .catch(ex => Sentry.captureException(new Error(`Table load failed for #kfw-latest`)))
 app.renderMatrix(document.getElementById("kfw-matrix"))
+    .catch(ex => Sentry.captureException(new Error(`Table load failed for #kfw-matrix`)))
 app.renderAffiliates(document.getElementById("kfw-affiliates"))
+    .catch(ex => Sentry.captureException(new Error(`Table load failed for #kfw-affiliates`)))
 app.renderVersions(document.getElementById("kfw-versions"))
+    .catch(ex => Sentry.captureException(new Error(`Table load failed for #kfw-versions`)))
 document.getElementById("error").className = "error hidden";
