@@ -156,18 +156,15 @@ class KFWProxy {
     }
 
     endBatch() {
-        // TODO: actually implement server-side batching (even without it, this
-        // will still speed up page load ~4x)
         if (this.#pending) {
-            for (const req of this.#pending)
-                this.#do(req)
+            this.#doBatch(...this.#pending)
             this.#pending = null
         }
     }
 
     async #request(url, json = false, transform = null) {
         const req = new this.#PendingRequest(url, json, transform)
-        if (this.#pending) {
+        if (this.#pending && url.startsWith(`${this.base}/api.kobobooks.com/`)) {
             this.#pending.push(req)
         } else {
             this.#do(req)
@@ -177,35 +174,74 @@ class KFWProxy {
 
     async #do(req) {
         const xhr = new XMLHttpRequest()
-        xhr.addEventListener("load", ev => {
-            if (xhr.status != 200) {
-                req.reject(new Error(`Request to "${req.url}" failed: ${xhr.status} ${xhr.statusText}`))
-                return
-            }
-            let obj = xhr.responseText
-            if (req.json) {
-                try {
-                    obj = JSON.parse(obj)
-                } catch (ex) {
-                    req.reject(new Error(`Request to "${req.url}" failed: ${ex}`))
-                    return
-                }
-            }
-            if (req.transform) {
-                try {
-                    obj = req.transform(obj)
-                } catch (ex) {
-                    req.reject(new Error(`Request to "${req.url}" failed: transform error: ${ex}`))
-                    return
-                }
-            }
-            req.resolve(obj)
-        })
+        xhr.addEventListener("load", ev => this.#doResponse(req, xhr.responseText, xhr.status, xhr.statusText, xhr.getResponseHeader("X-KFWProxy-Request-Id")))
         xhr.addEventListener("error", ev => req.reject(new Error(`Request to "${req.url}" failed`)))
         xhr.addEventListener("abort", ev => req.reject(new Error(`Request to "${req.url}" aborted`)))
         xhr.open("GET", req.url)
         xhr.send()
         return await req.promise
+    }
+
+    async #doBatch(...req) {
+        if (req.length == 0) {
+            return
+        }
+        const xhr = new XMLHttpRequest()
+        xhr.addEventListener("load", ev => {
+            try {
+                if (xhr.status != 200)
+                    throw `${xhr.status} ${xhr.statusText}`
+                const rsp = JSON.parse(xhr.responseText)
+                if (!Array.isArray(rsp))
+                    throw `response not an array`
+                if (rsp.length != req.length)
+                    throw `found ${rsp.length} responses, but expected ${req.length}`
+                for (let i = 0; i < req.length; i++)
+                    this.#doResponse(req[i], rsp[i].body, rsp[i].status, "", xhr.getResponseHeader("X-KFWProxy-Request-Id"))
+            } catch (ex) {
+                for (const r of req)
+                    r.reject(new Error(`Batch request including "${r.url}" failed: ${ex}`))
+                if ("Raven" in window)
+                    Raven.captureException(new Error(`Batch request failed: ${ex}`), {
+                        extra: {requestID: xhr.getResponseHeader("X-KFWProxy-Request-Id")},
+                    })
+                return
+            }
+        })
+        xhr.addEventListener("error", ev => req.forEach(r => r.reject(new Error(`Batch request including "${r.url}" failed`))))
+        xhr.addEventListener("abort", ev => req.forEach(r => r.reject(new Error(`Batch request including "${r.url}" aborted`))))
+        xhr.open("GET", `${this.base}/api.kobobooks.com?h=1&x=${req.map(r => encodeURIComponent(r.url.replace(`${this.base}/api.kobobooks.com/`, ""))).join("&x=")}`)
+        xhr.send()
+        return await Promise.all(req.map(r => r.promise))
+    }
+
+    #doResponse(req, body, status, statusText = "", requestID = null) {
+        if (status != 200) {
+            req.reject(new Error(`Request to "${req.url}" failed: ${status} ${statusText}`))
+            if ("Raven" in window)
+                Raven.captureException(new Error(`Request to "${req.url}" failed: ${status} ${statusText}`), {
+                    extra: {requestID},
+                })
+            return
+        }
+        let obj = body
+        if (req.json) {
+            try {
+                obj = JSON.parse(obj)
+            } catch (ex) {
+                req.reject(new Error(`Request to "${req.url}" failed: ${ex}`))
+                return
+            }
+        }
+        if (req.transform) {
+            try {
+                obj = req.transform(obj)
+            } catch (ex) {
+                req.reject(new Error(`Request to "${req.url}" failed: transform error: ${ex}`))
+                return
+            }
+        }
+        req.resolve(obj)
     }
 }
 
