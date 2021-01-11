@@ -483,7 +483,8 @@ a:link:hover {
         color: #fff;
         border-bottom-color: #333;
     }
-    nav#main-nav > div > a {
+    nav#main-nav > div > a,
+    nav#main-nav > div > span {
         color: #ccc;
     }
     nav#main-nav > div > a:link,
