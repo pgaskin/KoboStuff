@@ -121,7 +121,7 @@ class KFWProxy {
         const css = `p{margin:0}`
         try {
             const doc = new DOMParser().parseFromString(html, "text/html")
-            doc.head.appendChild(doc.createElement("style")).innerText = css
+            doc.head.appendChild(doc.createElement("style")).textContent = css
             return doc.documentElement.innerHTML
         } catch (ex) {
             // this happens on the Kobo Web Browser for some reason
@@ -502,8 +502,8 @@ class KoboFirmware {
                 }
 
                 // table cells
-                trm[device.id].version.innerText = latest.UpgradeVersion
-                trm[device.id].date.innerText    = latest.UpgradeDate
+                trm[device.id].version.textContent = latest.UpgradeVersion
+                trm[device.id].date.textContent    = latest.UpgradeDate
                 trm[device.id].version.setAttribute("title", `Affiliates with version: ${latests.join(", ")}`)
 
                 // download
@@ -541,7 +541,7 @@ class KoboFirmware {
                 });
                 trm[device.id].links.affiliates.style.removeProperty("display")
             } catch (ex) {
-                trm[device.id].version.innerText = "Error"
+                trm[device.id].version.textContent = "Error"
                 trm[device.id].version.setAttribute("title", `Error: ${ex}`)
                 Sentry.captureException(new Error(`Table row load failed for "${device.name}" in latest versions table: ${ex}`))
             }
@@ -621,12 +621,12 @@ class KoboFirmware {
             Promise.all(this.#affiliates.map(affiliate =>
                 this.#req[device.id][affiliate]
                     .then(obj => {
-                        trm[device.id][affiliate].innerText = obj.UpgradeVersion == "0.0"
+                        trm[device.id][affiliate].textContent = obj.UpgradeVersion == "0.0"
                             ? "-"
                             : obj.UpgradeVersion
                         return Promise.resolve([affiliate, obj])
                     }).catch(ex => {
-                        trm[device.id][affiliate].innerText = "Error"
+                        trm[device.id][affiliate].textContent = "Error"
                         trm[device.id][affiliate].title = `Error: ${ex}`
                         return Promise.reject(ex)
                     })
@@ -753,7 +753,7 @@ class KoboFirmware {
         for (const a in attrs)
             el.setAttribute(a, attrs[a])
         if (inner)
-            el[raw ? "innerHTML" : "innerText"] = inner.toString()
+            el[raw ? "innerHTML" : "textContent"] = inner.toString()
          if (parent)
             parent.appendChild(el)
         return el
