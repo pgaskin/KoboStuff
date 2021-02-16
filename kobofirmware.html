@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark light">
+    <meta name="author" content="Patrick Gaskin">
+    <meta name="description" content="Get the latest automatically-updated links to firmware releases and release notes for Kobo devices, or download older firmware versions. To install an update, extract the zip file into the .kobo folder on your device.">
+    <title>Kobo Firmware Downloads</title>
+    <link rel="preconnect" href="https://kfwproxy.geek1011.net">
+    <style>
+        /* https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&display=swap */
+        /* latin */
+        @font-face {
+            font-family: 'PT Serif';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url(https://fonts.gstatic.com/s/ptserif/v12/EJRVQgYoZZY2vCFuvAFWzr8.woff2) format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+        /* latin */
+        @font-face {
+            font-family: 'PT Serif';
+            font-style: normal;
+            font-weight: 700;
+            font-display: swap;
+            src: url(https://fonts.gstatic.com/s/ptserif/v12/EJRSQgYoZZY2vCFuvAnt66qSVys.woff2) format('woff2');
+            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+    </style>
+    <link rel="stylesheet" href="kfw.css">
+</head>
+
+<body>
+    <a name="top"></a>
+    <a href="#top" id="jump-to-top" onclick="jump(null); event.preventDefault();">^</a>
+
+    <header id="main-header">
+        <nav id="main-nav">
+            <div>
+                <span>KoboStuff</span>
+            </div>
+            <div>
+                <a href="https://pgaskin.net/kepubify" title="ePub to Kepub conversion tool" class="item">kepubify</a>
+                <a href="https://pgaskin.net/kobopatch-patches" title="improved kobo firmware patching system" class="item">kobopatch</a>
+                <a href="https://pgaskin.net/dictutil" title="tools, documentation, and libraries related to Kobo dictionaries" class="item">dictutil</a>
+                <a href="https://pgaskin.net/NickelMenu" title="integrated launcher for Kobo eReaders" class="item">NickelMenu</a>
+                <a href="https://pgaskin.net/ePubViewer" title="web-based ebook server" class="item">ePubViewer</a>
+            </div>
+        </nav>
+        <section id="main-header-1">
+            <div>
+                <h1>Kobo Firmware Downloads</h1>
+                <p>
+                    Kobo Firmware Downloads gets the latest official firmware
+                    download links from the Kobo API. It also provides links to
+                    older firmware versions and shows the latest version
+                    available to each affiliate.
+                </p>
+                <p>
+                    After you download the firmware for your device, extract the
+                    zip file into the <tt>.kobo</tt> folder on your Kobo
+                    eReader.
+                </p>
+                <p>
+                    <b>Note for Aura H2O Edition 2 and Aura Edition 2:</b> Kobo
+                    has <a href="https://www.mobileread.com/forums/showpost.php?p=3678644&postcount=223">
+                    actually released two versions</a> of these devices. If the
+                    7th digit of your serial number is a 2 you have the second
+                    version, otherwise you have the first version.
+                </p>
+                <p>
+                    <b>Firmware release notifications:</b> You can receive
+                    instant notifications for new firmware releases by joining
+                    the Telegram channel <a href="https://t.me/KoboFirmware">
+                    @KoboFirmware</a>.
+                </p>
+            </div>
+            <aside class="ad">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- New new kobofirmware top ad -->
+                <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3988246140848367" data-ad-slot="5317043857" data-ad-format="rectangle, horizontal"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </aside>
+        </section>
+    </header>
+
+    <nav id="jump">
+        <a href="#section-latest" onclick="jump('section-latest'); event.preventDefault();">Latest Versions</a>
+        <a href="#section-matrix" onclick="jump('section-matrix'); event.preventDefault();">Version Matrix</a>
+        <a href="#section-affiliates" onclick="jump('section-affiliates'); event.preventDefault();">Affiliates</a>
+        <a href="#section-versions" onclick="document.querySelector('#section-versions button').click(); jump('section-versions'); event.preventDefault();">Versions</a>
+    </nav>
+
+    <main id="main-content">
+
+        <section id="section-latest">
+            <h2>Latest Versions</h2>
+            <p>The latest versions for each device.</p>
+            <div class="kfw" id="kfw-latest" style="min-height: 830px; /* TODO: calculate this dynamically */">
+                <table>
+                    <thead><tr></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <p>
+                Missing firmware versions or devices? Have a feature request?
+                <a href="https://github.com/pgaskin/KoboStuff/issues/new" rel="noopener" target="_blank">Report an issue</a>.
+            </p>
+        </section>
+
+        <aside class="ad">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <!-- New new kobofirmware bottom ad -->
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3988246140848367" data-ad-slot="5289123690" data-ad-format="auto"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </aside>
+
+        <section id="section-matrix">
+            <h2>Version Matrix</h2>
+            <p>Version availability by device.</p>
+            <div class="kfw" id="kfw-matrix" style="min-height: 495px; /* TODO: calculate this dynamically */">
+                <table>
+                    <thead><tr></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="section-affiliates">
+            <h2>Affiliates</h2>
+            <p>The latest versions for individual affiliates.</p>
+            <div class="kfw" id="kfw-affiliates" style="min-height: 495px; /* TODO: calculate this dynamically */">
+                <table>
+                    <thead><tr></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="section-versions">
+            <h2>Versions</h2>
+            <p>All previous versions by hardware revision.</p>
+            <p><button onclick="document.getElementById('kfw-versions').style.removeProperty('display'); this.style.display='none';">Show</button></p>
+            <div class="kfw" id="kfw-versions" style="display: none;">
+                <table>
+                    <thead><tr></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer id="main-footer">
+        <p>
+            Copyright 2016-2021 <a href="https://pgaskin.net">Patrick Gaskin</a>.
+        </p>
+    </footer>
+
+    <aside id="error" class="hidden">
+        An unexpected error has occured. Please reload the page or try a different browser. If the problem still persists,
+        <a href="https://github.com/pgaskin/KoboStuff/issues/new" rel="noopener" target="_blank">report an issue</a>.
+    </aside>
+
+    <script>
+        function jump(ref) {
+            if (history.replaceState) {
+                history.replaceState("", document.title, window.location.pathname+window.location.search);
+            }
+            if (ref) {
+                window.scrollBy(0, document.getElementById(ref).getBoundingClientRect().top - document.getElementById("jump").getBoundingClientRect().height);
+            } else {
+                window.scrollTo(0, 0);
+            }
+        }
+    </script>
+
+    <script>
+        document.getElementById("error").className = "error";
+    </script>
+    <script src="kfw.dist.js"></script>
+    <script async src="kfw.db.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-66226417-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-66226417-1');
+    </script>
+</body>
+
+</html>
