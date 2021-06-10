@@ -32,12 +32,13 @@ class KFWProxy {
 
         // overrides
         url = url.split("?")[0]
-        if (url.endsWith("/kobo7/April2018/kobo-update-4.8.zip"))     return "4.8.10956"
-        if (url.endsWith("/kobo7/May2018/kobo-update-4.8.zip"))       return "4.8.11090"
-        if (url.endsWith("/kobo4/May2018/kobo-update-4.9.11311.zip")) return "4.9.11314"
-        if (url.endsWith("/kobo5/May2018/kobo-update-4.9.11311.zip")) return "4.9.11314"
-        if (url.endsWith("/kobo6/Aug2018/kobo-update-4.10.zip"))      return "4.10.11591"
-        if (url.endsWith("/kobo7/Aug2018/kobo-update-4.10.zip"))      return "4.10.11591"
+        if (url.endsWith("/kobo7/April2018/kobo-update-4.8.zip"))             return "4.8.10956"
+        if (url.endsWith("/kobo7/May2018/kobo-update-4.8.zip"))               return "4.8.11090"
+        if (url.endsWith("/kobo4/May2018/kobo-update-4.9.11311.zip"))         return "4.9.11314"
+        if (url.endsWith("/kobo5/May2018/kobo-update-4.9.11311.zip"))         return "4.9.11314"
+        if (url.endsWith("/kobo6/Aug2018/kobo-update-4.10.zip"))              return "4.10.11591"
+        if (url.endsWith("/kobo7/Aug2018/kobo-update-4.10.zip"))              return "4.10.11591"
+        if (url.endsWith("/kobo8/May2021/kobo-update-4.28.17623-TF6412.zip")) return "4.28.17623"
 
         // filename
         const m = url.match(/\/kobo-update-([0-9.]+(?:-s)?)\.zip/)
@@ -53,11 +54,12 @@ class KFWProxy {
 
         // overrides
         switch (version) {
-            case "3.4.1":     return "May 2014"
-            case "4.6.9960":  return "October 2017"
-            case "4.6.10075": return "November 2017"
-            case "4.9.11311": return "June 2018"
-            case "4.9.11314": return "June 2018"
+            case "3.4.1":      return "May 2014"
+            case "4.6.9960":   return "October 2017"
+            case "4.6.10075":  return "November 2017"
+            case "4.9.11311":  return "June 2018"
+            case "4.9.11314":  return "June 2018"
+            case "4.28.17623": return "June 2021" // it was indeed built in May as it is in the URL, but we don't want to confuse people
         }
     
         // date folder
@@ -398,6 +400,7 @@ class KoboFirmware {
             ["kobo7", "00000000-0000-0000-0000-000000000376", "Kobo Clara HD"],
             ["kobo7", "00000000-0000-0000-0000-000000000380", "Kobo Forma"],
             ["kobo7", "00000000-0000-0000-0000-000000000384", "Kobo Libra H2O"],
+            ["kobo8", "00000000-0000-0000-0000-000000000387", "Kobo Elipsa"],
         ],
     ) {
         this.#kfw        = kfw
