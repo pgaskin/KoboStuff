@@ -437,11 +437,14 @@ class KoboFirmware {
 
     #ctr(link, evt, name) {
         if (window.goatcounter) {
-            const fn = () => navigator.sendBeacon(window.goatcounter.url({
+            const ct = window.goatcounter.url({
                 event: true,
                 path: `kfw-${evt}`,
                 title: `${name}`,
-            }))
+            })
+            if (!ct)
+                return
+            const fn = () => navigator.sendBeacon(ct)
             link.addEventListener("click", fn, false)
             link.addEventListener("auxclick", fn, false)
         }
@@ -486,6 +489,7 @@ class KoboFirmware {
 
                         // stats
                         const a = el.querySelector("a")
+                        this.#ctr(a, `dl`, "Firmware")
                         this.#ctr(a, `dl-version-${version.version}`, `Firmware ${version.version}`)
                         this.#ctr(a, `dl-device-${device.id.replace(/^[0-]+/, "")}`, `${device.hardware} / ${device.name}`)
                     }
@@ -556,6 +560,7 @@ class KoboFirmware {
                             const a = KoboFirmware.#el(frag, "div", `${affiliate} - ${info.UpgradeVersion}${info.UpgradeURL ? ` - <a href="${info.UpgradeURL}" rel="noopener">Download</a>` : ``}`, [], {}, true)
 
                             // stats
+                            this.#ctr(a, `dl`, "Firmware")
                             this.#ctr(a, `dl-version-${info.UpgradeVersion}`, `Firmware ${info.UpgradeVersion}`)
                             this.#ctr(a, `dl-device-${device.id.replace(/^[0-]+/, "")}`, `${device.hardware} / ${device.name}`)
                         }
@@ -704,6 +709,7 @@ class KoboFirmware {
                     const a = KoboFirmware.#el(td, "a", "Download", [], {rel: "noopener", href: version.download[hw], title: KoboFirmware.#listify(version.for.filter(id => idhardware[id] == hw).map(id => name[id].replace(/Kobo /, "")))})
 
                     // stats
+                    this.#ctr(a, `dl`, "Firmware")
                     this.#ctr(a, `dl-version-${version.version}`, `Firmware ${version.version}`)
                 }
             }
