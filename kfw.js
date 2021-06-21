@@ -435,16 +435,20 @@ class KoboFirmware {
         }
     }
 
-    #ctr(link, evt, name) {
+    #ctr(link, ...x) {
         if (window.goatcounter) {
-            const ct = window.goatcounter.url({
-                event: true,
-                path: `kfw-${evt}`,
-                title: `${name}`,
-            })
-            if (!ct)
-                return
-            const fn = () => navigator.sendBeacon(ct)
+            const fn = () => {
+                for (const [evt, name] of x) {
+                    const ct = window.goatcounter.url({
+                        event: true,
+                        path: `kfw-${evt}`,
+                        title: `${name}`,
+                    })
+                    if (!ct)
+                        continue
+                    navigator.sendBeacon(ct)
+                }
+            }
             link.addEventListener("click", fn, false)
             link.addEventListener("auxclick", fn, false)
         }
@@ -488,10 +492,11 @@ class KoboFirmware {
                         const el = KoboFirmware.#el(frag, "div", `${version.version} - ${version.date} - <a href="${version.download}" rel="noopener">Download</a> - ${device.hardware}`, [], {}, true)
 
                         // stats
-                        const a = el.querySelector("a")
-                        this.#ctr(a, `dl`, "Firmware")
-                        this.#ctr(a, `dl-version-${version.version}`, `Firmware ${version.version}`)
-                        this.#ctr(a, `dl-device-${device.id.replace(/^[0-]+/, "")}`, `${device.hardware} / ${device.name}`)
+                        this.#ctr(el.querySelector("a"),
+                            [`dl`, "Firmware"],
+                            [`dl-version-${version.version}`, `Firmware ${version.version}`],
+                            [`dl-device-${device.id.replace(/^[0-]+/, "")}`, `${device.hardware} / ${device.name}`],
+                        )
                     }
                     return frag
                 })
@@ -560,9 +565,11 @@ class KoboFirmware {
                             const a = KoboFirmware.#el(frag, "div", `${affiliate} - ${info.UpgradeVersion}${info.UpgradeURL ? ` - <a href="${info.UpgradeURL}" rel="noopener">Download</a>` : ``}`, [], {}, true)
 
                             // stats
-                            this.#ctr(a, `dl`, "Firmware")
-                            this.#ctr(a, `dl-version-${info.UpgradeVersion}`, `Firmware ${info.UpgradeVersion}`)
-                            this.#ctr(a, `dl-device-${device.id.replace(/^[0-]+/, "")}`, `${device.hardware} / ${device.name}`)
+                            this.#ctr(a,
+                                [`dl`, "Firmware"],
+                                [`dl-version-${info.UpgradeVersion}`, `Firmware ${info.UpgradeVersion}`],
+                                [`dl-device-${device.id.replace(/^[0-]+/, "")}`, `${device.hardware} / ${device.name}`],
+                            )
                         }
                         return frag
                     }, ["thin"])
@@ -571,8 +578,11 @@ class KoboFirmware {
                 trm[device.id].links.affiliates.style.removeProperty("display")
 
                 // stats
-                this.#ctr(trm[device.id].links.download, `dl-version-${latest.UpgradeVersion}`, `Firmware ${latest.UpgradeVersion}`)
-                this.#ctr(trm[device.id].links.download, `dl-device-${device.id.replace(/^[0-]+/, "")}`, `${device.hardware} / ${device.name}`)
+                this.#ctr(trm[device.id].links.download,
+                    [`dl`, "Firmware"],
+                    [`dl-version-${latest.UpgradeVersion}`, `Firmware ${latest.UpgradeVersion}`],
+                    [`dl-device-${device.id.replace(/^[0-]+/, "")}`, `${device.hardware} / ${device.name}`],
+                )
             } catch (ex) {
                 trm[device.id].version.textContent = "Error"
                 trm[device.id].version.setAttribute("title", `Error: ${ex}`)
@@ -709,8 +719,10 @@ class KoboFirmware {
                     const a = KoboFirmware.#el(td, "a", "Download", [], {rel: "noopener", href: version.download[hw], title: KoboFirmware.#listify(version.for.filter(id => idhardware[id] == hw).map(id => name[id].replace(/Kobo /, "")))})
 
                     // stats
-                    this.#ctr(a, `dl`, "Firmware")
-                    this.#ctr(a, `dl-version-${version.version}`, `Firmware ${version.version}`)
+                    this.#ctr(el.querySelector("a"),
+                        [`dl`, "Firmware"],
+                        [`dl-version-${version.version}`, `Firmware ${version.version}`],
+                    )
                 }
             }
             const x = version.notfor.length
