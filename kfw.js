@@ -38,10 +38,9 @@ class KFWProxy {
         if (url.endsWith("/kobo5/May2018/kobo-update-4.9.11311.zip"))         return "4.9.11314"
         if (url.endsWith("/kobo6/Aug2018/kobo-update-4.10.zip"))              return "4.10.11591"
         if (url.endsWith("/kobo7/Aug2018/kobo-update-4.10.zip"))              return "4.10.11591"
-        if (url.endsWith("/kobo8/May2021/kobo-update-4.28.17623-TF6412.zip")) return "4.28.17623"
 
         // filename
-        const m = url.match(/\/kobo-update-([0-9.]+(?:-s)?)\.zip/)
+        const m = url.match(/\/kobo-update-([0-9.]+(?:-s)?)(?:-TF[0-9]+|-TouchFW-[0-9]+)?\.zip/)
         if (!m || m.length != 2)
             throw new Error(`Failed to extract version from "${url}"`)
         return m[1]
