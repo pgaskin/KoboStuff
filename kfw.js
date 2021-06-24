@@ -718,7 +718,7 @@ class KoboFirmware {
                     const a = KoboFirmware.#el(td, "a", "Download", [], {rel: "noopener", href: version.download[hw], title: KoboFirmware.#listify(version.for.filter(id => idhardware[id] == hw).map(id => name[id].replace(/Kobo /, "")))})
 
                     // stats
-                    this.#ctr(el.querySelector("a"),
+                    this.#ctr(a,
                         [`dl`, "Firmware"],
                         [`dl-version-${version.version}`, `Firmware ${version.version}`],
                     )
