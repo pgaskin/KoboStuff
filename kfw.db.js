@@ -709,4 +709,5 @@ return [
 [dh+"8",dd+"387","4.28.17623","June 2021",da+"8/May2021/kobo-update-4.28.17623-TF6412.zip"],
 [dh+"8",dd+"387","4.28.17820","June 2021",da+"8/June2021/kobo-update-4.28.17820-TouchFW-6417.zip"],
 [dh+"8",dd+"387","4.28.17826","June 2021",da+"8/June2021/kobo-update-4.28.17826-TouchFW-6417.zip"],
+[dh+"8",dd+"387","4.28.17925","July 2021",da+"8/July2021/kobo-update-4.28.17925.zip"],
 ]}());
