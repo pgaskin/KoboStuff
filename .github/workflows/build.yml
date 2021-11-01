@@ -4,7 +4,7 @@ on: {push: {branches: [gh-pages]}}
 jobs:
   build:
     runs-on: ubuntu-20.04
-    container: node:15-buster
+    container: node:16-buster
     steps:
     - name: Checkout
       uses: actions/checkout@v2
