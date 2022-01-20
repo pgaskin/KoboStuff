@@ -1,16 +1,16 @@
 {
     "name": "kobostuff",
     "devDependencies": {
-        "@babel/cli": "^7.16.0",
-        "@babel/core": "^7.16.0",
-        "@babel/preset-env": "^7.16.0",
+        "@babel/cli": "^7.16.8",
+        "@babel/core": "^7.16.10",
+        "@babel/preset-env": "^7.16.11",
         "babelify": "^10.0.0",
         "browserify": "^17.0.0",
         "core-js": "^2.6.12",
-        "terser": "^5.9.0"
+        "terser": "^5.10.0"
     },
     "dependencies": {
-        "@sentry/browser": "^5.30.0"
+        "@sentry/browser": "^6.16.1"
     },
     "scripts": {
         "browserify": "browserify -d kfw.js -t babelify | terser -o kfw.dist.js --source-map=content=inline,url=kfw.dist.js.map"
