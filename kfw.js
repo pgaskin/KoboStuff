@@ -11,6 +11,8 @@ class KFWProxy {
             version = "4.7.10364" // required to receive the next update
         if (id == "00000000-0000-0000-0000-000000000387")
             version = "4.28.17826" // required to receive the next update (17826 -> 17925)
+        if (id == "00000000-0000-0000-0000-000000000388")
+            version = "4.30.18838" // required to receive the next update (18838 -> 19086)
         return await this.UpgradeCheck(id, affiliate, version)
     }
 
