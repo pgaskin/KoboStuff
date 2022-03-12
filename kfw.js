@@ -1,7 +1,7 @@
 import * as Sentry from "@sentry/browser"
 
 class KFWProxy {
-    constructor(base = "https://kfwproxy.geek1011.net") {
+    constructor(base = "https://kfw.api.pgaskin.net") {
         this.base = base
     }
 
