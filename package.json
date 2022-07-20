@@ -7,7 +7,7 @@
         "babelify": "^10.0.0",
         "browserify": "^17.0.0",
         "core-js": "^2.6.12",
-        "terser": "^5.10.0"
+        "terser": "^5.14.2"
     },
     "dependencies": {
         "@sentry/browser": "^6.16.1"
