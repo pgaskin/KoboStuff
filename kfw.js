@@ -66,7 +66,7 @@ class KFWProxy {
         }
     
         // date folder
-        const m = url.match(/\/firmwares\/kobo[0-9]\/(.+?)\//)
+        const m = url.match(/\/firmwares\/kobo[0-9]+\/(.+?)\//)
         if (!m || m.length != 2)
             throw new Error(`Failed to extract date from "${url}" and "${version}"`)
 
@@ -406,6 +406,7 @@ class KoboFirmware {
             ["kobo8", "00000000-0000-0000-0000-000000000387", "Kobo Elipsa"],
             ["kobo8", "00000000-0000-0000-0000-000000000383", "Kobo Sage"],
             ["kobo9", "00000000-0000-0000-0000-000000000388", "Kobo Libra 2"],
+            ["kobo10", "00000000-0000-0000-0000-000000000386", "Kobo Clara 2E"],
         ],
     ) {
         this.#kfw        = kfw
@@ -703,7 +704,7 @@ class KoboFirmware {
             name[device.id] = device.name
             idhardware[device.id] = device.hardware
         }
-        hardware = Object.keys(hardware).sort((a, b) => a.localeCompare(b))
+        hardware = Object.keys(hardware).sort((a, b) => a.localeCompare(b, "en", {numeric: true}))
         
         const ths = document.createDocumentFragment()
         KoboFirmware.#el(ths, "th", "Date",    ["kfw-versions__date"])
