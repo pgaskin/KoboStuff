@@ -3,11 +3,11 @@ on: {push: {branches: [gh-pages]}}
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     container: node:16-buster
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Install
       run: |
         npm install
