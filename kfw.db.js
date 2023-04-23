@@ -883,5 +883,5 @@ return [
 [dh+"8",dd+"383","4.35.20400","December 2022",da+"8/Dec2022/kobo-update-4.35.20400.zip"],
 [dh+"9",dd+"388","4.35.20400","December 2022",da+"9/Dec2022/kobo-update-4.35.20400.zip"],
 [dh+"10",dd+"386","4.35.20400","December 2022",da+"10/Dec2022/kobo-update-4.35.20400.zip"],
-[dh+"11",dd+"389","4.36.21095","April 2022",da+"11/Apr2023/kobo-update-4.36.21095.zip"],
+[dh+"11",dd+"389","4.36.21095","April 2023",da+"11/Apr2023/kobo-update-4.36.21095.zip"],
 ]}());
