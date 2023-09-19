@@ -974,6 +974,6 @@ return [
 [dh+"8",dd+"387","4.38.21908","August 2023",da+"8/Aug2023/kobo-update-4.38.21908.zip"],
 [dh+"8",dd+"383","4.38.21908","August 2023",da+"8/Aug2023/kobo-update-4.38.21908.zip"],
 [dh+"9",dd+"388","4.38.21908","August 2023",da+"9/Aug2023/kobo-update-4.38.21908.zip"],
-[dh+"10",dd+"386","4.38.21908","August 2023",da+"10Augl2023/kobo-update-4.38.21908.zip"],
-[dh+"11",dd+"389","4.38.21908","August 2023",da+"11Augl2023/kobo-update-4.38.21908.zip"],
+[dh+"10",dd+"386","4.38.21908","August 2023",da+"10/Aug2023/kobo-update-4.38.21908.zip"],
+[dh+"11",dd+"389","4.38.21908","August 2023",da+"11/Aug2023/kobo-update-4.38.21908.zip"],
 ]}());
