@@ -2,7 +2,7 @@ KoboFirmwareOldVersionsData.resolve(window.KoboFirmwareOldVersionsDataRaw = func
 var dh = "kobo";
 var dd = "00000000-0000-0000-0000-000000000";
 var dk = "http://download.kobobooks.com/firmwares/"+dh;
-var da = "https://kbdownload1-a.akamaihd.net/firmwares/"+dh;
+var da = "https://cdn.kobo.com/downloads/firmwares/"+dh;
 return [
 [dh+"3",dd+"310","1.9.12","October 2011",dk+"3/kobo3-upgrade-1.9.12.zip"],
 [dh+"3",dd+"310","1.9.16","December 2011",dk+"3/bowfin/kobo3-update-1.9.16.zip"],
