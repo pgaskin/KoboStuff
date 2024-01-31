@@ -284,7 +284,7 @@ class KoboFirmwareDB {
         if (this.#__db)
             return this.#__db
         this.#__db = (await this.#db)
-            .sort(([,aid,aversion,,], [,bid,bversion,,]) => {
+            .sort(([,aid,aversion,,,], [,bid,bversion,,,]) => {
                 const a = KFWProxy.versionCompare(aversion, bversion)
                 return a == 0 ? aid.localeCompare(bid) : a
             })
@@ -292,13 +292,13 @@ class KoboFirmwareDB {
     }
     async versionsForDevice(id) {
         return (await this.#_db())
-            .filter(([,did,,,]) => did == id)
+            .filter(([,did,,,,]) => did == id)
             .reverse() // #_db sorts it asc, we want it desc
             .map(([,,version,date,download]) => ({version, date, download}))
     }
     async versionsByDevice() {
         let tmp = (await this.#_db())
-            .reduce((acc, [,id,version,date,]) => {
+            .reduce((acc, [,id,version,date,,]) => {
                 (acc[id] = acc[id] || {})[version] = date
                 return acc
             }, {})
@@ -313,7 +313,7 @@ class KoboFirmwareDB {
     }
     async versions() {
         return Object.keys((await this.#_db())
-            .reduce((acc, [,,version,,]) => {
+            .reduce((acc, [,,version,,,]) => {
                 acc[version] = null
                 return acc
             }, {}))
@@ -323,7 +323,7 @@ class KoboFirmwareDB {
         let tmp = []
         let cur, curv
         let devs = {}, devsh = {}
-        for (const [hardware,id,version,date,download] of await this.#_db()) {
+        for (const [hardware,id,version,date,download,md5sum] of await this.#_db()) {
             if (curv != version) {
                 if (cur)
                     tmp.push(cur)
