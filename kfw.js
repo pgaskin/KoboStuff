@@ -516,7 +516,7 @@ class KoboFirmware {
         await Promise.all(this.#devices.map(device => (async device => {
             try {
                 // load the latest update info and the affiliates which have it
-                let latest, latests = []
+                let latest, latests = [], anyAvailable
                 for (const affiliate of this.#affiliates) {
                     let info
                     try {
@@ -535,54 +535,78 @@ class KoboFirmware {
                             latests.push(affiliate)
                             break
                     }
+                    anyAvailable ||= !!info?.UpgradeURL
                 }
 
-                // table cells
-                trm[device.id].version.textContent = latest.UpgradeVersion
-                trm[device.id].date.textContent    = latest.UpgradeDate
-                trm[device.id].version.setAttribute("title", `Affiliates with version: ${latests.join(", ")}`)
+                if (!anyAvailable) {
+                    trm[device.id].version.textContent = "?"
+                    trm[device.id].date.textContent    = "-"
+                    trm[device.id].links.versions.classList.add("primary")
+                    try { Sentry.captureException(new Error(`No update available for "${device.name}"`)) } catch (ex) {}
 
-                // download
-                trm[device.id].links.download.href = latest.UpgradeURL
-                trm[device.id].links.download.style.removeProperty("display")
-
-                // release notes
-                trm[device.id].links.notes.href = latest.ReleaseNoteURL
-                trm[device.id].links.notes.addEventListener("click", ev => {
-                    if (navigator.userAgent.includes("MSIE") || navigator.userAgent.includes("Trident/")) {
-                        return // doesn't support srcdoc
-                    }
-                    KoboFirmware.#modal(`Release notes for ${latest.UpgradeVersion}`, async () => {
-                        const content = await this.#kfw.ReleaseNotes(latest.ReleaseNoteURL)
-                        const frame = document.createElement("iframe")
-                        frame.srcdoc = content
-                        frame.setAttribute("sandbox", "")
-                        return frame
-                    })
-                    ev.preventDefault()
-                });
-                trm[device.id].links.notes.style.removeProperty("display")
-
-                // affiliates
-                trm[device.id].links.affiliates.addEventListener("click", ev => {
-                    KoboFirmware.#modal(`Versions of other affiliates for ${device.name}`, async () => {
-                        const frag = document.createDocumentFragment()
-                        for (const affiliate in this.#req[device.id]) {
-                            const info = await this.#req[device.id][affiliate]
-                            const a = KoboFirmware.#el(frag, "div", `${affiliate} - ${info.UpgradeVersion}${info.UpgradeURL ? ` - <a href="${info.UpgradeURL}" rel="noopener">Download</a>` : ``}`, [], {}, true)
-
-                            // stats
-                            this.#ctr(a,
-                                [`dl`, "Firmware"],
-                                [`dl-version-${info.UpgradeVersion}`, `Firmware ${info.UpgradeVersion}`],
-                                [`dl-device-${device.id.replace(/^[0-]+/, "")}`, `${device.hardware} / ${device.name}`],
-                            )
+                    ;(async () => {
+                        const data = await this.#db.versionsForDevice(device.id)
+                        if (data[0]) {
+                            trm[device.id].version.textContent = data[0].version
+                            trm[device.id].date.textContent    = data[0].date
+                            trm[device.id].links.download.href = data[0].download
+                            trm[device.id].version.classList.add("cached")
+                            trm[device.id].links.download.classList.add("primary")
+                            trm[device.id].links.download.style.removeProperty("display")
+                            trm[device.id].links.versions.classList.remove("primary")
                         }
-                        return frag
-                    }, ["thin"])
-                    ev.preventDefault()
-                });
-                trm[device.id].links.affiliates.style.removeProperty("display")
+                    })()
+                } else {
+                    // table cells
+                    trm[device.id].version.textContent = latest.UpgradeVersion
+                    trm[device.id].date.textContent    = latest.UpgradeDate
+                    trm[device.id].version.setAttribute("title", `Affiliates with version: ${latests.join(", ")}`)
+
+                    // download
+                    if (latest.UpgradeURL) {
+                        trm[device.id].links.download.href = latest.UpgradeURL
+                        trm[device.id].links.download.classList.add("primary")
+                        trm[device.id].links.download.style.removeProperty("display")
+                    }
+
+                    // release notes
+                    trm[device.id].links.notes.href = latest.ReleaseNoteURL || "javascript:void(0);"
+                    trm[device.id].links.notes.addEventListener("click", ev => {
+                        if (navigator.userAgent.includes("MSIE") || navigator.userAgent.includes("Trident/")) {
+                            return // doesn't support srcdoc
+                        }
+                        KoboFirmware.#modal(`Release notes for ${latest.UpgradeVersion}`, async () => {
+                            const content = latest.ReleaseNoteURL ? await this.#kfw.ReleaseNotes(latest.ReleaseNoteURL) : "No release notes available."
+                            const frame = document.createElement("iframe")
+                            frame.srcdoc = content
+                            frame.setAttribute("sandbox", "")
+                            return frame
+                        })
+                        ev.preventDefault()
+                    });
+                    trm[device.id].links.notes.style.removeProperty("display")
+
+                    // affiliates
+                    trm[device.id].links.affiliates.addEventListener("click", ev => {
+                        KoboFirmware.#modal(`Versions of other affiliates for ${device.name}`, async () => {
+                            const frag = document.createDocumentFragment()
+                            for (const affiliate in this.#req[device.id]) {
+                                const info = await this.#req[device.id][affiliate]
+                                const a = KoboFirmware.#el(frag, "div", `${affiliate} - ${info.UpgradeVersion}${info.UpgradeURL ? ` - <a href="${info.UpgradeURL}" rel="noopener">Download</a>` : ``}`, [], {}, true)
+
+                                // stats
+                                this.#ctr(a,
+                                    [`dl`, "Firmware"],
+                                    [`dl-version-${info.UpgradeVersion}`, `Firmware ${info.UpgradeVersion}`],
+                                    [`dl-device-${device.id.replace(/^[0-]+/, "")}`, `${device.hardware} / ${device.name}`],
+                                )
+                            }
+                            return frag
+                        }, ["thin"])
+                        ev.preventDefault()
+                    });
+                    trm[device.id].links.affiliates.style.removeProperty("display")
+                }
 
                 // stats
                 this.#ctr(trm[device.id].links.download,

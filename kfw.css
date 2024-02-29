@@ -219,6 +219,12 @@ a:link:hover {
 .kfw#kfw-latest {
     overflow-x: auto;
 }
+.kfw#kfw-latest table td.kfw-latest__version.cached::after {
+    display: block;
+    content: '(cached)';
+    font-size: 10px;
+    float: right;
+}
 .kfw#kfw-latest table td.kfw-latest__links a,
 .kfw#kfw-latest table td.kfw-latest__links button {
     display: inline-block;
@@ -250,11 +256,14 @@ a:link:hover {
 .kfw#kfw-latest table td.kfw-latest__links button:active {
     border-color: rgba(0, 0, 0, 0.4);
 }
-.kfw#kfw-latest table td.kfw-latest__links a.kfw-latest__links__download {
+.kfw#kfw-latest table td.kfw-latest__links a.primary,
+.kfw#kfw-latest table td.kfw-latest__links button.primary {
     background: #e9faf0;
 }
-.kfw#kfw-latest table td.kfw-latest__links a.kfw-latest__links__download:link:hover,
-.kfw#kfw-latest table td.kfw-latest__links a.kfw-latest__links__download:visited:hover {
+.kfw#kfw-latest table td.kfw-latest__links a.primary:link:hover,
+.kfw#kfw-latest table td.kfw-latest__links a.primary:visited:hover,
+.kfw#kfw-latest table td.kfw-latest__links button.primary:link:hover,
+.kfw#kfw-latest table td.kfw-latest__links button.primary:visited:hover {
     background: #c9ebd7;
 }
 
