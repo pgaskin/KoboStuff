@@ -250,6 +250,51 @@ class KFWProxy {
     }
 }
 
+class KFWArchive {
+    #md5sums
+    constructor(base = "https://kfw.storage.pgaskin.net") {
+        this.base = base
+    }
+    async files() {
+        return this.#md5sums ||= await new Promise((resolve, reject) => {
+            const url = this.base + "/MD5SUMS"
+            const xhr = new XMLHttpRequest()
+            xhr.addEventListener("load", ev => {
+                if (xhr.status != 200) reject(new Error(`Request to "${url} failed: response status ${xhr.status}"`))
+                else resolve(xhr.responseText)
+            })
+            xhr.addEventListener("error", ev => reject(new Error(`Request to "${url}" failed`)))
+            xhr.addEventListener("abort", ev => reject(new Error(`Request to "${url}" aborted`)))
+            xhr.open("GET", url)
+            xhr.send()
+        }).then(txt => txt
+            .trim()
+            .split("\n")
+            .map(x => x.split(/\s+/, 2))
+            .map(([md5, fn]) => [
+                md5.toLowerCase(),
+                fn.replace(/^.\//, "").replace(/^\/?firmwares\//, ""),
+            ])
+            .map(([md5, fn]) => ({
+                md5, fn, url: this.base + "/firmwares/" + fn,
+            }))
+        ).catch(ex => {
+            try { Sentry.captureException(new Error(`Failed to load kfw archive md5sums: ${ex}`)) } catch (ex) {}
+            throw ex
+        })
+    }
+    async lookup(url) {
+        const part = url.split("/firmwares/", 2).pop()
+        const files = await this.files()
+        return files.filter(x => x.fn == part).pop() || null
+    }
+    mirrorLink(url) {
+        const part = url.split("/firmwares/", 2)[1]
+        if (part) return base + "/firmwares/" + part
+        return null
+    }
+}
+
 // so we can load it deferred directly from the webpage
 const KoboFirmwareOldVersionsData = window.KoboFirmwareOldVersionsData = (() => {
     let resolve, reject
@@ -360,6 +405,7 @@ class KoboFirmware {
     #db
     #affiliates
     #devices
+    #archive
 
     get debug() {
         return {
@@ -369,12 +415,14 @@ class KoboFirmware {
             affiliates: this.#affiliates,
             devices:    this.#devices,
             req:        this.#req,
+            archive:    this.#archive,
         }
     }
 
     constructor(
         kfw = new KFWProxy(),
-        db = new KoboFirmwareDB(), 
+        db = new KoboFirmwareDB(),
+        archive = new KFWArchive(),
         affiliates = [
             "kobo",
             "bestbuyca",
@@ -412,6 +460,7 @@ class KoboFirmware {
     ) {
         this.#kfw        = kfw
         this.#db         = db
+        this.#archive    = archive
         this.#affiliates = affiliates
         this.#devices    = []
         for (const device of devices) {
@@ -440,6 +489,7 @@ class KoboFirmware {
                 this.#req[device.id][affiliate] = this.#kfw.latestVersion(device.id, affiliate) // note that a Promise's result/rejection can be used multiple times
             this.#kfw.endBatch()
         }
+        this.#archive.files()
     }
 
     #ctr(link, ...x) {
@@ -496,7 +546,7 @@ class KoboFirmware {
                     for (const version of await this.#db.versionsForDevice(device.id)) {
                         if (!version.download.includes(device.hardware))
                             console.warn("possible hardware mismatch", device, version)
-                        const el = KoboFirmware.#el(frag, "div", `${version.version} - ${version.date} - <a href="${version.download}" rel="noopener">Download</a> - ${device.hardware}`, [], {}, true)
+                        const el = KoboFirmware.#el(frag, "div", `${version.version} - ${version.date} - <a href="${version.download}" rel="noopener">Download</a><span class="mirror"></span> - ${device.hardware}`, [], {}, true)
 
                         // stats
                         this.#ctr(el.querySelector("a"),
@@ -504,6 +554,24 @@ class KoboFirmware {
                             [`dl-version-${version.version}`, `Firmware ${version.version}`],
                             [`dl-device-${device.id.replace(/^[0-]+/, "")}`, `${device.hardware} / ${device.name}`],
                         )
+
+                        // archive
+                        this.#archive.lookup(version.download).then(dl => {
+                            if (dl) {
+                                const mirror = el.querySelector("span.mirror")
+                                KoboFirmware.#el(mirror, "span", " (")
+                                KoboFirmware.#el(mirror, "a", "mirror", [], {href: dl.url})
+                                KoboFirmware.#el(mirror, "span", ")")
+
+                                // stats
+                                this.#ctr(mirror.querySelector("a"),
+                                    [`dl`, "Firmware"],
+                                    [`dl-archive`, "Firmware"],
+                                    [`dl-version-${version.version}`, `Firmware ${version.version}`],
+                                    [`dl-device-${device.id.replace(/^[0-]+/, "")}`, `${device.hardware} / ${device.name}`],
+                                )
+                            }
+                        }).catch(ex => {})
                     }
                     return frag
                 })
