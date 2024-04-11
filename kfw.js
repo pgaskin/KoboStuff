@@ -404,18 +404,20 @@ class KoboFirmware {
     #kfw
     #db
     #affiliates
+    #tolinoAffiliates
     #devices
     #archive
 
     get debug() {
         return {
             KFWProxy, KoboFirmwareDB, KoboFirmwareOldVersionsData, KoboFirmware,
-            kfw:        this.#kfw,
-            db:         this.#db,
-            affiliates: this.#affiliates,
-            devices:    this.#devices,
-            req:        this.#req,
-            archive:    this.#archive,
+            kfw:              this.#kfw,
+            db:               this.#db,
+            affiliates:       this.#affiliates,
+            tolinoAffiliates: this.#tolinoAffiliates,
+            devices:          this.#devices,
+            req:              this.#req,
+            archive:          this.#archive,
         }
     }
 
@@ -430,6 +432,9 @@ class KoboFirmware {
             "beta",
             "rakutenbooks",
             "walmartca",
+        ],
+        tolinoAffiliates = [
+            // TODO
         ],
         devices = [
             ["kobo3", "00000000-0000-0000-0000-000000000310", "Kobo Touch A/B"],
@@ -456,13 +461,20 @@ class KoboFirmware {
             ["kobo9", "00000000-0000-0000-0000-000000000388", "Kobo Libra 2"],
             ["kobo10", "00000000-0000-0000-0000-000000000386", "Kobo Clara 2E"],
             ["kobo11", "00000000-0000-0000-0000-000000000389", "Kobo Elipsa 2E"],
+            ["kobo11", "00000000-0000-0000-0000-000000000390", "Kobo Libra Colour"],
+            ["kobo12", "00000000-0000-0000-0000-000000000391", "Kobo Clara BW"],
+            ["kobo12", "00000000-0000-0000-0000-000000000393", "Kobo Clara Colour"],
+            ["kobo11", "00000000-0000-0000-0000-000000000690", "tolino vision colour"],
+            ["kobo12", "00000000-0000-0000-0000-000000000691", "tolino shine"],
+            ["kobo12", "00000000-0000-0000-0000-000000000693", "tolino shine color"],
         ],
     ) {
-        this.#kfw        = kfw
-        this.#db         = db
-        this.#archive    = archive
-        this.#affiliates = affiliates
-        this.#devices    = []
+        this.#kfw              = kfw
+        this.#db               = db
+        this.#archive          = archive
+        this.#affiliates       = affiliates
+        this.#tolinoAffiliates = tolinoAffiliates
+        this.#devices          = []
         for (const device of devices) {
             if (!Array.isArray(device) || device.length != 3)
                 throw new TypeError(`Invalid device ${JSON.stringify(device)}: incorrect length`)
@@ -485,7 +497,7 @@ class KoboFirmware {
         for (const device of this.#devices) {
             this.#kfw.batch()
             this.#req[device.id] = {}
-            for (const affiliate of this.#affiliates)
+            for (const affiliate of (device.id.startsWith("00000000-0000-0000-0000-0000000006") ? this.#tolinoAffiliates : this.#affiliates))
                 this.#req[device.id][affiliate] = this.#kfw.latestVersion(device.id, affiliate) // note that a Promise's result/rejection can be used multiple times
             this.#kfw.endBatch()
         }
@@ -584,8 +596,8 @@ class KoboFirmware {
         await Promise.all(this.#devices.map(device => (async device => {
             try {
                 // load the latest update info and the affiliates which have it
-                let latest, latests = [], anyAvailable
-                for (const affiliate of this.#affiliates) {
+                let latest, latests = [], anyAvailable = false
+                for (const affiliate of (device.id.startsWith("00000000-0000-0000-0000-0000000006") ? this.#tolinoAffiliates : this.#affiliates)) {
                     let info
                     try {
                         info = await this.#req[device.id][affiliate]
@@ -748,6 +760,7 @@ class KoboFirmware {
         const trm = {}
         const trs = document.createDocumentFragment()
         for (const device of this.#devices) {
+            if (device.id.startsWith("00000000-0000-0000-0000-0000000006")) continue; // skip tolino for now
             const tr = KoboFirmware.#el(trs, "tr")
             trm[device.id] = {}
             KoboFirmware.#el(tr, "td", device.name, ["kfw-affiliates__device"])
@@ -760,6 +773,7 @@ class KoboFirmware {
         // promise chaining here to improve performance by reducing the number
         // of pending async functions at once)
         return Promise.all(this.#devices.map(device =>
+            device.id.startsWith("00000000-0000-0000-0000-0000000006") ? Promise.resolve() : // skip tolino for now
             Promise.all(this.#affiliates.map(affiliate =>
                 this.#req[device.id][affiliate]
                     .then(obj => {
@@ -815,7 +829,7 @@ class KoboFirmware {
             for (const hw of hardware) {
                 const td = KoboFirmware.#el(row, "td", version.download[hw] ? "" : "-", ["kfw-versions__hardware"])
                 if (version.download[hw]) {
-                    const a = KoboFirmware.#el(td, "a", "Download", [], {rel: "noopener", href: version.download[hw], title: KoboFirmware.#listify(version.for.filter(id => idhardware[id] == hw).map(id => name[id].replace(/Kobo /, "")))})
+                    const a = KoboFirmware.#el(td, "a", "Get", [], {rel: "noopener", href: version.download[hw], title: KoboFirmware.#listify(version.for.filter(id => idhardware[id] == hw).map(id => name[id].replace(/Kobo /, "")))})
 
                     // stats
                     this.#ctr(a,
