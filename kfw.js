@@ -723,13 +723,13 @@ class KoboFirmware {
         for (const version of await this.#db.versions()) {
             KoboFirmware.#el((cols.header = cols.header || document.createDocumentFragment()), "th", version, ["kfw-matrix__version"])
             for (const device of this.#devices) {
-                const date = availability[device.id][version]
+                const date = availability[device.id]?.[version]
                 let t, c, a
                 if (date) {
                     t = "✓"
                     c = "kfw-matrix__version--yes"
                     a = {title: date}
-                } else if (KFWProxy.versionCompare(availability[device.id].earliest, version) == 1) {
+                } else if (!availability[device.id] || KFWProxy.versionCompare(availability[device.id].earliest, version) == 1) {
                     // TODO: make this check more efficient by doing it separately going through the versions backwards
                     t = "-"
                     c = "kfw-matrix__version--none"
