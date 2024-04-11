@@ -689,11 +689,13 @@ class KoboFirmware {
                 }
 
                 // stats
-                this.#ctr(trm[device.id].links.download,
-                    [`dl`, "Firmware"],
-                    [`dl-version-${latest.UpgradeVersion}`, `Firmware ${latest.UpgradeVersion}`],
-                    [`dl-device-${device.id.replace(/^[0-]+/, "")}`, `${device.hardware} / ${device.name}`],
-                )
+                if (latest) {
+                    this.#ctr(trm[device.id].links.download,
+                        [`dl`, "Firmware"],
+                        [`dl-version-${latest.UpgradeVersion}`, `Firmware ${latest.UpgradeVersion}`],
+                        [`dl-device-${device.id.replace(/^[0-]+/, "")}`, `${device.hardware} / ${device.name}`],
+                    )
+                }
             } catch (ex) {
                 trm[device.id].version.textContent = "Error"
                 trm[device.id].version.setAttribute("title", `Error: ${ex}`)
