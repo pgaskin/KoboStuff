@@ -981,4 +981,7 @@ return [
 [dh+"11",dd+"390","4.39.22801","April 2024",da+"11/Apr2024/kobo-update-4.39.22801.zip","898d850f0410de35816adf0a4d9c2660"],
 [dh+"12",dd+"391","4.39.22801","April 2024",da+"12/Apr2024/kobo-update-4.39.22801.zip","f37e257ac23fdcc76167c033f16ec358"],
 [dh+"12",dd+"393","4.39.22801","April 2024",da+"12/Apr2024/kobo-update-4.39.22801.zip","f37e257ac23fdcc76167c033f16ec358"],
+[dh+"11",dd+"390","4.39.22861","April 2024",da+"11/Apr2024/kobo-update-4.39.22861.zip","0848a1678163c1a24478225a1a95755c"],
+[dh+"12",dd+"391","4.39.22861","April 2024",da+"12/Apr2024/kobo-update-4.39.22861.zip","008e9acbaf5a55a15d4b7abd8db4a6e8"],
+[dh+"12",dd+"393","4.39.22861","April 2024",da+"12/Apr2024/kobo-update-4.39.22861.zip","008e9acbaf5a55a15d4b7abd8db4a6e8"],
 ]}());
