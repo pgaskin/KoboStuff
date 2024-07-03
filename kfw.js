@@ -339,7 +339,7 @@ class KoboFirmwareDB {
         return (await this.#_db())
             .filter(([,did,,,,]) => did == id)
             .reverse() // #_db sorts it asc, we want it desc
-            .map(([,,version,date,download]) => ({version, date, download}))
+            .map(([hardware,,version,date,download]) => ({hardware, version, date, download}))
     }
     async versionsByDevice() {
         let tmp = (await this.#_db())
@@ -461,7 +461,7 @@ class KoboFirmware {
             ["kobo9", "00000000-0000-0000-0000-000000000388", "Kobo Libra 2"],
             ["kobo10", "00000000-0000-0000-0000-000000000386", "Kobo Clara 2E"],
             ["kobo11", "00000000-0000-0000-0000-000000000389", "Kobo Elipsa 2E"],
-            ["kobo11", "00000000-0000-0000-0000-000000000390", "Kobo Libra Colour"],
+            ["kobo13", "00000000-0000-0000-0000-000000000390", "Kobo Libra Colour"], // kobo11 for 4.39.22861 and below
             ["kobo12", "00000000-0000-0000-0000-000000000391", "Kobo Clara BW"],
             ["kobo12", "00000000-0000-0000-0000-000000000393", "Kobo Clara Colour"],
             ["kobo11", "00000000-0000-0000-0000-000000000690", "tolino vision colour"],
@@ -556,9 +556,12 @@ class KoboFirmware {
                 KoboFirmware.#modal(`Other versions for ${device.name}`, async () => {
                     const frag = document.createDocumentFragment()
                     for (const version of await this.#db.versionsForDevice(device.id)) {
-                        if (!version.download.includes(device.hardware))
-                            console.warn("possible hardware mismatch", device, version)
-                        const el = KoboFirmware.#el(frag, "div", `${version.version} - ${version.date} - <a href="${version.download}" rel="noopener">Download</a><span class="mirror"></span> - ${device.hardware}`, [], {}, true)
+                        const isHardwareException = device.id === "00000000-0000-0000-0000-000000000390" && version.hardware === "kobo11" && ["4.39.22801", "4.39.22861"].includes(version.version);
+
+                        if (version.hardware !== device.hardware || !version.download.includes(device.hardware))
+                            if (!isHardwareException)
+                                console.warn("possible hardware mismatch", device, version)
+                        const el = KoboFirmware.#el(frag, "div", `${version.version} - ${version.date} - <a href="${version.download}" rel="noopener">Download</a><span class="mirror"></span> - ${version.hardware}${isHardwareException ? " (yes, this is correct)" : ""}`, [], {}, true)
 
                         // stats
                         this.#ctr(el.querySelector("a"),
