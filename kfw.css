@@ -27,6 +27,9 @@ header#main-header > section p {
     margin: 1em 0;
     line-height: 1.5;
 }
+header#main-header .red {
+    color: #d30000;
+}
 header#main-header > section h1 {
     font-size: 2em;
     margin: 0 0 .5rem 0;
