@@ -109,6 +109,16 @@ class KFWProxy {
         // version parts
         const as = a.split(".").map(x => parseInt(x, 10))
         const bs = b.split(".").map(x => parseInt(x, 10))
+
+        // if 4.38/4.39+ branching, sort by only the build number
+        if (as.length == 3 && bs.length == 3 && as[0] == 4 && bs[0] == 4 && as[1] >= 38 && bs[1] >= 38) {
+            if (as[2] < bs[2]) return -1
+            if (as[2] > bs[2]) return 1
+            if (as[2] == bs[2] && as[1] == bs[1]) return 1
+            // fall back to normal compare if not entirely equal
+        }
+
+        // normal version compare
         for (let i = 0; i < Math.max(as.length, bs.length); i++) {
             if (as[i] == null) return bs[i] == 0 ? 0 : -1
             if (bs[i] == null) return as[i] == 0 ? 0 : 1
